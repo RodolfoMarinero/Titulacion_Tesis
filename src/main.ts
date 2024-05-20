@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import 'zone.js';
+import { InicioComponent } from './app/inicio/inicio.component';
 
 @Component({
   selector: 'app-root',
+  imports: [InicioComponent],
   standalone: true,
   template: `
-    <h1>Hello from {{ name }}!</h1>
-    <a target="_blank" href="https://angular.dev/overview">
-      Learn more about Angular
-    </a>
+  <app-inicio></app-inicio>
   `,
 })
 export class App {
