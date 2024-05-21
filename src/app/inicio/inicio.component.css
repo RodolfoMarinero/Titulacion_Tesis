@@ -16,7 +16,7 @@
 #general1 {
     
     /* Establecer la imagen de fondo */
-    background-image: url('./assets/UNPA5.jpg');
+    background-image: url('/assets/UNPA5.jpg');
     /* Ajustar la imagen de fondo */
     background-size: cover;
     /* Centrar la imagen de fondo */
