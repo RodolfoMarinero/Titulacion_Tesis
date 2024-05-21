@@ -1,1 +1,13 @@
 /* Add application styles & imports to this file! */
+body {
+    
+    /* Establecer la imagen de fondo */
+    background-image: url('https://www.unpa.edu.mx/rv/loma_bonita/2022/2.jpg');
+    /* Ajustar la imagen de fondo */
+    background-size: cover;
+    /* Centrar la imagen de fondo */
+    background-position: center;
+    /* Fijar la imagen de fondo para que no se desplace */
+    background-attachment: fixed;
+    
+}
