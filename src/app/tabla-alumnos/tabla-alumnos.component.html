@@ -1,0 +1,29 @@
+<h2>Lista de Alumnos</h2>
+<table>
+  <thead>
+    <td>Id</td>
+    <td>Nombre del Tesista</td>
+    <td>Tesis</td>
+    <td>Carrera</td>
+    <td>Nofificaciones</td>
+  </thead>
+  <tbody>
+    @for(tesista of listaUsers.users; track tesista.id){
+    <tr>
+      <td>{{ tesista.id }}</td>
+      <td>{{ tesista.nombre }}</td>
+      <td>{{ tesista.tesis }}</td>
+      <td>{{ tesista.carrera }}</td>
+      <td [style.background-color]="tesista.notificacion ? 'green' : 'red'">
+        {{ tesista.notificacion }}
+      </td>
+      <td>
+        <form (submit)="verDetalle(tesista.id)">
+          <button type="submit">Ver</button>
+        </form>
+      </td>
+    </tr>
+
+    }
+  </tbody>
+</table>
