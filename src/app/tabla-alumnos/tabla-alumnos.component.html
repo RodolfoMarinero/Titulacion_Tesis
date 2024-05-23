@@ -1,3 +1,24 @@
+<nav class="navbar">
+  <div
+    class="container"
+    style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: green;"
+  >
+    <a class="navbar-brand" href="https://www.unpa.edu.mx/">
+      <img
+        src="https://www.unpa.edu.mx/images/suneo/unpa.jpg"
+        width="30"
+        height="30"
+        alt="Logo"
+      />
+    </a>
+    <h1>Revision de Tesis</h1>
+  </div>
+</nav>
+<div style="background-color: rgba(255, 255, 255, 0.5);">
 <h2>Lista de Alumnos</h2>
 <table>
   <thead>
@@ -18,12 +39,15 @@
         {{ tesista.notificacion }}
       </td>
       <td>
-        <form (submit)="verDetalle(tesista.id)">
-          <button type="submit">Ver</button>
-        </form>
+        
+          <button><a routerLink="/revisarTesis/1">Ver</a></button>
+        
       </td>
     </tr>
 
     }
+  
   </tbody>
+
 </table>
+</div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 
 @Component({
   selector: 'app-detalle-revsar',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './detalle-revsar.component.css'
 })
 export class DetalleRevsarComponent {
-
+  @Input() id:string='';
 }
