@@ -1,4 +1,4 @@
-import { ConexionBDService } from "../app/conexion-bd.service";
+
 import { Tesista } from "./tesista";
 
 export class ListaTesistas {

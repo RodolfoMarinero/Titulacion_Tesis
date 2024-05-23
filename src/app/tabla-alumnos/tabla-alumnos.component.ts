@@ -10,7 +10,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { Tesista } from '../../model/tesista';
 import { ListaTesistas } from '../../model/listaTesistas';
-import { ConexionBDService } from '../conexion-bd.service';
+import { BdTesistasService } from '../bd-tesistas.service';
 @Component({
   selector: 'app-tabla-alumnos',
   standalone: true,
@@ -22,8 +22,8 @@ export class TablaAlumnosComponent {
   public listaUsers: ListaTesistas = new ListaTesistas();
   @Output() flag: EventEmitter<boolean> = new EventEmitter<boolean>();
   //@Output() idDet: EventEmitter<number> = new EventEmitter();
-  constructor(public service:ConexionBDService) {
-    this.listaUsers=service.getTesistas();
+  constructor(public service:BdTesistasService) {
+   // this.listaUsers=service.getTesistas();
   }
 
   //public agregar() {

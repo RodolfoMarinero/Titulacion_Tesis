@@ -3,12 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ConexionBDService {
+export class BdTesistasService {
 
   constructor() { }
-
   getTesistas(){
     
   }
-
 }
