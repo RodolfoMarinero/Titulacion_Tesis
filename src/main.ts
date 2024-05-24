@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgModule } from "@angular/core";
 import { bootstrapApplication } from '@angular/platform-browser';
 import 'zone.js';
 import { InicioComponent } from './app/inicio/inicio.component';
@@ -9,6 +10,7 @@ import {
   RouterLink,
   RouterLinkActive,
   RouterOutlet,
+  
 } from '@angular/router';
 
 @Component({
