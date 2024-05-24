@@ -1,0 +1,26 @@
+<div class="column1">
+    <div class="chat-header">
+        <select class="form-select custom-select" title="Selecciona un estado de tareas" id="selectEstado"
+            name="selectEstado">
+            <option value="tareas">Tareas</option>
+            <option class="btn-danger" value="Atrasado">Atrasado</option>
+            <option class="btn-warning" value="En Proceso">En Proceso</option>
+            <option class="btn-success" value="Completo">Completado</option>
+        </select>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha Límite</th>
+                    <th scope="col">Actividades</th>
+                </tr>
+            </thead>
+            <tbody id="listaTareas">
+                <!-- Aquí se renderizarán las tareas -->
+            </tbody>
+        </table>
+    </div>
+</div>
