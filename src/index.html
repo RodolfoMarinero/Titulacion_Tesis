@@ -1,43 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>My app</title>
-    <meta charset="UTF-8" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body >
-    <app-root>Loading...</app-root>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
+<head>
+  <title>My app</title>
+  <meta charset="UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+  <app-root>Loading...</app-root>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
     document.getElementById("formulario1").addEventListener("input", function () {
-        var password = document.getElementById("password").value;
-        var confirm_password = document.getElementById("confirm_password").value;
-        var submitBtn = document.getElementById("submitBtn");
+      var password = document.getElementById("password").value;
+      var confirm_password = document.getElementById("confirm_password").value;
+      var submitBtn = document.getElementById("submitBtn");
 
-        if (password != confirm_password) {
-            document.getElementById("confirm_password").setCustomValidity("Las contraseñas no coinciden");
-        } else {
-            document.getElementById("confirm_password").setCustomValidity("");
-        }
+      if (password != confirm_password) {
+        document.getElementById("confirm_password").setCustomValidity("Las contraseñas no coinciden");
+      } else {
+        document.getElementById("confirm_password").setCustomValidity("");
+      }
 
-        if (this.checkValidity()) {
-            submitBtn.disabled = false;
-        } else {
-            submitBtn.disabled = true;
-        }
+      if (this.checkValidity()) {
+        submitBtn.disabled = false;
+      } else {
+        submitBtn.disabled = true;
+      }
     });
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
     $(document).ready(function () {
-        $('#selectorCampus').change(function () {
-            var seleccionado = $(this).val();
-            $('.campus').hide();
-            $('#' + seleccionado).show();
-        });
+      $('#selectorCampus').change(function () {
+        var seleccionado = $(this).val();
+        $('.campus').hide();
+        $('#' + seleccionado).show();
+      });
     });
-</script>
-  </body>
+  </script>
+
+  <script>
+    $(document).ready(function () {
+
+      $('#agregarBtn').click(function () {
+        var alumno = $('#alumnoInput').val();
+        var tesis = $('#tesisInput').val();
+        var revisor = $('#revisorSelect option:selected').text();
+
+
+        if (alumno !== '' && tesis !== '' && revisor !== '') {
+          var newRow = '<tr><td>' + alumno + '</td><td>' + tesis + '</td><td>' + revisor + '</td></tr>';
+
+          $('#tablaRevisores').append(newRow);
+          $('#alumnoInput').val('');
+          $('#tesisInput').val('');
+          $('#revisorSelect').val('');
+        } else {
+          alert('Por favor, complete todos los campos.');
+        }
+      });
+    });
+  </script>
+</body>
+
 </html>

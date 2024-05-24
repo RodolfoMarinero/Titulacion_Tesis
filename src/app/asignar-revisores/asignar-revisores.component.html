@@ -1,0 +1,50 @@
+<div class="container mt-5" style="background-color: rgba(255, 255, 255, 0.8);">
+    <h1>Asignación de Revisores de Tesis</h1>
+
+    <div class="row mt-4">
+
+
+        <div class="col-md-4">
+            <label for="alumnoInput" class="form-label">Nombre del Alumno:</label>
+            <input type="text" class="form-control" id="alumnoInput">
+        </div>
+
+        <div class="col-md-4">
+            <label for="tesisInput" class="form-label">Título de la Tesis:</label>
+            <input type="text" class="form-control" id="tesisInput">
+        </div>
+
+
+        <div class="col-md-4">
+            <label for="revisorSelect" class="form-label">Seleccionar Revisor:</label>
+            <select class="form-select" id="revisorSelect">
+                <option value="">Seleccionar revisor</option>
+                <option value="1">M.C Ariel</option>
+                <option value="2">DR.Fabián</option>
+                <option value="3">MC.Rafael</option>
+                <!-- Añade más opciones según necesites -->
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button id="agregarBtn" class="btn btn-primary mt-4">Agregar Revisor</button>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Alumno</th>
+                        <th>Titulo de la Tesis</th>
+                        <th>Revisor Asignado</th>
+
+                    </tr>
+                </thead>
+                <tbody id="tablaRevisores">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
