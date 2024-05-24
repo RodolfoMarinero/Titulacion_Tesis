@@ -13,7 +13,7 @@ import {
 
 @Component({
   selector: 'app-root',
-  imports: [InicioComponent,RouterLink,RouterLinkActive,RouterOutlet,],
+  imports: [InicioComponent,RouterLink,RouterLinkActive,RouterOutlet],
   standalone: true,
   templateUrl: 'main.html',
 })
