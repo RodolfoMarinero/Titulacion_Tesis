@@ -11,10 +11,11 @@ import { RouterModule } from '@angular/router';
 import { Tesista } from '../../model/tesista';
 import { ListaTesistas } from '../../model/listaTesistas';
 import { BdTesistasService } from '../bd-tesistas.service';
+import { HeaderRevisionComponent } from '../header-revision/header-revision.component';
 @Component({
   selector: 'app-tabla-alumnos',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterModule],
+  imports: [ReactiveFormsModule,RouterModule,HeaderRevisionComponent],
   templateUrl: './tabla-alumnos.component.html',
   styleUrl: './tabla-alumnos.component.css',
 })

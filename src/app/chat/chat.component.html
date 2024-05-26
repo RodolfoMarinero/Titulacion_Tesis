@@ -1,26 +1,22 @@
 <div class="column">
     <div class="chat-container">
         <div class="chat-header">
-            <select class="form-select custom-select" title="Seleccione el destinatario">
+            <select class="form-select custom-select" title="Seleccione el destinatario" [(ngModel)]="selectedRevisor">
                 <option value="Rodolfo">Revisor: Rodolfo</option>
                 <option value="Yene">Revisor: Yene</option>
-                <option value="Carlos">Revisor: Carlos</option>
-                <option value="Kary">Revisor: Kary</option>
             </select>
+            <button (click)="clearChat()" class="clear-button">Clear Chat</button> <!-- Clear chat button -->
         </div>
-        <div class="chat-message received">
+        <div class="chat-message" *ngFor="let message of messages" [ngClass]="message.type">
             <div class="message-bubble">
-                Hola, ¿cómo estás?
-            </div>
-        </div>
-        <div class="chat-message sent">
-            <div class="message-bubble">
-                ¡Hola! Estoy bien, gracias. ¿Y tú?
+                {{ message.text }}
             </div>
         </div>
         <div class="chat-input-container">
-            <input type="text" class="chat-input" placeholder="Escribe un mensaje...">
-            <button class="send-button" title="Enviar mensaje"><i class="fas fa-paper-plane"></i></button>
+            <input [(ngModel)]="newMessage" type="text" class="chat-input" placeholder="Escribe un mensaje...">
+            <button (click)="sendMessage()" class="send-button" title="Enviar mensaje">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
     </div>
-</div>  
+</div>
