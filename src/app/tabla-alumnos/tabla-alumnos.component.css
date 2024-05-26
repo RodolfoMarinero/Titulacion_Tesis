@@ -1,0 +1,8 @@
+table tbody tr:hover {
+    background-color: #828080;
+    /* Cambia el color de fondo */
+    cursor: pointer;
+    /* Cambia el cursor */
+    box-shadow: 0 0 5px rgba(2, 77, 3, 0.5);
+    /* Agrega sombreado */
+}

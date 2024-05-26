@@ -16,6 +16,7 @@ export const routes: Routes = [
   { path: "revisarTesis", component: RevisionTesisComponent },
   { path: "registrarTesista", component: RegistrarTesistaComponent },
   { path: "asignarRevisores", component: AsignarRevisoresComponent },
-  { path: "progreso", component: ProgresoComponent },
+  { path: "progreso/:tesistaId", component: ProgresoComponent },
   { path: "jefatura", component: JefaturaComponent },
+  { path: "tabla", component: TablaAlumnosComponent },
 ];
