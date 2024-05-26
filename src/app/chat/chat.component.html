@@ -1,22 +1,26 @@
 <div class="column">
-    <div class="chat-container">
-        <div class="chat-header">
-            <select class="form-select custom-select" title="Seleccione el destinatario" [(ngModel)]="selectedRevisor">
-                <option value="Rodolfo">Revisor: Rodolfo</option>
-                <option value="Yene">Revisor: Yene</option>
-            </select>
-            <button (click)="clearChat()" class="clear-button">Clear Chat</button> <!-- Clear chat button -->
-        </div>
-        <div class="chat-message" *ngFor="let message of messages" [ngClass]="message.type">
-            <div class="message-bubble">
-                {{ message.text }}
-            </div>
-        </div>
-        <div class="chat-input-container">
-            <input [(ngModel)]="newMessage" type="text" class="chat-input" placeholder="Escribe un mensaje...">
-            <button (click)="sendMessage()" class="send-button" title="Enviar mensaje">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
+	<div class="chat-container">
+		<div class="chat-header">
+			<h4>EduLink<i class="fas fa-ellipsis-v" (click)="toggleClearButton()"></i></h4>
+			<div class="chat-header">
+				<select class="form-select custom-select" title="Seleccione el destinatario">
+					<option value="Rodolfo">Revisor: Rodolfo</option>
+					<option value="Yene">Revisor: Yene</option>
+					
+				</select>
+			</div>
+			<button *ngIf="showClearButton" (click)="clearChat()" class="clear-button">Clear Chat</button>
+		</div>
+		<div class="chat-message" *ngFor="let message of messages" [ngClass]="message.type">
+			<div class="message-bubble">
+				{{ message.text }}
+			</div>
+		</div>
+		<div class="chat-input-container">
+			<input [(ngModel)]="newMessage" type="text" class="chat-input" placeholder="Escribe un mensaje...">
+			<button (click)="sendMessage()" class="send-button" title="Enviar mensaje">
+				<i class="fas fa-paper-plane"></i>
+			</button>
+		</div>
+	</div>
 </div>

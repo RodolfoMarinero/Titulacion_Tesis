@@ -5,26 +5,28 @@ import { Revisor } from "./revisor";
 class ListaRevisores {
   public revisores: Revisor[] = [];
 
-  constructor(public service: BDRevisoresService) {
-    this.get();
+  constructor(public bdRevisor: BDRevisoresService) {
+    this.revisores = this.getRevisoresFromStorage();
+  }
+
+  getRevisores(): Revisor[] {
+    return this.revisores;
+  }
+  private getRevisoresFromStorage(): Revisor[] {
+    return this.bdRevisor.getRevisores();
   }
 
   public agregar(user: Revisor) {
     this.revisores.push(user);
-    //this.save();
-    this.get();
+    this.save();
   }
 
   public remove(index: number) {
     this.revisores.splice(index, 1);
-    this.save(this.revisores);
+    this.save();
   }
 
-  public save(revisores: Revisor[]) {
-    localStorage.setItem("users", JSON.stringify(revisores));
-  }
-
-  public get(): void {
-    this.service.getRevisores();
+  public save() {
+    this.bdRevisor.setRevisores(this.revisores);
   }
 }

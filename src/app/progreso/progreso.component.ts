@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ModalEnvioComponent } from "../modal-envio/modal-envio.component";
 import { ListaTareasComponent } from "../lista-tareas/lista-tareas.component";
@@ -20,6 +20,8 @@ import { MenuComponent } from "../menu/menu.component";
     CommonModule,
   ],
   templateUrl: "./progreso.component.html",
-  styleUrls: ["./progreso.component.css"], 
+  styleUrls: ["./progreso.component.css"],
 })
-export class ProgresoComponent {}
+export class ProgresoComponent {
+  @Input() tesistaId!: number;
+}

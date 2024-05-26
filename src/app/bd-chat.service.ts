@@ -1,26 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+
 interface Message {
   text: string;
   type: "sent" | "received";
 }
+
 @Injectable({
   providedIn: "root",
 })
 export class BDChatService {
-  private storageKey = "chatMessages";
+  private storageKey = "chatConversations";
 
-  getMessages(): Message[] {
-    const messages = localStorage.getItem(this.storageKey);
-    return messages ? JSON.parse(messages) : [];
+  getMessages(conversationId: string): Message[] {
+    const conversations = this.getConversations();
+    return conversations[conversationId] || [];
   }
 
-  saveMessage(message: Message): void {
-    const messages = this.getMessages();
-    messages.push(message);
-    localStorage.setItem(this.storageKey, JSON.stringify(messages));
+  saveMessage(conversationId: string, message: Message): void {
+    const conversations = this.getConversations();
+    if (!conversations[conversationId]) {
+      conversations[conversationId] = [];
+    }
+    conversations[conversationId].push(message);
+    localStorage.setItem(this.storageKey, JSON.stringify(conversations));
   }
 
-  clearMessages(): void {
-    localStorage.removeItem(this.storageKey);
+  clearMessages(conversationId: string): void {
+    const conversations = this.getConversations();
+    delete conversations[conversationId];
+    localStorage.setItem(this.storageKey, JSON.stringify(conversations));
+  }
+
+  private getConversations(): { [key: string]: Message[] } {
+    const conversations = localStorage.getItem(this.storageKey);
+    return conversations ? JSON.parse(conversations) : {};
   }
 }
