@@ -1,12 +1,13 @@
 <div class="column">
 	<div class="chat-container">
 		<div class="chat-header">
-			<h4>EduLink<i class="fas fa-ellipsis-v" (click)="toggleClearButton()"></i></h4>
+			<h4>EduLink<i class="fas fa-ellipsis-v" (click)="toggleClearButton()"></i></h4><p>{{tesista?.nombre}}</p>
 			<div class="chat-header">
+				
 				<select class="form-select custom-select" title="Seleccione el destinatario">
-					<option value="Rodolfo">Revisor: Rodolfo</option>
-					<option value="Yene">Revisor: Yene</option>
-					
+					<option *ngFor="let revisor of tesista?.revisores" [value]="revisor.id">
+						Revisor: {{ revisor.nombre }}
+					</option>
 				</select>
 			</div>
 			<button *ngIf="showClearButton" (click)="clearChat()" class="clear-button">Clear Chat</button>

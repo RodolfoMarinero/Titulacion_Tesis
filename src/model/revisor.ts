@@ -1,4 +1,5 @@
 export class Revisor {
+  public id: number;
   public nombre: string;
   public apellidos: string;
   public area: string;
@@ -7,11 +8,13 @@ export class Revisor {
 
   // Constructor
   constructor(
+    id: number,
     nombre: string,
     apellidos: string,
     area: string,
     universidad?: string
   ) {
+    this.id = id;
     this.nombre = nombre;
     this.apellidos = apellidos;
     this.area = area;
