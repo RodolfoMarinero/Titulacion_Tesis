@@ -1,7 +1,7 @@
 import { Revisor } from "./revisor";
 
 export class Tesista {
-  public id!: number;
+  public matricula: string;
   public nombre: String;
   public tesis: String;
   public carrera: String ;
@@ -9,14 +9,14 @@ export class Tesista {
   public revisores: Revisor[] = [];
   
   constructor(
-    id: number,
+    matricula: string,
     nombre: String,
     tesis: String,
     carrera: String,
     notificaion: boolean,
     revisores:Revisor[]
   ) {
-    this.id = id;
+    this.matricula = matricula;
     this.nombre = nombre;
     this.tesis = tesis;
     this.carrera = carrera;
