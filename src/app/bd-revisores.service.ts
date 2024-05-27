@@ -25,7 +25,13 @@ export class BDRevisoresService {
     }
   }
 
-  setRevisores(revisores: Revisor[]) {
-    localStorage.setItem("revisores", JSON.stringify(revisores));
+  setRevisores(revisores: ListaRevisores) {
+    const array = revisores.getRevisores();
+    localStorage.setItem("revisores", JSON.stringify(array));
+  }
+  agregarRevisor(nuevoRevisor: Revisor) {
+    const listaRevisores = this.getRevisores();
+    listaRevisores.agregar(nuevoRevisor);
+    this.setRevisores(listaRevisores);
   }
 }

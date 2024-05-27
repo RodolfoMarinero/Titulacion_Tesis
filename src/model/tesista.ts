@@ -1,26 +1,31 @@
+import { ListaRevisores } from "./listaRevisores";
+import { ListaTareas } from "./listaTareas";
 import { Revisor } from "./revisor";
 
 export class Tesista {
-  public id!: number;
-  public nombre: String;
-  public tesis: String;
-  public carrera: String ;
+  public matricula!: string;
+  public nombre!: String;
+  public tesis!: String;
+  public carrera!: String;
   public notificacion: boolean = false;
-  public revisores: Revisor[] = [];
-  
+  public revisores!: ListaRevisores;
+  public tareas!: ListaTareas;
+
   constructor(
-    id: number,
+    matricula: string,
     nombre: String,
     tesis: String,
     carrera: String,
     notificaion: boolean,
-    revisores:Revisor[]
+    revisores: ListaRevisores,
+    tareas: ListaTareas
   ) {
-    this.id = id;
+    this.matricula = matricula;
     this.nombre = nombre;
     this.tesis = tesis;
     this.carrera = carrera;
     this.notificacion = notificaion;
-    this.revisores=revisores;
+    this.revisores = revisores;
+    this.tareas = tareas;
   }
 }

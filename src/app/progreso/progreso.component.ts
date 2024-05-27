@@ -24,5 +24,5 @@ import { Tesista } from "../../model/tesista";
   styleUrls: ["./progreso.component.css"],
 })
 export class ProgresoComponent {
-  @Input() tesistaId!: String;
+  @Input() tesistaMatricula!: string;
 }

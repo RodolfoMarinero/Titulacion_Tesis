@@ -16,9 +16,10 @@ export class ListaTesistas {
   public remove(index: number) {
     this.tesistas.splice(index, 1);
   }
+
   actualizar(nuevoTesista: Tesista) {
     const indice = this.tesistas.findIndex(
-      (tesista) => tesista.id === nuevoTesista.id
+      (tesista) => tesista.matricula === nuevoTesista.matricula
     );
     if (indice !== -1) {
       this.tesistas[indice] = nuevoTesista;
@@ -28,8 +29,11 @@ export class ListaTesistas {
       );
     }
   }
-  getTesistaById(id: number): Tesista | null {
-    const tesista = this.tesistas.find((tesista) => tesista.id === id);
-    return tesista || null;
+
+  getTesistaByMatricula(matricula: string): Tesista {
+    const tesista = this.tesistas.find(
+      (tesista) => tesista.matricula === matricula
+    );
+    return tesista!;
   }
 }
