@@ -16,7 +16,6 @@ export class BdTesistasService {
     }
     try {
       const tesistasArray = JSON.parse(tesistasString);
-      // Agregar los tesistas al objeto ListaTesistas
       tesistasArray.forEach((tesista: Tesista) => {
         listaTesistas.agregar(tesista);
       });

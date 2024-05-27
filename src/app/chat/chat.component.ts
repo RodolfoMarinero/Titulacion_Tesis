@@ -2,6 +2,10 @@ import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { BDChatService } from "../bd-chat.service";
+import { ListaTesistas } from "../../model/listaTesistas";
+import { Tesista } from "../../model/tesista";
+import { Revisor } from "../../model/revisor";
+import { BdTesistasService } from "../bd-tesistas.service";
 
 interface Message {
   text: string;
@@ -16,13 +20,22 @@ interface Message {
   imports: [FormsModule, CommonModule],
 })
 export class ChatComponent implements OnChanges {
-  @Input() tesistaId!: number; 
-  @Input() revisorId!: number; 
+  @Input() tesistaId!: String;
+  @Input() revisor!: Revisor;
+  public tesista: Tesista | null;
+  public lista: ListaTesistas = new ListaTesistas();
   newMessage: string = "";
   messages: Message[] = [];
   showClearButton: boolean = false;
 
-  constructor(private chatService: BDChatService) {}
+  constructor(
+    private service: BdTesistasService,
+    private chatService: BDChatService
+  ) {
+    this.tesista = service
+      .getTesistas()
+      .getTesistaById(Number(Number(this.tesistaId)));
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["tesistaId"] || changes["revisorId"]) {
@@ -55,7 +68,6 @@ export class ChatComponent implements OnChanges {
   }
 
   private getConversationId(): string {
-    
-    return `${this.tesistaId}-${this.revisorId}`;
+    return `${this.tesistaId}-${this.revisor.id}`;
   }
 }

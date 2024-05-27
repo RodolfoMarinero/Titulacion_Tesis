@@ -6,6 +6,7 @@ import { ChatComponent } from "../chat/chat.component";
 import { TaskListComponent } from "../task-list/task-list.component";
 import { TaskModalComponent } from "../task-modal/task-modal.component";
 import { MenuComponent } from "../menu/menu.component";
+import { Tesista } from "../../model/tesista";
 
 @Component({
   selector: "app-progreso",
@@ -23,5 +24,5 @@ import { MenuComponent } from "../menu/menu.component";
   styleUrls: ["./progreso.component.css"],
 })
 export class ProgresoComponent {
-  @Input() tesistaId!: number;
+  @Input() tesistaId!: String;
 }

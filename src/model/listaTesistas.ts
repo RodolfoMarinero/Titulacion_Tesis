@@ -28,4 +28,8 @@ export class ListaTesistas {
       );
     }
   }
+  getTesistaById(id: number): Tesista | null {
+    const tesista = this.tesistas.find((tesista) => tesista.id === id);
+    return tesista || null;
+  }
 }
