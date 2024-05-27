@@ -1,6 +1,7 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { BdTesistasService } from '../bd-tesistas.service';
 
 @Component({
   selector: 'app-registrar-tesista',
@@ -16,7 +17,7 @@ export class RegistrarTesistaComponent {
 
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private renderer: Renderer2) {
+  constructor(private fb: FormBuilder, private renderer: Renderer2, private bdTesistasService: BdTesistasService) {
     this.registroForm = this.fb.group({
       matricula: ['', Validators.required],
       nombre: ['', Validators.required],
