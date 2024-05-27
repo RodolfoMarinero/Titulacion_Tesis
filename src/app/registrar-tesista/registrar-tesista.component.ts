@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BdTesistasService } from '../bd-tesistas.service';
+import { Tesista } from '../../model/tesista'
 
 @Component({
   selector: 'app-registrar-tesista',
@@ -53,6 +54,8 @@ export class RegistrarTesistaComponent {
       const formValues = this.registroForm.value;
       console.log('Datos del formulario:', formValues);
       // Lógica para manejar el envío del formulario, como llamar a un servicio
+      let tesista=new Tesista(this.registroForm.get('matricula')!.value,this.registroForm.get('nombre')!.value,this.registroForm.get('apellidos')!.value,this.registroForm.get('carrera')!.value,this.registroForm.get('tituloTesis')!.value,this.registroForm.get('directorTesis')!.value,this.registroForm.get('codirectorTesis')!.value,this.registroForm.get('correoElectronico')!.value,this.registroForm.get('contrasena')!.value,false);
+      this.bdTesistasService.agregarTesista(tesista);
     } else {
       console.log('El formulario es inválido');
     }

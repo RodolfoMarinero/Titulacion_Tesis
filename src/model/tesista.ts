@@ -13,7 +13,8 @@ export class Tesista {
   public correoElectronico: string;
   public contrasena: string;
   public notificacion: boolean = false;
-  public revisores!: ListaRevisores;
+  public revisor1!: string;
+  public revisor2!: String;
   public tareas!: ListaTareas;
 
   constructor(
@@ -26,9 +27,7 @@ export class Tesista {
     codirectorTesis: string,
     correoElectronico: string,
     contrasena: string,
-    notificaion: boolean,
-    revisores: ListaRevisores,
-    tareas: ListaTareas
+    notificaion: boolean
   ) {
     this.matricula = matricula;
     this.nombre = nombre;
@@ -40,7 +39,5 @@ export class Tesista {
     this.correoElectronico = correoElectronico;
     this.contrasena = contrasena;
     this.notificacion = notificaion;
-    this.revisores = revisores;
-    this.tareas = tareas;
   }
 }

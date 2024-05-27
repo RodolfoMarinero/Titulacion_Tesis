@@ -5,9 +5,9 @@
 			<div class="chat-header">
 				
 				<select class="form-select custom-select" title="Seleccione el destinatario">
-					<option *ngFor="let revisor of tesista?.revisores?.getRevisores()" [value]="revisor.matricula">
+					<!--<option *ngFor="let revisor of tesista?.revisores?.getRevisores()" [value]="revisor.matricula">
 						Revisor: {{ revisor.nombre }}
-					</option>
+					</option>-->
 				</select>
 			</div>
 			<button *ngIf="showClearButton" (click)="clearChat()" class="clear-button">Clear Chat</button>
