@@ -14,6 +14,9 @@ import { ListaTesistas } from '../../model/listaTesistas';
 import { BdTesistasService } from '../bd-tesistas.service';
 import { CommonModule } from '@angular/common';
 import { Revisor } from '../../model/revisor';
+import { ListaRevisores } from '../../model/listaRevisores';
+import { ListaTareas } from '../../model/listaTareas';
+import { Tarea } from '../../model/tarea';
 @Component({
   selector: "app-tabla-alumnos",
   standalone: true,
@@ -30,24 +33,30 @@ export class TablaAlumnosComponent {
     this.lista = service.getTesistas();
   }
   cargarLocal() {
-    let tesistas: Tesista[] = [];
-    let revisorA:Revisor[]=[];
-    let revisorB:Revisor[]=[];
-    let revisorC:Revisor[]=[];
-    let revisorD:Revisor[]=[];
-    let revisorE: Revisor[] = [];
-    revisorA.push(new Revisor(1, "Q", "W", "E", "R"));
-    revisorB.push(new Revisor(2, "Y", "F", "E", "R"));
-    revisorC.push(new Revisor(3, "T", "D", "E", "R"));
-    revisorD.push(new Revisor(4, "R", "A", "E", "R"));
-    revisorE.push(new Revisor(1, "E", "E", "E", "R"));
-    tesistas.push(new Tesista(1, "A", "A", "A", true, revisorA));
-    tesistas.push(new Tesista(2, "B", "B", "B", true, revisorB));
-    tesistas.push(new Tesista(3, "C", "C", "C", true, revisorC));
-    tesistas.push(new Tesista(4, "D", "D", "D", true, revisorD));
-    tesistas.push(new Tesista(5, "E", "E", "E", true, revisorE));
-    this.service.setTesistas(tesistas);
+    let tesistas: ListaTesistas = new ListaTesistas();
+    let revisorA: ListaRevisores = new ListaRevisores();
+    let revisorB: ListaRevisores = new ListaRevisores();
+    let revisorC: ListaRevisores = new ListaRevisores();
+    let revisorD: ListaRevisores = new ListaRevisores();
+    let revisorE: ListaRevisores = new ListaRevisores();
+    let tareas: ListaTareas = new ListaTareas();
+    tareas.agregar(new Tarea(1, "a", "a", new Date("2024-05-27")));
+    // Agregar revisores a las listas de revisores
+    revisorA.agregar(new Revisor("1", "Q", "W", "E", "R", tesistas));
+    revisorB.agregar(new Revisor("2", "Y", "F", "E", "R", tesistas));
+    revisorC.agregar(new Revisor("3", "T", "D", "E", "R", tesistas));
+    revisorD.agregar(new Revisor("4", "R", "A", "E", "R", tesistas));
+    revisorE.agregar(new Revisor("5", "E", "E", "E", "R", tesistas));
 
+    // Agregar tesistas a la lista de tesistas
+    tesistas.agregar(new Tesista("1", "A", "A", "A", true, revisorA, tareas));
+    tesistas.agregar(new Tesista("2", "B", "B", "B", true, revisorB, tareas));
+    tesistas.agregar(new Tesista("3", "C", "C", "C", true, revisorC, tareas));
+    tesistas.agregar(new Tesista("4", "D", "D", "D", true, revisorD, tareas));
+    tesistas.agregar(new Tesista("5", "E", "E", "E", true, revisorE, tareas));
+
+    // Guardar la lista de tesistas en el servicio
+    this.service.setTesistas(tesistas);
   }
   //public agregar() {
   //const id = parseInt(this.frmLista.get('id')?.value);
@@ -62,11 +71,10 @@ export class TablaAlumnosComponent {
   //this.agregar();
   //}
 
-  navigateToProgreso(tesistaId: number) {
-    
-    this.router.navigate(["/progreso", tesistaId.toString()]);
+  navigateToProgreso(tesistaMatricula: string) {
+    this.router.navigate(["/progreso", tesistaMatricula]);
   }
-  navigateToRevisarTesis(id: number) {
+  navigateToRevisarTesis(id: string) {
     this.router.navigate(["/revisarTesis", id]);
   }
 }

@@ -1,3 +1,5 @@
+import { ListaRevisores } from "./listaRevisores";
+import { ListaTareas } from "./listaTareas";
 import { Revisor } from "./revisor";
 
 export class Tesista {
@@ -11,8 +13,9 @@ export class Tesista {
   public correoElectronico: string;
   public contrasena: string;
   public notificacion: boolean = false;
-  public revisores: Revisor[] = [];
-  
+  public revisores!: ListaRevisores;
+  public tareas!: ListaTareas;
+
   constructor(
     matricula: string,
     nombre: String,
@@ -24,7 +27,8 @@ export class Tesista {
     correoElectronico: string,
     contrasena: string,
     notificaion: boolean,
-    revisores:Revisor[]
+    revisores: ListaRevisores,
+    tareas: ListaTareas
   ) {
     this.matricula = matricula;
     this.nombre = nombre;
@@ -36,6 +40,7 @@ export class Tesista {
     this.correoElectronico = correoElectronico;
     this.contrasena = contrasena;
     this.notificacion = notificaion;
-    this.revisores=revisores;
+    this.revisores = revisores;
+    this.tareas = tareas;
   }
 }

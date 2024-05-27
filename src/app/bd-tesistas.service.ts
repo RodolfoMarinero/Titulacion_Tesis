@@ -25,7 +25,13 @@ export class BdTesistasService {
       return listaTesistas;
     }
   }
-  setTesistas(tesistas: Tesista[]) {
-    localStorage.setItem("tesistas", JSON.stringify(tesistas));
+  setTesistas(tesistas: ListaTesistas) {
+    let array = tesistas.getTesistas();
+    localStorage.setItem("tesistas", JSON.stringify(array));
+  }
+  agregarTesista(nuevoTesista: Tesista) {
+    const listaTesistas = this.getTesistas();
+    listaTesistas.agregar(nuevoTesista);
+    this.setTesistas(listaTesistas);
   }
 }

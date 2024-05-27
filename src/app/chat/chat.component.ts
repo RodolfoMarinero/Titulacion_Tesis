@@ -4,7 +4,6 @@ import { CommonModule } from "@angular/common";
 import { BDChatService } from "../bd-chat.service";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { Tesista } from "../../model/tesista";
-import { Revisor } from "../../model/revisor";
 import { BdTesistasService } from "../bd-tesistas.service";
 
 interface Message {
@@ -20,9 +19,9 @@ interface Message {
   imports: [FormsModule, CommonModule],
 })
 export class ChatComponent implements OnChanges {
-  @Input() tesistaId!: String;
-  @Input() revisor!: Revisor;
-  public tesista: Tesista | null;
+  @Input() tesistaMatricula!: string;
+  @Input() revisorMatricula!: string;
+  public tesista: Tesista | null = null;
   public lista: ListaTesistas = new ListaTesistas();
   newMessage: string = "";
   messages: Message[] = [];
@@ -31,16 +30,19 @@ export class ChatComponent implements OnChanges {
   constructor(
     private service: BdTesistasService,
     private chatService: BDChatService
-  ) {
-    this.tesista = service
-      .getTesistas()
-      .getTesistaById(Number(Number(this.tesistaId)));
-  }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["tesistaId"] || changes["revisorId"]) {
+    if (changes["tesistaMatricula"] || changes["revisorMatricula"]) {
+      this.loadTesista();
       this.loadMessages();
     }
+  }
+
+  loadTesista() {
+    this.tesista = this.service
+      .getTesistas()
+      .getTesistaByMatricula(this.tesistaMatricula);
   }
 
   loadMessages() {
@@ -63,11 +65,12 @@ export class ChatComponent implements OnChanges {
     const conversationId = this.getConversationId();
     this.chatService.clearMessages(conversationId);
   }
+
   toggleClearButton() {
     this.showClearButton = !this.showClearButton;
   }
 
   private getConversationId(): string {
-    return `${this.tesistaId}-${this.revisor.id}`;
+    return `${this.tesistaMatricula}-${this.revisorMatricula}`;
   }
 }
