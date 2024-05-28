@@ -104,22 +104,9 @@ export class TablaAlumnosComponent {
     tesistas.agregar(tesista4);
     tesistas.agregar(tesista5);
 
-    // Luego, puedes guardar la lista de tesistas en tu servicio
     this.service.setTesistas(tesistas);
   }
-  //public agregar() {
-  //const id = parseInt(this.frmLista.get('id')?.value);
-  //const name = this.frmLista.get('name')?.value;
-  //this.listaUsers.agregar(new Tesista(id, name));
-  //}
-
-  //public eliminar(i: number): void {
-  //this.listaUsers.remove(i);
-  //}
-  //onSubmit() {
-  //this.agregar();
-  //}
-
+ 
   navigateToProgreso(tesistaMatricula: string) {
     this.router.navigate(["/progreso", tesistaMatricula]);
   }

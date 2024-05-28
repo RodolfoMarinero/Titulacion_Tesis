@@ -12,7 +12,7 @@ import { Revisor } from "../../model/revisor";
   standalone: true,
   imports: [ReactiveFormsModule, RouterModule, FormsModule, CommonModule],
   templateUrl: "./tabla-revisores.component.html",
-  styleUrls: ["./tabla-revisores.component.css"],
+  styleUrl: "./tabla-revisores.component.css",
 })
 export class TablaRevisoresComponent {
   public listaRevisores = new ListaRevisores();

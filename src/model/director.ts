@@ -1,6 +1,7 @@
 import { ListaTesistas } from "./listaTesistas";
 
 export class Director {
+  private _id: string;
   private _nombre: string;
   private _apellidos: string;
   private _area: string;
@@ -9,18 +10,25 @@ export class Director {
 
   // Constructor
   constructor(
+    id:string,
     nombre: string,
     apellidos: string,
     area: string,
     universidad?: string
   ) {
+    this._id = id;
     this._nombre = nombre;
     this._apellidos = apellidos;
     this._area = area;
     this._universidad = universidad;
     this._tesistas = new ListaTesistas();
   }
-
+  get id(): string{
+    return this._id;
+  }
+  set id(value: string) {
+    this._id = value;
+  }
   get nombre(): string {
     return this._nombre;
   }

@@ -89,10 +89,11 @@ public lista = new ListaTesistas
       this.lista.agregar(tesista);
       
       this.bdTesistasService.setTesistas(this.lista);
+      this.router.navigateByUrl("/tabla");
     } else {
       console.log("El formulario es inválido");
     }
-     this.router.navigateByUrl("/tabla");
+     
   }
 
   checkPasswords(group: FormGroup) {
