@@ -1,1 +1,20 @@
-<p>tabla-revisores works!</p>
+<table>
+    <thead>
+        <tr>
+            <th>Matrícula</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Área</th>
+            <th>Universidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let revisor of listaRevisores.revisores">
+            <td>{{ revisor.matricula }}</td>
+            <td>{{ revisor.nombre }}</td>
+            <td>{{ revisor.apellidos }}</td>
+            <td>{{ revisor.area }}</td>
+            <td>{{ revisor.universidad }}</td>
+        </tr>
+    </tbody>
+</table>
