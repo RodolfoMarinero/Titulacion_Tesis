@@ -1,29 +1,21 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-import { BDChatService } from "../bd-chat.service";
-import { ListaTesistas } from "../../model/listaTesistas";
-import { Tesista } from "../../model/tesista";
-import { BdTesistasService } from "../bd-tesistas.service";
-
+import { Component } from '@angular/core';
+import { Director } from '../../model/controlEscolar';
+import { ListaDirectores } from '../../model/listaRevisores copy';
 interface Message {
   text: string;
   type: "sent" | "received";
 }
-
 @Component({
-  selector: "app-chat",
-  templateUrl: "./chat.component.html",
-  styleUrls: ["./chat.component.css"],
+  selector: 'app-chat-director',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [],
+  templateUrl: './chat-director.component.html',
+  styleUrl: './chat-director.component.css'
 })
-export class ChatComponent implements OnChanges {
-  @Input() tesistaMatricula!: string;
-  @Input() opcion!: string;
-  @Input() revisorMatricula!: string;
-  public tesista: Tesista | null = null;
-  public lista: ListaTesistas = new ListaTesistas();
+export class ChatDirectorComponent {
+  @Input() directorId!: string;
+  public director: Director | null = null;
+  public lista: ListaDirectores = new ListaDirectores();
   newMessage: string = "";
   messages: Message[] = [];
   showClearButton: boolean = false;

@@ -23,12 +23,14 @@ export class Director {
     this._universidad = universidad;
     this._tesistas = new ListaTesistas();
   }
+
   get id(): string{
     return this._id;
   }
   set id(value: string) {
     this._id = value;
   }
+
   get nombre(): string {
     return this._nombre;
   }
