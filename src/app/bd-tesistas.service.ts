@@ -26,7 +26,7 @@ export class BdTesistasService {
     }
   }
   setTesistas(tesistas: ListaTesistas) {
-    let array = tesistas.getTesistas();
+    const array = tesistas.getTesistas();
     localStorage.setItem("tesistas", JSON.stringify(array));
   }
   agregarTesista(nuevoTesista: Tesista) {

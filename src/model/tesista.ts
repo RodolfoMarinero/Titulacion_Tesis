@@ -4,30 +4,33 @@ import { Revisor } from "./revisor";
 
 export class Tesista {
   public matricula: string;
-  public nombre: String;
+  public nombre: string;
   public apellidos: string;
-  public carrera: String ;
-  public tituloTesis: String;
+  public carrera: string;
+  public tituloTesis: string;
   public directorTesis: string;
-  public codirectorTesis: string;
+  public codirectorTesis?: string;
   public correoElectronico: string;
   public contrasena: string;
-  public notificacion: boolean = false;
-  public revisor1!: string;
-  public revisor2!: String;
-  public tareas!: ListaTareas;
+  public notificacion?: boolean;
+  public revisor1?: string;
+  public revisor2?: string;
+  public tareas?: ListaTareas;
 
   constructor(
     matricula: string,
-    nombre: String,
-    apellidos:string,
-    carrera: String,
-    tituloTesis:string,
+    nombre: string,
+    apellidos: string,
+    carrera: string,
+    tituloTesis: string,
     directorTesis: string,
-    codirectorTesis: string,
     correoElectronico: string,
     contrasena: string,
-    notificaion: boolean
+    notificacion: boolean=false,
+    codirectorTesis?: string,
+    revisor1?: string,
+    revisor2?: string,
+    tareas?: ListaTareas
   ) {
     this.matricula = matricula;
     this.nombre = nombre;
@@ -35,9 +38,12 @@ export class Tesista {
     this.carrera = carrera;
     this.tituloTesis = tituloTesis;
     this.directorTesis = directorTesis;
-    this.codirectorTesis = codirectorTesis;
     this.correoElectronico = correoElectronico;
     this.contrasena = contrasena;
-    this.notificacion = notificaion;
+    this.notificacion = notificacion;
+    this.codirectorTesis = codirectorTesis;
+    this.revisor1 = revisor1;
+    this.revisor2 = revisor2;
+    this.tareas = tareas;
   }
 }
