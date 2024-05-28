@@ -1,5 +1,5 @@
-<table>
-    <thead>
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
         <tr>
             <th>Matrícula</th>
             <th>Nombre</th>
@@ -9,8 +9,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let revisor of listaRevisores.revisores">
-            <td>{{ revisor.matricula }}</td>
+        <tr *ngFor="let revisor of listaRevisores.getRevisores()">
+            <td>{{ revisor.matricula}}</td>
             <td>{{ revisor.nombre }}</td>
             <td>{{ revisor.apellidos }}</td>
             <td>{{ revisor.area }}</td>
