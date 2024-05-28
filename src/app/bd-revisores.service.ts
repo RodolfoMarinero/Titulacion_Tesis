@@ -1,11 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Revisor } from "../model/revisor";
 import { ListaRevisores } from "../model/listaRevisores";
+import { ListaTesistas } from "../model/listaTesistas";
 @Injectable({
   providedIn: "root",
 })
 export class BDRevisoresService {
-  constructor() {}
+  constructor() {
+    
+  }
 
   getRevisores(): ListaRevisores {
     const revisoresString = localStorage.getItem("revisores");
@@ -34,4 +37,5 @@ export class BDRevisoresService {
     listaRevisores.agregar(nuevoRevisor);
     this.setRevisores(listaRevisores);
   }
+  
 }

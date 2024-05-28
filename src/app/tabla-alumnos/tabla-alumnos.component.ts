@@ -31,6 +31,7 @@ export class TablaAlumnosComponent {
   constructor(private router: Router, private service: BdTesistasService) {
    // this.cargarLocal();
     this.lista = service.getTesistas();
+    console.log("Lista de tesistas:", this.lista);
   }
   cargarLocal() {
     let tesistas: ListaTesistas = new ListaTesistas();
