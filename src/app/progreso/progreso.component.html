@@ -1,7 +1,12 @@
 <app-menu></app-menu>
 <img src="https://www.unpa.edu.mx/images/unpa_large.png" alt="Universidad del Papaloapan">
 <div class="container mt-5">
+    
     <app-task-list></app-task-list>
     <app-chat [tesistaMatricula]="tesistaMatricula" [revisorMatricula]="revisorMatricula" [currentUser]="currentUser"></app-chat>
+    <select class="custom-select chat-header" id="selectRevisores" title="Revisores" (change)="guardarValorSeleccionado()">
+        <option *ngIf="revisor1.matricula" [value]="revisor1.matricula">{{revisor1.nombre }}</option>
+        <option *ngIf="revisor2.matricula" [value]="revisor2.matricula">{{revisor2.nombre }}</option>
+    </select>
 </div>
 <app-task-modal></app-task-modal>

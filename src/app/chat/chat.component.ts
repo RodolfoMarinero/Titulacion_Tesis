@@ -25,8 +25,8 @@ export class ChatComponent implements OnChanges {
   @Input() tesistaMatricula!: string;
   @Input() revisorMatricula!: string;
   @Input() currentUser!: string;
-  public tesista: Tesista | null = null;
-  public revisor: Revisor | null = null;
+  public tesista!: Tesista;
+  public revisor!: Revisor ;
   public listaT: ListaTesistas = new ListaTesistas();
   newMessage: string = "";
   messages: Message[] = [];

@@ -2,7 +2,10 @@
 	<div class="chat-container">
 		<div class="chat-header">
 			<h4>EduLink<i class="fas fa-ellipsis-v" (click)="toggleClearButton()"></i></h4>
+
+
 			<p>{{chatHeader}}</p>
+
 		</div>
 		<div class="chat-message" *ngFor="let message of messages"
 			[ngClass]="{'sent': message.sender === currentUser, 'received': message.sender !== currentUser}">

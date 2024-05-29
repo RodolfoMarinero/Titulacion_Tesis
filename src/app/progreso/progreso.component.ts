@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ModalEnvioComponent } from "../modal-envio/modal-envio.component";
 import { ListaTareasComponent } from "../lista-tareas/lista-tareas.component";
@@ -9,6 +9,11 @@ import { MenuComponent } from "../menu/menu.component";
 import { Tesista } from "../../model/tesista";
 import { BdTesistasService } from "../bd-tesistas.service";
 import { ListaTesistas } from "../../model/listaTesistas";
+import { ActivatedRoute } from "@angular/router";
+import { SharedDataService } from "../shared-data.service";
+import { Revisor } from "../../model/revisor";
+import { BDRevisoresService } from "../bd-revisores.service";
+import { ListaRevisores } from "../../model/listaRevisores";
 
 @Component({
   selector: "app-progreso",
@@ -26,16 +31,39 @@ import { ListaTesistas } from "../../model/listaTesistas";
   styleUrls: ["./progreso.component.css"],
 })
 export class ProgresoComponent {
-  public lista: ListaTesistas = new ListaTesistas();
-  constructor(private service: BdTesistasService) {
-    this.lista = service.getTesistas();
+  public listaT!: ListaTesistas;
+  public listaR!: ListaRevisores;
+  public tesistaMatricula!: string;
+  public revisorMatricula!: string;
+  public tesista!: Tesista;
+  public revisor1!: Revisor;
+  public revisor2!: Revisor;
+  public currentUser: string = "tesista";
+  constructor(
+    private service: BdTesistasService,
+    private serviceR:BDRevisoresService,
+    private sharedDataService: SharedDataService
+  ) {
+    this.tesistaMatricula = sharedDataService.getData();
+    
+    this.listaT = service.getTesistas();
+    this.listaR = serviceR.getRevisores();
+    this.obtenerTesista();
+    this.obtenerRevisor();
   }
-  //@Input() tesistaMatricula!: string;
-  tesistaMatricula: string = "123456"; // Asigna la matrícula del tesista aquí
-  revisorMatricula: string = "654321"; // Asigna la matrícula del revisor aquí
-  currentUser: string = "tesista";
-  public tesista: Tesista = this.lista.getTesistaByMatricula(
-    this.tesistaMatricula
-  );
-  //public revisorMatricula?: string = this.tesista.revisor1;
+  //@Input()
+
+  obtenerTesista() {
+    this.tesista = this.listaT.getTesistaByMatricula(this.tesistaMatricula);
+  }
+  obtenerRevisor() {
+    this.revisor1 = this.listaR.getRevisorByMatricula(this.tesista.revisor1!);
+    this.revisor2 = this.listaR.getRevisorByMatricula(this.tesista.revisor2!);
+  }
+  guardarValorSeleccionado() {
+    const revisor = document.getElementById(
+      "selectRevisores"
+    ) as HTMLSelectElement;
+    this.revisorMatricula = revisor.value + "";
+  }
 }

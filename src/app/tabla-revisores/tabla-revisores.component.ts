@@ -32,8 +32,8 @@ export class TablaRevisoresComponent {
       new ListaTesistas()
     );
     const revisor2 = new Revisor(
-      "matricula2",
-      "Nombre2",
+      "111111",
+      "Kary",
       "Apellidos2",
       "Area2",
       "Universidad2",
