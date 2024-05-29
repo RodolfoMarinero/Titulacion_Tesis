@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 import "zone.js";
 import { InicioComponent } from "./app/inicio/inicio.component";
-import { provideRouter } from "@angular/router";
+import { RouterModule, provideRouter } from "@angular/router";
 import { routes } from "./app.routes";
 import { provideHttpClient } from "@angular/common/http";
 import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
@@ -18,6 +18,7 @@ import { ChatComponent } from "./app/chat/chat.component";
     RouterOutlet,
     ChatComponent,
     FormsModule,
+    
   ],
   standalone: true,
   templateUrl: "main.html",

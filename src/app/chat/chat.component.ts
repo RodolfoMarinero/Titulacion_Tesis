@@ -5,10 +5,13 @@ import { BDChatService } from "../bd-chat.service";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { Tesista } from "../../model/tesista";
 import { BdTesistasService } from "../bd-tesistas.service";
+import { BDRevisoresService } from "../bd-revisores.service";
+import { Revisor } from "../../model/revisor";
 
 interface Message {
   text: string;
   type: "sent" | "received";
+  sender: string;
 }
 
 @Component({
@@ -20,30 +23,42 @@ interface Message {
 })
 export class ChatComponent implements OnChanges {
   @Input() tesistaMatricula!: string;
-  @Input() opcion!: string;
   @Input() revisorMatricula!: string;
-  public tesista: Tesista | null = null;
-  public lista: ListaTesistas = new ListaTesistas();
+  @Input() currentUser!: string;
+  public tesista!: Tesista;
+  public revisor!: Revisor ;
+  public listaT: ListaTesistas = new ListaTesistas();
   newMessage: string = "";
   messages: Message[] = [];
   showClearButton: boolean = false;
+  chatHeader: string = "";
 
   constructor(
-    private service: BdTesistasService,
+    private serviceT: BdTesistasService,
+    private serviceR: BDRevisoresService,
     private chatService: BDChatService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["tesistaMatricula"] || changes["revisorMatricula"]) {
       this.loadTesista();
+      this.loadRevisor();
       this.loadMessages();
     }
   }
 
   loadTesista() {
-    this.tesista = this.service
+    this.tesista = this.serviceT
       .getTesistas()
       .getTesistaByMatricula(this.tesistaMatricula);
+    this.updateChatHeader();
+  }
+
+  loadRevisor() {
+    this.revisor = this.serviceR
+      .getRevisores()
+      .getRevisorByMatricula(this.revisorMatricula);
+    this.updateChatHeader();
   }
 
   loadMessages() {
@@ -53,7 +68,11 @@ export class ChatComponent implements OnChanges {
 
   sendMessage() {
     if (this.newMessage.trim() !== "") {
-      const message: Message = { text: this.newMessage, type: "sent" };
+      const message: Message = {
+        text: this.newMessage,
+        type: "sent",
+        sender: this.currentUser,
+      };
       this.messages.push(message);
       const conversationId = this.getConversationId();
       this.chatService.saveMessage(conversationId, message);
@@ -73,5 +92,14 @@ export class ChatComponent implements OnChanges {
 
   private getConversationId(): string {
     return `${this.tesistaMatricula}-${this.revisorMatricula}`;
+  }
+
+  private updateChatHeader() {
+    if (this.tesista || this.revisor) {
+      this.chatHeader =
+        this.currentUser === "revisor"
+          ? this.tesista?.nombre || ""
+          : this.revisor?.nombre || "";
+    }
   }
 }

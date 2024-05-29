@@ -13,3 +13,18 @@ img {
     display: block;
     margin: 0 auto;
 }
+.custom-select {
+    font-size: x-large;
+    text-align: center;
+    background-color: #003834;
+    color: #fff;
+    border-style: none;
+}
+
+.chat-header {
+    background-color: #075e54;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: center;
+}

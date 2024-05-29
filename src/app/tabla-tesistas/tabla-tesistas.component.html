@@ -1,0 +1,29 @@
+<div>
+    <h2>Lista de Tesistas</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Matricula</th>
+                <th>Nombre del Tesista</th>
+                <th>Tesis</th>
+                <th>Carrera</th>
+                <th>Notificaciones</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tesista of lista.getTesistas()">
+                <td (click)="navigateToProgreso(tesista.matricula)">{{ tesista.matricula }}</td>
+                <td (click)="navigateToProgreso(tesista.matricula)">{{ tesista.nombre }}</td>
+                <td >{{ tesista.tituloTesis }}</td>
+                <td >{{ tesista.carrera }}</td>
+                <td [style.background-color]="tesista.notificacion ? 'green' : 'red'"
+                    (click)="navigateToProgreso(tesista.matricula)">
+                    {{ tesista.notificacion }}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
