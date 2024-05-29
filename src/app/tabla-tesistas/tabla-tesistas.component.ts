@@ -6,11 +6,12 @@ import { ListaTesistas } from "../../model/listaTesistas";
 import { BdTesistasService } from "../bd-tesistas.service";
 
 import { SharedDataService } from "../shared-data.service";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: "app-tabla-tesistas",
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: "./tabla-tesistas.component.html",
   styleUrl: "./tabla-tesistas.component.css",
 })

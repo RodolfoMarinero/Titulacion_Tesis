@@ -2,10 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { BDRevisoresService } from "../bd-revisores.service";
 import { ListaRevisores } from "../../model/listaRevisores";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { Revisor } from "../../model/revisor";
+import { SharedDataService } from "../shared-data.service";
 
 @Component({
   selector: "app-tabla-revisores",
@@ -16,7 +17,11 @@ import { Revisor } from "../../model/revisor";
 })
 export class TablaRevisoresComponent {
   public listaRevisores = new ListaRevisores();
-  constructor(private service: BDRevisoresService) {
+  constructor(
+    private service: BDRevisoresService,
+    private sharedDataService: SharedDataService,
+    private router: Router
+  ) {
     this.cargarRevisores();
     this.listaRevisores = service.getRevisores();
     console.log("Lista de revisores:", this.listaRevisores);
@@ -72,5 +77,9 @@ export class TablaRevisoresComponent {
     this.listaRevisores.agregar(revisor5);
 
     this.service.setRevisores(this.listaRevisores);
+  }
+  navigateToProgreso(revisorMatricula: string) {
+    this.sharedDataService.setData(revisorMatricula);
+    this.router.navigate(["/revisarTesis"]);
   }
 }

@@ -85,11 +85,9 @@ export class TablaAlumnosComponent {
     this.service.setTesistas(this.lista);
   }
 
-  navigateToProgreso(tesistaMatricula: string) {
+  
+  navigateToRevisarTesis(tesistaMatricula: string) {
     this.sharedDataService.setData(tesistaMatricula);
-    this.router.navigate(["/progreso"]);
-  }
-  navigateToRevisarTesis(id: string) {
-    this.router.navigate(["/detallesTesis", id]);
+    this.router.navigate(["/detallesTesis"]);
   }
 }
