@@ -24,12 +24,12 @@ export class TablaRevisoresComponent {
   cargarRevisores() {
     // Crear instancias de revisores
     const revisor1 = new Revisor(
-      "matricula1",
-      "Nombre1",
+      "654321",
+      "Carlos",
       "Apellidos1",
       "Area1",
       "Universidad1",
-      new ListaTesistas
+      new ListaTesistas()
     );
     const revisor2 = new Revisor(
       "matricula2",

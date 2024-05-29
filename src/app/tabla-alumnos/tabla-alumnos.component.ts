@@ -34,8 +34,7 @@ export class TablaAlumnosComponent {
     console.log("Lista de tesistas:", this.lista);
   }
   cargarLocal() {
-    let tesistas: ListaTesistas = new ListaTesistas();
-
+    
     // Crear instancias de Tesista con datos de prueba
     let tesista1 = new Tesista(
       "123456",
@@ -98,19 +97,19 @@ export class TablaAlumnosComponent {
     );
 
     // Agregar los tesistas a la lista
-    tesistas.agregar(tesista1);
-    tesistas.agregar(tesista2);
-    tesistas.agregar(tesista3);
-    tesistas.agregar(tesista4);
-    tesistas.agregar(tesista5);
+    this.lista.agregar(tesista1);
+    this.lista.agregar(tesista2);
+    this.lista.agregar(tesista3);
+    this.lista.agregar(tesista4);
+    this.lista.agregar(tesista5);
 
-    this.service.setTesistas(tesistas);
+    this.service.setTesistas(this.lista);
   }
  
   navigateToProgreso(tesistaMatricula: string) {
     this.router.navigate(["/progreso", tesistaMatricula]);
   }
   navigateToRevisarTesis(id: string) {
-    this.router.navigate(["/revisarTesis", id]);
+    this.router.navigate(["/detallesTesis", id]);
   }
 }

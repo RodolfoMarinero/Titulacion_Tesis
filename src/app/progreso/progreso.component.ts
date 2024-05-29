@@ -7,6 +7,8 @@ import { TaskListComponent } from "../task-list/task-list.component";
 import { TaskModalComponent } from "../task-modal/task-modal.component";
 import { MenuComponent } from "../menu/menu.component";
 import { Tesista } from "../../model/tesista";
+import { BdTesistasService } from "../bd-tesistas.service";
+import { ListaTesistas } from "../../model/listaTesistas";
 
 @Component({
   selector: "app-progreso",
@@ -24,5 +26,16 @@ import { Tesista } from "../../model/tesista";
   styleUrls: ["./progreso.component.css"],
 })
 export class ProgresoComponent {
-  @Input() tesistaMatricula!: string;
+  public lista: ListaTesistas = new ListaTesistas();
+  constructor(private service: BdTesistasService) {
+    this.lista = service.getTesistas();
+  }
+  //@Input() tesistaMatricula!: string;
+  tesistaMatricula: string = "123456"; // Asigna la matrícula del tesista aquí
+  revisorMatricula: string = "654321"; // Asigna la matrícula del revisor aquí
+  currentUser: string = "tesista";
+  public tesista: Tesista = this.lista.getTesistaByMatricula(
+    this.tesistaMatricula
+  );
+  //public revisorMatricula?: string = this.tesista.revisor1;
 }

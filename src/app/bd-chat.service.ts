@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 interface Message {
   text: string;
   type: "sent" | "received";
+  sender: string; // Nuevo campo para identificar el remitente
 }
 
 @Injectable({
