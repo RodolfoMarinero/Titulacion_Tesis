@@ -12,6 +12,6 @@ import { TablaRevisoresComponent } from '../tabla-revisores/tabla-revisores.comp
 })
 export class JefaturaComponent {
   tesistaMatricula: string = "123456"; // Asigna la matrícula del tesista aquí
-  revisorMatricula: string = "654321"; // Asigna la matrícula del revisor aquí
+  revisorMatricula: string = "111111"; // Asigna la matrícula del revisor aquí
   currentUser: string = "revisor";
 }
