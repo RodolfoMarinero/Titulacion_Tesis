@@ -9,6 +9,7 @@ import { AsignarRevisoresComponent } from './app/asignar-revisores/asignar-revis
 import { ProgresoComponent } from './app/progreso/progreso.component';
 import { JefaturaComponent } from './app/jefatura/jefatura.component';
 import { RevisionTesisComponent } from './app/revision-tesis/revision-tesis.component';
+import { DirectorComponent } from './app/director/director.component';
 export const routes: Routes = [
   { path: "", component: InicioComponent, pathMatch: "full" },
   { path: "inicioSesion", component: IniciarSesionComponent },
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: "progreso", component: ProgresoComponent },
   { path: "jefatura", component: JefaturaComponent },
   { path: "tabla", component: TablaAlumnosComponent },
+  { path: "director", component: DirectorComponent },
 ];
 
