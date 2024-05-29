@@ -13,12 +13,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let tesista of lista.getTesistas()">
-      <td (click)="navigateToProgreso(tesista.matricula)">{{ tesista.matricula }}</td>
-      <td (click)="navigateToProgreso(tesista.matricula)">{{ tesista.nombre }}</td>
-      <td (click)="navigateToRevisarTesis(tesista.matricula)">{{ tesista.tituloTesis }}</td>
-      <td (click)="navigateToRevisarTesis(tesista.matricula)">{{ tesista.carrera }}</td>
-      <td [style.background-color]="tesista.notificacion ? 'green' : 'red'" (click)="navigateToProgreso(tesista.matricula)">
+    <tr *ngFor="let tesista of lista.getTesistas()" (click)="navigateToRevisarTesis(tesista.matricula)">
+      <td >{{ tesista.matricula }}</td>
+      <td >{{ tesista.nombre }}</td>
+      <td >{{ tesista.tituloTesis }}</td>
+      <td >{{ tesista.carrera }}</td>
+      <td [style.background-color]="tesista.notificacion ? 'green' : 'red'" >
         {{ tesista.notificacion }}
       </td>
     </tr>
