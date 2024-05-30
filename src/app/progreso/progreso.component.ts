@@ -14,6 +14,7 @@ import { SharedDataService } from "../shared-data.service";
 import { Revisor } from "../../model/revisor";
 import { BDRevisoresService } from "../bd-revisores.service";
 import { ListaRevisores } from "../../model/listaRevisores";
+import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 
 @Component({
   selector: "app-progreso",
@@ -26,6 +27,7 @@ import { ListaRevisores } from "../../model/listaRevisores";
     TaskListComponent,
     TaskModalComponent,
     CommonModule,
+    NavMenuComponent
   ],
   templateUrl: "./progreso.component.html",
   styleUrls: ["./progreso.component.css"],

@@ -9,11 +9,12 @@ import { Router, RouterModule } from "@angular/router";
 import { BdTesistasService } from "../bd-tesistas.service";
 import { Tesista } from "../../model/tesista";
 import { ListaTesistas } from "../../model/listaTesistas";
+import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 
 @Component({
   selector: "app-registrar-tesista",
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule, NavMenuComponent],
   templateUrl: "./registrar-tesista.component.html",
   styleUrl: "./registrar-tesista.component.css",
 })

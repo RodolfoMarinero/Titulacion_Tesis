@@ -9,11 +9,12 @@ import { Revisor } from "../../model/revisor";
 import { BdTesistasService } from "../bd-tesistas.service";
 import { BDRevisoresService } from "../bd-revisores.service";
 import { SharedDataService } from "../shared-data.service";
+import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 
 @Component({
   selector: "app-detalle-revsar",
   standalone: true,
-  imports: [ChatComponent, FormsModule, CommonModule],
+  imports: [ChatComponent, FormsModule, CommonModule, NavMenuComponent],
   templateUrl: "./detalle-revsar.component.html",
   styleUrl: "./detalle-revsar.component.css",
 })

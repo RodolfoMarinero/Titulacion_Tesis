@@ -1,14 +1,4 @@
-<nav class="navbar">
-  <div class="container" style="
-      display: flex;
-      justify-content: center;
-      align-items: center;">
-    <a class="navbar-brand" href="https://www.unpa.edu.mx/">
-      <img src="https://www.unpa.edu.mx/images/suneo/unpa.jpg" width="30" height="30" alt="Logo" />
-    </a>
-    <h1>Revision de Tesis</h1>
-  </div>
-</nav>
+<app-nav-menu></app-nav-menu>
 <div class="container mt-5">
   <select class="custom-select chat-header" id="selectTesistas" title="Tesistas" (change)="guardarValorSeleccionado()">
     <option *ngFor="let tesista of listaFiltrada.getTesistas()" [value]="tesista.matricula">
