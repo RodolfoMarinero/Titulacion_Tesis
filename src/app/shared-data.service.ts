@@ -5,13 +5,17 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class SharedDataService {
-  private data: any;
+  private data: { [key: string]: any } = {};
 
-  setData(data: any) {
-    this.data = data;
+  setData(key: string, value: any) {
+    this.data[key] = value;
   }
 
-  getData() {
-    return this.data;
+  getData(key: string) {
+    return this.data[key];
+  }
+
+  clearData(key: string) {
+    delete this.data[key];
   }
 }

@@ -6,7 +6,7 @@ export class Revisor {
   public apellidos: string;
   public area: string;
   public universidad: string;
-  public tesistas: ListaTesistas;
+ 
 
   constructor(
     matricula: string,
@@ -14,14 +14,14 @@ export class Revisor {
     apellidos: string,
     area: string,
     universidad: string,
-    tesistas: ListaTesistas
+   
   ) {
     this.matricula = matricula;
     this.nombre = nombre;
     this.apellidos = apellidos;
     this.area = area;
     this.universidad = universidad;
-    this.tesistas = tesistas;
+   
   }
 
 }

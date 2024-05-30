@@ -44,15 +44,14 @@ export class ProgresoComponent {
     private serviceR:BDRevisoresService,
     private sharedDataService: SharedDataService
   ) {
-    this.tesistaMatricula = sharedDataService.getData();
+    this.tesistaMatricula = this.sharedDataService.getData("matriculaT");
     
     this.listaT = service.getTesistas();
     this.listaR = serviceR.getRevisores();
     this.obtenerTesista();
     this.obtenerRevisor();
   }
-  //@Input()
-
+  
   obtenerTesista() {
     this.tesista = this.listaT.getTesistaByMatricula(this.tesistaMatricula);
   }

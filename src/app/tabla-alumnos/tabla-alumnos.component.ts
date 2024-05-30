@@ -62,7 +62,10 @@ export class TablaAlumnosComponent {
       "Inteligencia Artificial",
       "Dr. Roberto Martínez",
       "maria@example.com",
-      "password456",true,"123123","23"
+      "password456",
+      true,
+      "111111",
+      "654321"
     );
 
     let tesista3 = new Tesista(
@@ -87,7 +90,7 @@ export class TablaAlumnosComponent {
 
   
   navigateToRevisarTesis(tesistaMatricula: string) {
-    this.sharedDataService.setData(tesistaMatricula);
-    this.router.navigate(["/detallesTesis"]);
+    this.sharedDataService.setData('tesistaMatricula', tesistaMatricula);
+    //this.router.navigate(["/"]);
   }
 }
