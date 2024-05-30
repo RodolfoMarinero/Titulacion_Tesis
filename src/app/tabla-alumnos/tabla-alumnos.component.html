@@ -19,8 +19,24 @@
           </div>
         </div>
         <div class="card-footer border-0 bg-body-tertiary p-2 d-flex justify-content-around">
-          <a class="btn btn-outline-secondary" href="#" role="button">Mensaje<i class="fas fa-envelope ms-2"></i></a>
-          <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Jefatura<i class="fas fa-phone ms-2"></i></a>
+          <ng-container *ngIf="filtro === 'revisor' || filtro === 'director' || filtro ===''">
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Jefatura<i class="fas fa-phone ms-2"></i></a>
+          </ng-container>
+          
+          <!-- Botones para tesista -->
+          <ng-container *ngIf="filtro === 'tesista'">
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Director<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Revisor<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Jefatura<i class="fas fa-phone ms-2"></i></a>
+          </ng-container>
+          
+          <!-- Botones para jefatura -->
+          <ng-container *ngIf="filtro === 'jefatura'">
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Director<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Revisor<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" href="#" role="button">Mensaje a Tesista<i class="fas fa-envelope ms-2"></i></a>
+          </ng-container>
         </div>
       </div>
     </div>
