@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormControl,
   ReactiveFormsModule,
@@ -28,7 +28,13 @@ import { SharedDataService } from "../shared-data.service";
 })
 export class TablaAlumnosComponent {
   public lista: ListaTesistas = new ListaTesistas();
- 
+  public listaFiltrada: ListaTesistas = new ListaTesistas();
+  @Input() revisorMatricula: string = '';
+  @Input() carrera: string = '';
+  @Input() mostrarNotificaciones: boolean | null = null;
+  @Input() directorTesis: string = '';
+  @Input() filtro: string = '';
+
   constructor(
     private router: Router,
     private service: BdTesistasService,
@@ -36,7 +42,12 @@ export class TablaAlumnosComponent {
   ) {
      this.cargarLocal();
     this.lista = service.getTesistas();
+    this.listaFiltrada = this.lista;
     console.log("Lista de tesistas:", this.lista);
+  }
+
+  ngOnInit() {
+    this.aplicarFiltro();
   }
   cargarLocal() {
     // Crear instancias de Tesista con datos de prueba
@@ -88,9 +99,62 @@ export class TablaAlumnosComponent {
     this.service.setTesistas(this.lista);
   }
 
-  
+  aplicarFiltro() {
+    switch (this.filtro) {
+      case 'revisor':
+        this.filtrarTesistasPorRevisor();
+        break;
+      case 'carrera':
+        this.filtrarTesistasPorCarrera();
+        break;
+      case 'notificaciones':
+        this.filtrarTesistasPorNotificaciones();
+        break;
+      case 'director':
+        this.filtrarTesistasPorDirector();
+        break;
+      default:
+        this.listaFiltrada = this.lista;
+    }
+  }
   navigateToRevisarTesis(tesistaMatricula: string) {
     this.sharedDataService.setData('tesistaMatricula', tesistaMatricula);
     //this.router.navigate(["/"]);
+  }
+
+  filtrarTesistasPorRevisor() {
+    this.listaFiltrada = new ListaTesistas();
+    for (let tesista of this.lista.getTesistas()) {
+      if (tesista.revisor1 === this.revisorMatricula || tesista.revisor2 === this.revisorMatricula) {
+        this.listaFiltrada.agregar(tesista);
+      }
+    }
+  }
+
+  filtrarTesistasPorCarrera() {
+    this.listaFiltrada = new ListaTesistas();
+    for (let tesista of this.lista.getTesistas()) {
+      if (tesista.carrera === this.carrera) {
+        this.listaFiltrada.agregar(tesista);
+      }
+    }
+  }
+
+  filtrarTesistasPorNotificaciones() {
+    this.listaFiltrada = new ListaTesistas();
+    for (let tesista of this.lista.getTesistas()) {
+      if (tesista.notificacion === this.mostrarNotificaciones) {
+        this.listaFiltrada.agregar(tesista);
+      }
+    }
+  }
+
+  filtrarTesistasPorDirector() {
+    this.listaFiltrada = new ListaTesistas();
+    for (let tesista of this.lista.getTesistas()) {
+      if (tesista.directorTesis === this.directorTesis) {
+        this.listaFiltrada.agregar(tesista);
+      }
+    }
   }
 }
