@@ -1,20 +1,15 @@
-.contenedor-documento {
-    width: 70%; /* Ancho del contenedor del documento */
-    height: 100%;
-    float: left; /* Para colocar el documento a la izquierda */
-  }
-  
-  .contenedor-chat {
-    width: 30%; /* Ancho del contenedor del chat */
-    height: 100%;
-    float: right; /* Para colocar el chat a la derecha */
-  }
-  
-  .chat {
-    height: 100%;
-    overflow-y: auto; /* Para agregar barras de desplazamiento si el chat es demasiado largo */
-    padding: 20px;
-    box-sizing: border-box;
-    border-left: 1px solid #ccc; /* Separador entre el documento y el chat */
-  }
-  
+.custom-select {
+  font-size: x-large;
+  text-align: center;
+  background-color: #003834;
+  color: #fff;
+  border-style: none;
+}
+
+.chat-header {
+  background-color: #075e54;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+  text-align: center;
+}

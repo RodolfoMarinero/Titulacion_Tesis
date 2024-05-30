@@ -31,42 +31,41 @@ export class TablaRevisoresComponent {
     const revisor1 = new Revisor(
       "654321",
       "Carlos",
-      "Apellidos1",
-      "Area1",
-      "Universidad1",
-      new ListaTesistas()
+      "Cardoza",
+      "Ingeniería Computacion",
+      "Universidad del Papaloapan"
     );
     const revisor2 = new Revisor(
       "111111",
       "Kary",
-      "Apellidos2",
-      "Area2",
-      "Universidad2",
-      new ListaTesistas()
+      "Montalvo",
+      "Ingeniería Computacion",
+      "Universidad del Papaloapan"
     );
     const revisor3 = new Revisor(
-      "matricula3",
-      "Nombre3",
-      "Apellidos3",
-      "Area3",
-      "Universidad3",
-      new ListaTesistas()
+      "1234632",
+      "Juan",
+      "Pérez García",
+      "Ingeniería de Software",
+      "Universidad Nacional Autónoma de México"
+     
     );
+
     const revisor4 = new Revisor(
-      "matricula4",
-      "Nombre4",
-      "Apellidos4",
-      "Area4",
-      "Universidad4",
-      new ListaTesistas()
+      "98765",
+      "Ana",
+      "López Hernández",
+      "Ciencias de la Computación",
+      "Instituto Politécnico Nacional"
+     
     );
+
     const revisor5 = new Revisor(
-      "matricula5",
-      "Nombre5",
-      "Apellidos5",
-      "Area5",
-      "Universidad5",
-      new ListaTesistas()
+      "32987",
+      "Carlos",
+      "Sánchez Martínez",
+      "Tecnologías de la Información",
+      "Universidad Autónoma Metropolitana"
     );
 
     // Agregar revisores a la lista
@@ -78,8 +77,8 @@ export class TablaRevisoresComponent {
 
     this.service.setRevisores(this.listaRevisores);
   }
-  navigateToProgreso(revisorMatricula: string) {
-    this.sharedDataService.setData(revisorMatricula);
-    this.router.navigate(["/revisarTesis"]);
+  navigateToRevisarTesis(revisorMatricula: string) {
+    this.sharedDataService.setData("revisorMatricula", revisorMatricula);
+    this.router.navigate(["/detallesTesis"]);
   }
 }

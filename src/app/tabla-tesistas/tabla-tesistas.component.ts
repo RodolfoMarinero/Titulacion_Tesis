@@ -53,8 +53,8 @@ export class TablaTesistasComponent {
       "maria@example.com",
       "password456",
       true,
-      "123123",
-      "23"
+      "111111",
+      "654321"
     );
 
     let tesista3 = new Tesista(
@@ -67,8 +67,8 @@ export class TablaTesistasComponent {
       "pedro@example.com",
       "password789",
       false,
-      "45",
-      "152"
+      "111111",
+      "654321"
     );
 
     // Agregar los tesistas a la lista
@@ -80,7 +80,7 @@ export class TablaTesistasComponent {
   }
 
   navigateToProgreso(tesistaMatricula: string) {
-    this.sharedDataService.setData(tesistaMatricula);
+    this.sharedDataService.setData("matriculaT", tesistaMatricula);
     this.router.navigate(["/progreso"]);
   }
 }3

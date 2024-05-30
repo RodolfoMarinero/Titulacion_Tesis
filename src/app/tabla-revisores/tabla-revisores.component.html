@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let revisor of listaRevisores.getRevisores()">
+        <tr *ngFor="let revisor of listaRevisores.getRevisores()" (click)="navigateToRevisarTesis(revisor.matricula)">
             <td>{{ revisor.matricula}}</td>
             <td>{{ revisor.nombre }}</td>
             <td>{{ revisor.apellidos }}</td>

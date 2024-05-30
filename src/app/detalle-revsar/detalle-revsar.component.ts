@@ -19,33 +19,52 @@ import { SharedDataService } from "../shared-data.service";
 })
 export class DetalleRevsarComponent {
   public listaT!: ListaTesistas;
+  public listaFiltrada!: ListaTesistas;
   public listaR!: ListaRevisores;
   public tesistaMatricula!: string;
-  public revisorMatricula!: string;
-  public tesista!: Tesista;
- 
-  public currentUser: string = "revisor";
+   //public revisorMatricula!: string;
+  //public tesista!: Tesista;
+  public revisor!: Revisor;
+
+  //public currentUser: string = "revisor";
+  //tesistaMatricula: string = "123456";
+  revisorMatricula: string = "654321";
+  currentUser: string = "revisor";
   constructor(
     private service: BdTesistasService,
     private serviceR: BDRevisoresService,
     private sharedDataService: SharedDataService
   ) {
-    this.tesistaMatricula = sharedDataService.getData();
-
+    // this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
+    this.revisorMatricula = this.sharedDataService.getData("revisorMatricula");
+    
     this.listaT = service.getTesistas();
     this.listaR = serviceR.getRevisores();
-    this.obtenerTesista();
-    
+    this.listaFiltrada = new ListaTesistas();
+    this.obtenerRevisor();
+    this.filtrarTesistasPorRevisor();
+   
   }
-  
-  obtenerTesista() {
-    this.tesista = this.listaT.getTesistaByMatricula(this.tesistaMatricula);
+
+  obtenerRevisor() {
+    this.revisor = this.listaR.getRevisorByMatricula(this.revisorMatricula);
   }
-  
+  filtrarTesistasPorRevisor() {
+    for (let tesista of this.listaT.getTesistas()) {
+      if (
+        tesista.revisor1 == this.revisorMatricula ||
+        tesista.revisor2 == this.revisorMatricula
+      ) {
+        this.listaFiltrada.agregar(tesista);
+      }
+    }
+  }
+
   guardarValorSeleccionado() {
-    const revisor = document.getElementById(
-      "selectRevisores"
+    const selectElement = document.getElementById(
+      "selectTesistas"
     ) as HTMLSelectElement;
-    this.revisorMatricula = revisor.value + "";
+    this.tesistaMatricula = selectElement.value + "";
+     
   }
 }
