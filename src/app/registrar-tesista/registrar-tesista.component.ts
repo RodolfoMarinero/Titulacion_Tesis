@@ -29,14 +29,28 @@ export class RegistrarTesistaComponent {
 
 public listaTesistas = new ListaTesistas;
 public listaProtocolos = new ListaProtocolos;
+public registroForm!: FormGroup;
   constructor(
     private renderer: Renderer2,
     private bdTesistasService: BdTesistasService,
     private bdProtocolosService: BdProtocolosService,
-    private router:Router
+    private router:Router,
+    private fb: FormBuilder
   ) {
-    
-    this.lista = this.bdTesistasService.getTesistas();
+    this.registroForm = this.fb.group({
+      matricula: [''],
+      nombre: [''],
+      apellidos: [''],
+      carrera: [''],
+      tituloTesis: [''],
+      directorTesis: [''],
+      codirectorTesis: [''],
+      correoElectronico: ['', Validators.required],
+      contrasena: ['', Validators.required],
+      confirmarContrasena: ['', Validators.required],
+      email: [''],
+    });
+    this.listaTesistas = this.bdTesistasService.getTesistas();
     
   }
 
