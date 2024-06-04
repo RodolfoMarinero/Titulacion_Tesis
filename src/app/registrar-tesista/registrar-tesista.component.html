@@ -12,6 +12,19 @@
                             <div class="mx-auto cf-container">
                                 <form [formGroup]="registroForm" (ngSubmit)="registrarTesista()">
                                     <div class="cf-cover">
+                                        <br><br>
+                                        <div class="form-row row">
+                                            <div class="col-md-12">
+                                                <label><h3>Protocolos Disponibles</h3></label><br>
+                                                <select (click)='cargarDatos($event)'>
+                                                    @for(protocolo of listaProtocolos.protocolos; track protocolo.matricula){
+                                                        <option value="protocolo.matricula">{{protocolo.nombre}} {{protocolo.apellidos}} de {{protocolo.carrera}}</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br><br>
+
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Matricula</label>

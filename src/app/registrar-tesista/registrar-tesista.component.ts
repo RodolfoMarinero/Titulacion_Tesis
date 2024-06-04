@@ -50,6 +50,8 @@ public registroForm!: FormGroup;
       confirmarContrasena: ['', Validators.required],
       email: [''],
     });
+
+    this.cargarLocal();
     this.listaTesistas = this.bdTesistasService.getTesistas();
     
   }
@@ -59,6 +61,12 @@ public registroForm!: FormGroup;
   registrarTesista(): void {
          
   }
+
+  cargarDatos(event: any) {
+    const matriculaSeleccionada = event.target.value;
+
+    
+}
 
   checkPasswords(group: FormGroup) {
     const pass = group.controls["contrasena"].value;
