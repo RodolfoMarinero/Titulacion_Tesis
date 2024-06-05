@@ -58,7 +58,34 @@ export class RegistrarTesistaComponent {
 
   ngOnInit(): void {}
 
-  registrarTesista(): void {}
+  registrarTesista(): void {
+    const nuevoTesista: Tesista = {
+      matricula: this.registroForm.value.matricula,
+      nombre: this.registroForm.value.nombre,
+      apellidos: this.registroForm.value.apellidos,
+      carrera: this.registroForm.value.carrera,
+      tituloTesis: this.registroForm.value.tituloTesis,
+      directorTesis: this.registroForm.value.directorTesis,
+      codirectorTesis: this.registroForm.value.codirectorTesis,
+      correoElectronico: this.registroForm.value.correoElectronico,
+      contrasena: this.registroForm.value.contrasena,
+    };
+
+    // Agregar el nuevo tesista
+    this.bdTesistasService.agregarTesista(nuevoTesista);
+    alert("Tesista agregado");
+    console.log(this.bdTesistasService.getTesistas());
+    this.registroForm.reset();
+
+    // Eliminar el protocolo del localStorage
+    const matricula = this.registroForm.value.matricula;
+    const listaProtocolos = this.bdProtocolosService.getProtocolos();
+    const index = listaProtocolos.protocolos.findIndex(protocolo => protocolo.matricula === matricula);
+    if (index !== -1) {
+      listaProtocolos.protocolos.splice(index, 1);
+      this.bdProtocolosService.setProtocolos(listaProtocolos);
+    }
+  }
 
   cargarDatos(event: any) {
     const matriculaSeleccionada = event.target.value;
