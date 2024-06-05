@@ -20,21 +20,22 @@ import { ListaProtocolos } from "../../model/listaProtocolos";
   standalone: true,
   imports: [RouterModule, ReactiveFormsModule, NavMenuComponent, CommonModule],
   templateUrl: "./registrar-tesista.component.html",
-  styleUrl: "./registrar-tesista.component.css",
+  styleUrls: ["./registrar-tesista.component.css"],
 })
 export class RegistrarTesistaComponent {
   @ViewChild("selectorCampus") selectorCampus!: ElementRef;
   @ViewChild("campus1") campus1!: ElementRef;
   @ViewChild("campus2") campus2!: ElementRef;
 
-public listaTesistas = new ListaTesistas;
-public listaProtocolos = new ListaProtocolos;
-public registroForm!: FormGroup;
+  public listaTesistas = new ListaTesistas();
+  public listaProtocolos = new ListaProtocolos();
+  public registroForm!: FormGroup;
+
   constructor(
     private renderer: Renderer2,
     private bdTesistasService: BdTesistasService,
     private bdProtocolosService: BdProtocolosService,
-    private router:Router,
+    private router: Router,
     private fb: FormBuilder
   ) {
     this.registroForm = this.fb.group({
@@ -53,20 +54,36 @@ public registroForm!: FormGroup;
 
     this.cargarLocal();
     this.listaTesistas = this.bdTesistasService.getTesistas();
-    
   }
 
   ngOnInit(): void {}
 
-  registrarTesista(): void {
-         
-  }
+  registrarTesista(): void {}
 
   cargarDatos(event: any) {
     const matriculaSeleccionada = event.target.value;
 
-    
-}
+    // Buscar el protocolo correspondiente a la matrícula seleccionada
+    const protocoloSeleccionado = this.listaProtocolos.protocolos.find(
+      (protocolo: Protocolo) => protocolo.matricula === matriculaSeleccionada
+    );
+
+    if (protocoloSeleccionado) {
+      // Rellenar el formulario con los datos del protocolo seleccionado
+      this.registroForm.patchValue({
+        matricula: protocoloSeleccionado.matricula,
+        nombre: protocoloSeleccionado.nombre,
+        apellidos: protocoloSeleccionado.apellidos,
+        carrera: protocoloSeleccionado.carrera,
+        tituloTesis: protocoloSeleccionado.tituloTesis,
+        directorTesis: protocoloSeleccionado.directorTesis,
+        codirectorTesis: protocoloSeleccionado.codirectorTesis,
+        correoElectronico: '', // Suponiendo que no hay email en Protocolo, puedes ajustar esto si es necesario
+        contrasena: '',       // Suponiendo que no hay contrasena en Protocolo
+        confirmarContrasena: '', // Suponiendo que no hay confirmarContrasena en Protocolo
+      });
+    }
+  }
 
   checkPasswords(group: FormGroup) {
     const pass = group.controls["contrasena"].value;
@@ -106,12 +123,11 @@ public registroForm!: FormGroup;
       "DR. Calixto"
     );
 
-
     // Agregar los tesistas a la lista
     this.listaProtocolos.agregar(protocolo1);
     this.listaProtocolos.agregar(protocolo2);
     this.listaProtocolos.agregar(protocolo3);
-    
+
     this.bdProtocolosService.setProtocolos(this.listaProtocolos);
   }
 }

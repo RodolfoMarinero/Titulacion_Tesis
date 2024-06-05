@@ -16,10 +16,10 @@
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label><h3>Protocolos Disponibles</h3></label><br>
-                                                <select (click)='cargarDatos($event)'>
-                                                    @for(protocolo of listaProtocolos.protocolos; track protocolo.matricula){
-                                                        <option value="protocolo.matricula">{{protocolo.nombre}} {{protocolo.apellidos}} de {{protocolo.carrera}}</option>
-                                                    }
+                                                <select (change)="cargarDatos($event)">
+                                                    <option *ngFor="let protocolo of listaProtocolos.protocolos" [value]="protocolo.matricula">
+                                                        {{protocolo.nombre}} {{protocolo.apellidos}} de {{protocolo.carrera}}
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
                                         <br><br>
                                         <div class="form-row row">
                                             <div class="col-md-12">
-                                                <button id="submitBtn"class="btn btn-primary w-100"
+                                                <button id="submitBtn" class="btn btn-primary w-100"
                                                     type="submit">Registrar</button>
                                             </div>
                                         </div>
