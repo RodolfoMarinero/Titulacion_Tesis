@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   ReactiveFormsModule,
@@ -26,7 +26,7 @@ import { SharedDataService } from "../shared-data.service";
   templateUrl: "./tabla-alumnos.component.html",
   styleUrl: "./tabla-alumnos.component.css",
 })
-export class TablaAlumnosComponent {
+export class TablaAlumnosComponent implements OnInit{
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
   @Input() revisorMatricula: string = '';
@@ -38,15 +38,16 @@ export class TablaAlumnosComponent {
   constructor(
     private router: Router,
     private service: BdTesistasService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
   ) {
-     this.cargarLocal();
-    this.lista = service.getTesistas();
-    this.listaFiltrada = this.lista;
-    console.log("Lista de tesistas:", this.lista);
   }
 
   ngOnInit() {
+    this.service.getUsers().subscribe(data => {
+      this.lista.tesistas=data;
+    })
+    this.listaFiltrada = this.lista;
+    console.log("Lista de tesistas:", this.lista);
     this.aplicarFiltro();
   }
   cargarLocal() {

@@ -1,12 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Tesista } from "../model/tesista";
 import { ListaTesistas } from "../model/listaTesistas";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class BdTesistasService {
-  constructor() {}
+  private baseUrl='http://localhost:8080/tesistas';
+  constructor(private http:HttpClient) {}
   getTesistas(): ListaTesistas {
     const tesistasString = localStorage.getItem("tesistas");
     const listaTesistas = new ListaTesistas(); // Crear una instancia de ListaTesistas
@@ -33,5 +36,9 @@ export class BdTesistasService {
     const listaTesistas = this.getTesistas();
     listaTesistas.agregar(nuevoTesista);
     this.setTesistas(listaTesistas);
+  }
+  getUsers(): Observable<Tesista[]>{
+    alert("obteniendo datos");
+    return this.http.get<Tesista[]>(this.baseUrl);
   }
 }

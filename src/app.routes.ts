@@ -15,7 +15,7 @@ import { DetalleRevsarComponent } from './app/detalle-revsar/detalle-revsar.comp
 import { DirectorComponent } from './app/director/director.component';
 import { AlumnoComponent } from './app/alumno/alumno.component';
 export const routes: Routes = [
-  { path: "", component: AlumnoComponent, pathMatch: "full" },
+  { path: "", component: InicioComponent, pathMatch: "full" },
   { path: "inicioSesion", component: IniciarSesionComponent },
   { path: "home", component: HomeComponent },
   { path: "revisarTesis", component: RevisionTesisComponent },
