@@ -4,7 +4,7 @@ import "zone.js";
 import { InicioComponent } from "./app/inicio/inicio.component";
 import { RouterModule, provideRouter } from "@angular/router";
 import { routes } from "./app.routes";
-import { provideHttpClient } from "@angular/common/http";
+import { provideHttpClient, withFetch } from "@angular/common/http";
 import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { ChatComponent } from "./app/chat/chat.component";
@@ -28,5 +28,5 @@ export class App {
 }
 
 bootstrapApplication(App, {
-  providers: [provideRouter(routes)],
+  providers: [provideRouter(routes), provideHttpClient(withFetch())],
 });

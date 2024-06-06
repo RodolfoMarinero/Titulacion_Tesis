@@ -12,79 +12,66 @@
                             <div class="mx-auto cf-container">
                                 <form [formGroup]="registroForm" (ngSubmit)="registrarTesista()">
                                     <div class="cf-cover">
+                                        <br><br>
+                                        <div class="form-row row">
+                                            <div class="col-md-12">
+                                                <label><h3>Protocolos Disponibles</h3></label><br>
+                                                <select (change)="cargarDatos($event)">
+                                                    <option *ngFor="let protocolo of listaProtocolos.protocolos" [value]="protocolo.matricula">
+                                                        {{protocolo.nombre}} {{protocolo.apellidos}} de {{protocolo.carrera}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br><br>
+
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Matricula</label>
-                                                <input formControlName="matricula" type="text" required
-                                                    placeholder="Introducir Matricula" class="form-control">
+                                                <input formControlName="matricula" type="text" readonly required
+                                                    placeholder="Matricula" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-row row">
                                             <div class="col-md-6">
                                                 <label>Nombre</label>
-                                                <input formControlName="nombre" type="text" required
-                                                    placeholder="Introducir Nombre" class="form-control">
+                                                <input formControlName="nombre" type="text" readonly required
+                                                    placeholder="Nombre" class="form-control">
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Apellidos</label>
-                                                <input formControlName="apellidos" type="text" required
-                                                    placeholder="Introducir Apellidos" class="form-control">
+                                                <input formControlName="apellidos" type="text" readonly required
+                                                    placeholder="Apellidos" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Campus</label>
-                                                <select title="Campus" formControlName="campus" #selectorCampus
-                                                    id="selectorCampus" class="form-select mb-3">
-                                                    <option value="campus1">Loma Bonita</option>
-                                                    <option value="campus2">Tuxtepec</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Carrera</label>
-                                                <select title="Carreras" formControlName="carrera" #campus1 id="campus1"
-                                                    class="campus form-select mb-3">
-                                                    <option value="Computacion">Ing. en Computacion</option>
-                                                    <option value="Disenio">Ing. en Diseño</option>
-                                                    <option value="Agricola">Ing. Agricola Tropical</option>
-                                                    <option value="Acuicultura">Ing. en Acuicultura</option>
-                                                    <option value="Mecatronica">Ing. en Mecatronica</option>
-                                                    <option value="Zootecnia">Lic. en Zootecnia</option>
-                                                    <option value="Matematicas">Lic. en Matematicas Aplicadas</option>
-                                                </select>
-                                                <select formControlName="carrera" #campus2 id="campus2"
-                                                    class="campus form-select mb-3" style="display: none;">
-                                                    <option value="Alimentos">Ing. en Alimentos</option>
-                                                    <option value="Empresariales">Lic. en Ciencias Empresariales
-                                                    </option>
-                                                    <option value="Quimica">Lic. en Ciencias Quimicas</option>
-                                                    <option value="Biotecnologia">Ing. en Biotecnologia</option>
-                                                    <option value="Enfermeria">Lic. en Enfermeria</option>
-                                                </select>
+                                                <input formControlName="carrera" type="text" readonly required
+                                                    placeholder="Carrera" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Titulo de Tesis</label>
-                                                <input formControlName="tituloTesis" type="text" required
-                                                    placeholder="Introducir el Titulo" class="form-control">
+                                                <input formControlName="tituloTesis" type="text" readonly required
+                                                    placeholder="Titulo de Tesis" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Director de Tesis</label>
-                                                <input formControlName="directorTesis" type="text" required
-                                                    placeholder="Introducir Nombre del Director de Tesis"
+                                                <input formControlName="directorTesis" type="text" readonly required
+                                                    placeholder="Director de Tesis"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Co-Director de Tesis</label>
-                                                <input formControlName="codirectorTesis" type="text"
-                                                    placeholder="Introducir Nombre del Co-Director de Tesis"
+                                                <input formControlName="codirectorTesis" type="text" readonly
+                                                    placeholder="Co-Director de Tesis"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -114,7 +101,7 @@
                                         <br><br>
                                         <div class="form-row row">
                                             <div class="col-md-12">
-                                                <button id="submitBtn"class="btn btn-primary w-100"
+                                                <button id="submitBtn" class="btn btn-primary w-100"
                                                     type="submit">Registrar</button>
                                             </div>
                                         </div>

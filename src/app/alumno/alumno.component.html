@@ -1,8 +1,7 @@
-<h1>Lista Alumnos</h1>
 
-@for(alumno of alumnos;track alumno.id){
-    <div>
-        id:<label>{{alumno.id}}</label>
-        nombre:<label>{{alumno.nombre}}</label>
-    </div>
+@for(alumno of alumnos; track alumno.id){
+<div>
+    id:<label>{{alumno.id}}</label> Nombre:<label>{{alumno.nombre}}</label>
+</div>
+
 }
