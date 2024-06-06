@@ -9,7 +9,7 @@ import { AsignarRevisoresComponent } from './app/asignar-revisores/asignar-revis
 import { ProgresoComponent } from './app/progreso/progreso.component';
 import { JefaturaComponent } from './app/jefatura/jefatura.component';
 import { RevisionTesisComponent } from './app/revision-tesis/revision-tesis.component';
-import { TablaTesistasComponent } from './app/tabla-tesistas/tabla-tesistas.component';
+
 import { TablaRevisoresComponent } from './app/tabla-revisores/tabla-revisores.component';
 import { DetalleRevsarComponent } from './app/detalle-revsar/detalle-revsar.component';
 import { DirectorComponent } from './app/director/director.component';
@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: "progreso", component: ProgresoComponent },
   { path: "jefatura", component: JefaturaComponent },
   { path: "tabla", component: TablaAlumnosComponent },
-  { path: "tablaTesista", component: TablaTesistasComponent },
+ 
   { path: "tablaRevisores", component: TablaRevisoresComponent },
   { path: "detallesTesis", component: DetalleRevsarComponent },
   { path: "director", component: DirectorComponent },

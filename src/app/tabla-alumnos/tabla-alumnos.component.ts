@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import {
   FormControl,
   ReactiveFormsModule,
@@ -7,16 +7,16 @@ import {
   Validator,
   Validators,
   FormsModule,
-} from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
-import { Tesista } from '../../model/tesista';
-import { ListaTesistas } from '../../model/listaTesistas';
-import { BdTesistasService } from '../bd-tesistas.service';
-import { CommonModule } from '@angular/common';
-import { Revisor } from '../../model/revisor';
-import { ListaRevisores } from '../../model/listaRevisores';
-import { ListaTareas } from '../../model/listaTareas';
-import { Tarea } from '../../model/tarea';
+} from "@angular/forms";
+import { Router, RouterLink, RouterModule } from "@angular/router";
+import { Tesista } from "../../model/tesista";
+import { ListaTesistas } from "../../model/listaTesistas";
+import { BdTesistasService } from "../bd-tesistas.service";
+import { CommonModule } from "@angular/common";
+import { Revisor } from "../../model/revisor";
+import { ListaRevisores } from "../../model/listaRevisores";
+import { ListaTareas } from "../../model/listaTareas";
+import { Tarea } from "../../model/tarea";
 import { SharedDataService } from "../shared-data.service";
 
 @Component({
@@ -29,18 +29,18 @@ import { SharedDataService } from "../shared-data.service";
 export class TablaAlumnosComponent {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
-  @Input() revisorMatricula: string = '';
-  @Input() carrera: string = '';
+  @Input() revisorMatricula: string = "";
+  @Input() carrera: string = "";
   @Input() mostrarNotificaciones: boolean | null = null;
-  @Input() directorTesis: string = '';
-  @Input() filtro: string = '';
+  @Input() directorTesis: string = "";
+  @Input() filtro: string = "";
 
   constructor(
     private router: Router,
     private service: BdTesistasService,
     private sharedDataService: SharedDataService
   ) {
-     this.cargarLocal();
+    //this.cargarLocal();
     this.lista = service.getTesistas();
     this.listaFiltrada = this.lista;
     console.log("Lista de tesistas:", this.lista);
@@ -87,45 +87,51 @@ export class TablaAlumnosComponent {
       "Diseño de un sistema de control automático",
       "Dr. Alejandro Pérez",
       "pedro@example.com",
-      "password789",false,"45","152"
+      "password789",
+      false,
+      "111111",
+      "654321"
     );
-
 
     // Agregar los tesistas a la lista
     this.lista.agregar(tesista1);
     this.lista.agregar(tesista2);
     this.lista.agregar(tesista3);
-    
+
     this.service.setTesistas(this.lista);
   }
 
   aplicarFiltro() {
     switch (this.filtro) {
-      case 'revisor':
+      case "revisor":
         this.filtrarTesistasPorRevisor();
         break;
-      case 'carrera':
+      case "carrera":
         this.filtrarTesistasPorCarrera();
         break;
-      case 'notificaciones':
+      case "notificaciones":
         this.filtrarTesistasPorNotificaciones();
         break;
-      case 'director':
+      case "director":
         this.filtrarTesistasPorDirector();
         break;
       default:
         this.listaFiltrada = this.lista;
     }
   }
-  navigateToRevisarTesis(tesistaMatricula: string) {
-    this.sharedDataService.setData('tesistaMatricula', tesistaMatricula);
-    //this.router.navigate(["/"]);
+  navigateToProgreso(tesistaMatricula: string, opcion: string) {
+    this.sharedDataService.setData("tesistaMatricula", tesistaMatricula);
+    this.sharedDataService.setData("opcion", opcion);
+    this.router.navigate(["/progreso"]);
   }
 
   filtrarTesistasPorRevisor() {
     this.listaFiltrada = new ListaTesistas();
     for (let tesista of this.lista.getTesistas()) {
-      if (tesista.revisor1 === this.revisorMatricula || tesista.revisor2 === this.revisorMatricula) {
+      if (
+        tesista.revisor1 === this.revisorMatricula ||
+        tesista.revisor2 === this.revisorMatricula
+      ) {
         this.listaFiltrada.agregar(tesista);
       }
     }

@@ -14,7 +14,16 @@ import { SharedDataService } from "../shared-data.service";
 import { Revisor } from "../../model/revisor";
 import { BDRevisoresService } from "../bd-revisores.service";
 import { ListaRevisores } from "../../model/listaRevisores";
+
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
+
+import { Director } from "../../model/director";
+import { BDDirectoresService } from "../bddirectores.service";
+import { ListaDirectores } from "../../model/listaDirectores";
+import { Jefatura } from "../../model/jefatura";
+import { BDJefaturaService } from "../bdjefatura.service";
+import { ListaJefaturas } from "../../model/listaJefaturas";
+
 
 @Component({
   selector: "app-progreso",
@@ -35,32 +44,67 @@ import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 export class ProgresoComponent {
   public listaT!: ListaTesistas;
   public listaR!: ListaRevisores;
+  public listaD!: ListaDirectores;
+  public listaJ!: ListaJefaturas;
   public tesistaMatricula!: string;
   public revisorMatricula!: string;
+  public directorId!: string;
+  public coDirectorId!: string;
+  public jefaturaId!: string;
   public tesista!: Tesista;
   public revisor1!: Revisor;
   public revisor2!: Revisor;
+  public director!: Director;
+  public coDirector?: Director;
+  public jefatura!: Jefatura;
   public currentUser: string = "tesista";
+  public option: string;
   constructor(
     private service: BdTesistasService,
-    private serviceR:BDRevisoresService,
+    private serviceR: BDRevisoresService,
+    private serviceD: BDDirectoresService,
+    private serviceJ: BDJefaturaService,
     private sharedDataService: SharedDataService
   ) {
-    this.tesistaMatricula = this.sharedDataService.getData("matriculaT");
-    
+    this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
+    this.option = this.sharedDataService.getData("option");
     this.listaT = service.getTesistas();
     this.listaR = serviceR.getRevisores();
+    this.listaD = serviceD.getDirectores();
+    this.listaJ = serviceJ.getJefaturas();
     this.obtenerTesista();
     this.obtenerRevisor();
+    this.obtenerDirectores();
+    this.obtenerJefatura();
   }
-  
+
+  filtrarOption() {
+    if (this.option == "mensajeRevisor"){}
+ }
+
+
   obtenerTesista() {
-    this.tesista = this.listaT.getTesistaByMatricula(this.tesistaMatricula);
+    this.tesista = this.listaT.getTesistaByMatricula("123456");
   }
+
   obtenerRevisor() {
     this.revisor1 = this.listaR.getRevisorByMatricula(this.tesista.revisor1!);
     this.revisor2 = this.listaR.getRevisorByMatricula(this.tesista.revisor2!);
   }
+
+  obtenerDirectores() {
+    this.director = this.listaD.getDirectorById(this.tesista.directorTesis);
+    if (this.tesista.codirectorTesis) {
+      this.coDirector = this.listaD.getDirectorById(
+        this.tesista.codirectorTesis
+      );
+    }
+  }
+
+  obtenerJefatura() {
+    this.jefatura = this.listaJ.getJefaturaByCarrera(this.tesista.carrera)!;
+  }
+
   guardarValorSeleccionado() {
     const revisor = document.getElementById(
       "selectRevisores"

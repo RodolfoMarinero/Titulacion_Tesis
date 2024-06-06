@@ -5,9 +5,7 @@ export class ListaDirectores {
 
   constructor() {}
 
-
-  getDirector(): Director[] {
-
+  getDirectores(): Director[] {
     return this.directores;
   }
 
@@ -27,16 +25,13 @@ export class ListaDirectores {
       this.directores[indice] = nuevoDirector;
     } else {
       throw new Error(
-
         "No se encontró ningún Director con el Id proporcionado."
       );
     }
   }
 
-  getDirecotrById(id: string): Director{
-    const director = this.directores.find(
-      (director) => director.id === id
-    );
+  getDirectorById(id: string): Director {
+    const director = this.directores.find((director) => director.id === id);
 
     return director!;
   }

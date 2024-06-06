@@ -7,6 +7,10 @@ import { Tesista } from "../../model/tesista";
 import { BdTesistasService } from "../bd-tesistas.service";
 import { BDRevisoresService } from "../bd-revisores.service";
 import { Revisor } from "../../model/revisor";
+import { BDDirectoresService } from "../bddirectores.service";
+import { Director } from "../../model/director";
+import { BDJefaturaService } from "../bdjefatura.service";
+import { Jefatura } from "../../model/jefatura";
 
 interface Message {
   text: string;
@@ -24,40 +28,63 @@ interface Message {
 export class ChatComponent implements OnChanges {
   @Input() tesistaMatricula!: string;
   @Input() revisorMatricula!: string;
+  @Input() directorId!: string;
+  @Input() coDirectorId?: string;
+  @Input() jefaturaId!: string;
   @Input() currentUser!: string;
+
   public tesista!: Tesista;
-  public revisor!: Revisor ;
+  public revisor!: Revisor;
+  public director!: Director;
+  public jefatura!: Jefatura;
   public listaT: ListaTesistas = new ListaTesistas();
   newMessage: string = "";
   messages: Message[] = [];
   showClearButton: boolean = false;
   chatHeader: string = "";
+  destinatarioTipo!: string; // Agregar esta propiedad
 
   constructor(
     private serviceT: BdTesistasService,
     private serviceR: BDRevisoresService,
+    private serviceD: BDDirectoresService,
+    private serviceJ: BDJefaturaService,
     private chatService: BDChatService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["tesistaMatricula"] || changes["revisorMatricula"]) {
-      this.loadTesista();
-      this.loadRevisor();
+    if (
+      changes["tesistaMatricula"] ||
+      changes["revisorMatricula"] ||
+      changes["directorId"] ||
+      changes["jefaturaId"] ||
+      changes["currentUser"] ||
+      changes["destinatarioTipo"] // Detectar cambios en el tipo de destinatario
+    ) {
+      this.loadParticipants();
       this.loadMessages();
     }
   }
 
-  loadTesista() {
+  loadParticipants() {
     this.tesista = this.serviceT
       .getTesistas()
       .getTesistaByMatricula(this.tesistaMatricula);
-    this.updateChatHeader();
-  }
 
-  loadRevisor() {
-    this.revisor = this.serviceR
-      .getRevisores()
-      .getRevisorByMatricula(this.revisorMatricula);
+    if (this.destinatarioTipo === "revisor") {
+      this.revisor = this.serviceR
+        .getRevisores()
+        .getRevisorByMatricula(this.revisorMatricula);
+    } else if (this.destinatarioTipo === "director") {
+      this.director = this.serviceD
+        .getDirectores()
+        .getDirectorById(this.directorId);
+    } else if (this.destinatarioTipo === "jefatura") {
+      this.jefatura = this.serviceJ
+        .getJefaturas()
+        .getJefaturaById(this.jefaturaId);
+    }
+
     this.updateChatHeader();
   }
 
@@ -91,15 +118,40 @@ export class ChatComponent implements OnChanges {
   }
 
   private getConversationId(): string {
-    return `${this.tesistaMatricula}-${this.revisorMatricula}`;
+    if (this.destinatarioTipo === "revisor") {
+      return `${this.tesistaMatricula}-${this.revisorMatricula}`;
+    } else if (this.destinatarioTipo === "director") {
+      return `${this.tesistaMatricula}-${this.directorId}`;
+    } else if (this.destinatarioTipo === "jefatura") {
+      return `${this.tesistaMatricula}-${this.jefaturaId}`;
+    } else {
+      return ""; // Handle other cases as needed
+    }
   }
 
   private updateChatHeader() {
-    if (this.tesista || this.revisor) {
-      this.chatHeader =
-        this.currentUser === "revisor"
-          ? this.tesista?.nombre || ""
-          : this.revisor?.nombre || "";
+    if (this.tesista) {
+      if (this.currentUser === "tesista") {
+        if (this.destinatarioTipo === "revisor") {
+          this.chatHeader = this.revisor?.nombre || "";
+        } else if (this.destinatarioTipo === "director") {
+          this.chatHeader = this.director?.nombre || "";
+        } else if (this.destinatarioTipo === "jefatura") {
+          this.chatHeader = this.jefatura?.nombre || "";
+        }
+      } else if (this.currentUser === "revisor") {
+        this.chatHeader = this.tesista?.nombre || "";
+      } else if (this.currentUser === "director") {
+        this.chatHeader = this.tesista?.nombre || "";
+      } else if (this.currentUser === "jefatura") {
+        if (this.destinatarioTipo === "tesista") {
+          this.chatHeader = this.tesista?.nombre || "";
+        } else if (this.destinatarioTipo === "revisor") {
+          this.chatHeader = this.revisor?.nombre || "";
+        } else if (this.destinatarioTipo === "director") {
+          this.chatHeader = this.director?.nombre || "";
+        }
+      }
     }
   }
 }
