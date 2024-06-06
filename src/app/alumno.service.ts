@@ -7,15 +7,12 @@ import { Alumno } from '../model/alumno';
   providedIn: 'root'
 })
 export class AlumnoService {
-
-  private baseUrl='http://localhost:8080/alumnos';
-
-  constructor(private http:HttpClient) {
-
+private baseURL='http://localhost:8080/alumnos'
+  constructor(private http: HttpClient) { 
+    
   }
-
   getUsers(): Observable<Alumno[]>{
-    alert("obteniendo datos");
-    return this.http.get<Alumno[]>(this.baseUrl);
+    alert("obteniendo contenido");
+    return this.http.get<Alumno[]>(this.baseURL);
   }
 }

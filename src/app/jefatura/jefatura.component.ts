@@ -12,6 +12,7 @@ import { NavMenuComponent } from '../nav-menu/nav-menu.component';
   styleUrl: "./jefatura.component.css",
 })
 export class JefaturaComponent {
+  tesista: string = "jefatura";
   tesistaMatricula: string = "123456"; 
   revisorMatricula: string = "654321";
   currentUser: string = "revisor";

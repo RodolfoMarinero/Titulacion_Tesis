@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 interface Message {
   text: string;
@@ -11,6 +12,8 @@ interface Message {
 })
 export class BDChatService {
   private storageKey = "chatConversations";
+  private modalVisibility = new BehaviorSubject<boolean>(false);
+  modalVisibility$ = this.modalVisibility.asObservable();
 
   getMessages(conversationId: string): Message[] {
     const conversations = this.getConversations();
@@ -35,5 +38,13 @@ export class BDChatService {
   private getConversations(): { [key: string]: Message[] } {
     const conversations = localStorage.getItem(this.storageKey);
     return conversations ? JSON.parse(conversations) : {};
+  }
+
+  openModal() {
+    this.modalVisibility.next(true);
+  }
+
+  closeModal() {
+    this.modalVisibility.next(false);
   }
 }

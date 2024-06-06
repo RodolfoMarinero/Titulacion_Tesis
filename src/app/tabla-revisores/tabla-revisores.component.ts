@@ -7,11 +7,12 @@ import { CommonModule } from "@angular/common";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { Revisor } from "../../model/revisor";
 import { SharedDataService } from "../shared-data.service";
+import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 
 @Component({
   selector: "app-tabla-revisores",
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, FormsModule, CommonModule,NavMenuComponent],
   templateUrl: "./tabla-revisores.component.html",
   styleUrl: "./tabla-revisores.component.css",
 })
@@ -79,6 +80,6 @@ export class TablaRevisoresComponent {
   }
   navigateToRevisarTesis(revisorMatricula: string) {
     this.sharedDataService.setData("revisorMatricula", revisorMatricula);
-    this.router.navigate(["/detallesTesis"]);
+    this.router.navigate(["/vistaRevisor"]);
   }
 }
