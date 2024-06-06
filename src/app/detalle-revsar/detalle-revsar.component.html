@@ -1,10 +1,1 @@
-<app-nav-menu></app-nav-menu>
-<div class="container mt-5">
-  <select class="custom-select chat-header" id="selectTesistas" title="Tesistas" (change)="guardarValorSeleccionado()">
-    <option *ngFor="let tesista of listaFiltrada.getTesistas()" [value]="tesista.matricula">
-      {{ tesista.nombre }}
-    </option>
-  </select>
-  <app-chat [tesistaMatricula]="tesistaMatricula" [revisorMatricula]="revisorMatricula"
-    [currentUser]="currentUser"></app-chat>
-</div>
+

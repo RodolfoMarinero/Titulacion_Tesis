@@ -11,4 +11,4 @@ import { NavMenuComponent } from '../nav-menu/nav-menu.component';
 })
 export class DirectorComponent {
 
-}
+} 
