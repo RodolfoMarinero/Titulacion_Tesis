@@ -1,24 +1,34 @@
-<div class="column">
-	<div class="chat-container">
-		<div class="chat-header">
-			<h4>EduLink<i class="fas fa-ellipsis-v" (click)="toggleClearButton()"></i></h4>
+@if(isModalActive){
+<div class="modal">
 
-
-			<p>{{chatHeader}}</p>
-
-		</div>
-		<div class="chat-message" *ngFor="let message of messages"
-			[ngClass]="{'sent': message.sender === currentUser, 'received': message.sender !== currentUser}">
-			<div class="message-bubble">
-				{{ message.text }}
+	<div class="modal-content">
+		<div class="chat-container">
+			<button class="modal-close is-large" aria-label="close" (click)="close()">✖</button>
+			<div class="chat-header">
+				<h4>Chat
+				</h4>
+				<p>{{ chatHeader }}</p>
 			</div>
+			<div class="chat-messages">
+				@for(message of messages; track message){
+				<div [ngClass]="{'sent': message.sender === currentUser, 'received': message.sender !== currentUser}"
+					class="chat-message">
+					<div class="message-bubble">
+						{{ message.text }}
+					</div>
+				</div>
+				}
+
+			</div>
+			<div class="chat-input-container">
+				<input [(ngModel)]="newMessage" type="text" class="chat-input" placeholder="Escribe un mensaje...">
+				<button (click)="sendMessage()" class="send-button" title="Enviar mensaje">
+					<i class="fas fa-paper-plane"></i>
+				</button>
+			</div>
+
 		</div>
-		<div class="chat-input-container">
-			<input [(ngModel)]="newMessage" type="text" class="chat-input" placeholder="Escribe un mensaje...">
-			<button (click)="sendMessage()" class="send-button" title="Enviar mensaje">
-				<i class="fas fa-paper-plane"></i>
-			</button>
-		</div>
-		<button *ngIf="showClearButton" (click)="clearChat()" class="clear-button">Clear Chat</button>
 	</div>
+
 </div>
+}

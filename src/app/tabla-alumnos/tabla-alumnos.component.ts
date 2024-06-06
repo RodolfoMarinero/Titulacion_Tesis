@@ -1,32 +1,28 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
 import {
-  FormControl,
-  ReactiveFormsModule,
-  FormGroup,
-  FormBuilder,
-  Validator,
-  Validators,
-  FormsModule,
-} from "@angular/forms";
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+} from "@angular/core";
 import { Router, RouterLink, RouterModule } from "@angular/router";
 import { Tesista } from "../../model/tesista";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { BdTesistasService } from "../bd-tesistas.service";
 import { CommonModule } from "@angular/common";
-import { Revisor } from "../../model/revisor";
-import { ListaRevisores } from "../../model/listaRevisores";
-import { ListaTareas } from "../../model/listaTareas";
-import { Tarea } from "../../model/tarea";
 import { SharedDataService } from "../shared-data.service";
+import { BDChatService } from "../bd-chat.service";
+import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
 
 @Component({
   selector: "app-tabla-alumnos",
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, FormsModule, CommonModule],
+  imports: [CommonModule, RouterModule, TablaDirectoresComponent],
   templateUrl: "./tabla-alumnos.component.html",
-  styleUrl: "./tabla-alumnos.component.css",
+  styleUrls: ["./tabla-alumnos.component.css"],
 })
-export class TablaAlumnosComponent {
+export class TablaAlumnosComponent implements OnChanges {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
   @Input() revisorMatricula: string = "";
@@ -38,33 +34,37 @@ export class TablaAlumnosComponent {
   constructor(
     private router: Router,
     private service: BdTesistasService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private chatService: BDChatService
   ) {
-    //this.cargarLocal();
+    this.cargarLocal();
     this.lista = service.getTesistas();
     this.listaFiltrada = this.lista;
-    console.log("Lista de tesistas:", this.lista);
-  }
-
-  ngOnInit() {
+    this.filtro = "tesista";
     this.aplicarFiltro();
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["filtro"]) {
+      this.aplicarFiltro();
+    }
+  }
+
   cargarLocal() {
-    // Crear instancias de Tesista con datos de prueba
+    // Datos de prueba
     let tesista1 = new Tesista(
-      "123456",
-      "Juan",
-      "Pérez",
-      "Ingeniería Informática",
-      "Desarrollo de una aplicación web",
-      "Dr. Antonio Gómez",
+      "123456", //matricula
+      "Juan", //nombre
+      "Pérez", //apellido
+      "Ingeniería Informática", //carrera
+      "Desarrollo de una aplicación web", //titulo tesis
+      "123098", //director
       "juan@example.com",
       "password123",
       true,
-      "111111",
-      "654321"
+      "111111", //revisor1
+      "654321" //revisor2
     );
-
     let tesista2 = new Tesista(
       "987654",
       "María",
@@ -78,7 +78,6 @@ export class TablaAlumnosComponent {
       "111111",
       "654321"
     );
-
     let tesista3 = new Tesista(
       "456789",
       "Pedro",
@@ -93,7 +92,6 @@ export class TablaAlumnosComponent {
       "654321"
     );
 
-    // Agregar los tesistas a la lista
     this.lista.agregar(tesista1);
     this.lista.agregar(tesista2);
     this.lista.agregar(tesista3);
@@ -119,10 +117,29 @@ export class TablaAlumnosComponent {
         this.listaFiltrada = this.lista;
     }
   }
-  navigateToProgreso(tesistaMatricula: string, opcion: string) {
+
+  navigateToProgreso(tesistaMatricula: string) {
     this.sharedDataService.setData("tesistaMatricula", tesistaMatricula);
-    this.sharedDataService.setData("opcion", opcion);
     this.router.navigate(["/progreso"]);
+  }
+
+  navigateToRevisor(revisorMatricula: string) {
+    this.sharedDataService.setData("revisorMatricula", revisorMatricula);
+  }
+  @Output() tesistaMa = new EventEmitter<string>();
+
+  guardarMatriculaTesista(tesistaM: string) {
+    //this.sharedDataService.setData("tesistaM", tesistaM);
+    this.tesistaMa.emit(tesistaM);
+    this.chatService.openModal();
+  }
+
+  navigateToDirector(directorMatricula: string) {
+    this.sharedDataService.setData("directorMatricula", directorMatricula);
+  }
+
+  navigateToJefatura(directorMatricula: string) {
+    this.sharedDataService.setData("directorMatricula", directorMatricula);
   }
 
   filtrarTesistasPorRevisor() {

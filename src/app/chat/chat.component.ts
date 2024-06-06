@@ -1,8 +1,14 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { BDChatService } from "../bd-chat.service";
-import { ListaTesistas } from "../../model/listaTesistas";
 import { Tesista } from "../../model/tesista";
 import { BdTesistasService } from "../bd-tesistas.service";
 import { BDRevisoresService } from "../bd-revisores.service";
@@ -26,23 +32,21 @@ interface Message {
   imports: [FormsModule, CommonModule],
 })
 export class ChatComponent implements OnChanges {
-  @Input() tesistaMatricula!: string;
-  @Input() revisorMatricula!: string;
-  @Input() directorId!: string;
-  @Input() coDirectorId?: string;
-  @Input() jefaturaId!: string;
+  @Input() destinatario!: string; // Puede ser 'revisor', 'director', 'jefatura', etc.
+  @Input() destinatarioId!: string;
   @Input() currentUser!: string;
+  @Input() currentUserId!: string;
 
   public tesista!: Tesista;
   public revisor!: Revisor;
   public director!: Director;
   public jefatura!: Jefatura;
-  public listaT: ListaTesistas = new ListaTesistas();
+  isModalActive: boolean = false;
   newMessage: string = "";
   messages: Message[] = [];
   showClearButton: boolean = false;
   chatHeader: string = "";
-  destinatarioTipo!: string; // Agregar esta propiedad
+  @Output() closeModal = new EventEmitter<void>();
 
   constructor(
     private serviceT: BdTesistasService,
@@ -50,39 +54,45 @@ export class ChatComponent implements OnChanges {
     private serviceD: BDDirectoresService,
     private serviceJ: BDJefaturaService,
     private chatService: BDChatService
-  ) {}
+  ) {
+    this.chatService.modalVisibility$.subscribe((isVisible) => {
+      this.isModalActive = isVisible;
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (
-      changes["tesistaMatricula"] ||
-      changes["revisorMatricula"] ||
-      changes["directorId"] ||
-      changes["jefaturaId"] ||
+      changes["destinatario"] ||
+      changes["destinatarioId"] ||
       changes["currentUser"] ||
-      changes["destinatarioTipo"] // Detectar cambios en el tipo de destinatario
+      changes["currentUserId"]
     ) {
       this.loadParticipants();
       this.loadMessages();
     }
   }
 
+  open() {
+    this.isModalActive = true;
+  }
+
   loadParticipants() {
     this.tesista = this.serviceT
       .getTesistas()
-      .getTesistaByMatricula(this.tesistaMatricula);
+      .getTesistaByMatricula(this.destinatarioId);
 
-    if (this.destinatarioTipo === "revisor") {
+    if (this.destinatario === "revisor") {
       this.revisor = this.serviceR
         .getRevisores()
-        .getRevisorByMatricula(this.revisorMatricula);
-    } else if (this.destinatarioTipo === "director") {
+        .getRevisorByMatricula(this.destinatarioId);
+    } else if (this.destinatario === "director") {
       this.director = this.serviceD
         .getDirectores()
-        .getDirectorById(this.directorId);
-    } else if (this.destinatarioTipo === "jefatura") {
+        .getDirectorById(this.destinatarioId);
+    } else if (this.destinatario === "jefatura") {
       this.jefatura = this.serviceJ
         .getJefaturas()
-        .getJefaturaById(this.jefaturaId);
+        .getJefaturaById(this.destinatarioId);
     }
 
     this.updateChatHeader();
@@ -106,7 +116,7 @@ export class ChatComponent implements OnChanges {
       this.newMessage = "";
     }
   }
-
+  /*
   clearChat() {
     this.messages = [];
     const conversationId = this.getConversationId();
@@ -116,42 +126,31 @@ export class ChatComponent implements OnChanges {
   toggleClearButton() {
     this.showClearButton = !this.showClearButton;
   }
-
+*/
   private getConversationId(): string {
-    if (this.destinatarioTipo === "revisor") {
-      return `${this.tesistaMatricula}-${this.revisorMatricula}`;
-    } else if (this.destinatarioTipo === "director") {
-      return `${this.tesistaMatricula}-${this.directorId}`;
-    } else if (this.destinatarioTipo === "jefatura") {
-      return `${this.tesistaMatricula}-${this.jefaturaId}`;
-    } else {
-      return ""; // Handle other cases as needed
-    }
+    const ids = [this.currentUserId, this.destinatarioId].sort();
+    return `${ids[0]}-${ids[1]}`;
+  }
+
+  close() {
+    this.isModalActive = false;
+    this.closeModal.emit();
+    this.chatService.closeModal();
   }
 
   private updateChatHeader() {
-    if (this.tesista) {
-      if (this.currentUser === "tesista") {
-        if (this.destinatarioTipo === "revisor") {
-          this.chatHeader = this.revisor?.nombre || "";
-        } else if (this.destinatarioTipo === "director") {
-          this.chatHeader = this.director?.nombre || "";
-        } else if (this.destinatarioTipo === "jefatura") {
-          this.chatHeader = this.jefatura?.nombre || "";
-        }
-      } else if (this.currentUser === "revisor") {
-        this.chatHeader = this.tesista?.nombre || "";
-      } else if (this.currentUser === "director") {
-        this.chatHeader = this.tesista?.nombre || "";
-      } else if (this.currentUser === "jefatura") {
-        if (this.destinatarioTipo === "tesista") {
-          this.chatHeader = this.tesista?.nombre || "";
-        } else if (this.destinatarioTipo === "revisor") {
-          this.chatHeader = this.revisor?.nombre || "";
-        } else if (this.destinatarioTipo === "director") {
-          this.chatHeader = this.director?.nombre || "";
-        }
-      }
+    if (this.destinatario === "revisor") {
+      this.chatHeader =
+        this.revisor?.nombre + " " + this.revisor?.apellidos || "";
+    } else if (this.destinatario === "director") {
+      this.chatHeader =
+        this.director?.nombre + " " + this.director?.apellidos || "";
+    } else if (this.destinatario === "jefatura") {
+      this.chatHeader =
+        this.jefatura?.nombre + " " + this.jefatura?.apellidos || "";
+    } else {
+      this.chatHeader =
+        this.tesista?.nombre + " " + this.tesista?.apellidos || "";
     }
   }
 }

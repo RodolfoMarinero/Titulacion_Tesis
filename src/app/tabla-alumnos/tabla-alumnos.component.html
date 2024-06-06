@@ -1,7 +1,8 @@
 <div>
+  <app-tabla-directores></app-tabla-directores>
   <h2>Lista de Tesistas</h2>
   <div class="row">
-    <div class="col-xl-6 mb-4" *ngFor="let tesista of listaFiltrada.getTesistas()" >
+    <div class="col-xl-6 mb-4" *ngFor="let tesista of listaFiltrada.getTesistas()">
       <div class="card">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center">
@@ -19,32 +20,41 @@
           </div>
         </div>
         <div class="card-footer border-0 bg-body-tertiary p-2 d-flex justify-content-around">
-          <ng-container *ngIf="filtro === 'revisor' || filtro === 'director' ">
-            <a class="btn btn-outline-secondary" *ngIf="filtro === 'revisor' "
-              (click)="navigateToRevisor(tesista.matricula)" role="button">
+          @if(filtro=="revisor"||filtro=="director"){
+          <ng-container>
+            @if(filtro=="revisor"){
+            <a class="btn btn-outline-secondary"
+              (click)="guardarMatriculaTesista(tesista.matricula)" role="button">
               Mensaje <i class="fas fa-envelope ms-2"></i>
             </a>
-            <a class="btn btn-outline-secondary" *ngIf="filtro === 'director'"
-              (click)="navigateToDirector(tesista.matricula)" role="button">
+            }
+            @if(filtro=="director"){
+            <a class="btn btn-outline-secondary"
+              (click)="guardarMatriculaTesista(tesista.matricula)" role="button">
               Mensaje<i class="fas fa-envelope ms-2"></i>
             </a>
-            <a class="btn btn-outline-secondary" (click)="navigateToJefatura(tesista.matricula)" role="button">
+            }
+
+            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">
               Mensaje a Jefatura <i class="fas fa-phone ms-2"></i>
             </a>
           </ng-container>
-          
+          }
           <!-- Botones para tesista -->
-          <ng-container *ngIf="filtro === 'tesista'">
-            <a class="btn btn-outline-secondary" (click)="navigateToProgreso(tesista.matricula)" role="button">Mensaje a Director<i class="fas fa-envelope ms-2"></i></a>
-            <a class="btn btn-outline-secondary"(click)="navigateToProgreso(tesista.matricula)" role="button">Mensaje a Revisor<i class="fas fa-envelope ms-2"></i></a>
-            <a class="btn btn-outline-secondary" (click)="navigateToProgreso(tesista.matricula)" role="button">Mensaje a Jefatura<i class="fas fa-phone ms-2"></i></a>
+          @if(filtro=="tesista"){
+          <ng-container>
+            <a class="btn btn-outline-secondary" (click)="navigateToProgreso(tesista.matricula)"
+              role="button">Progreso<i class="fas fa-envelope ms-2"></i></a>
           </ng-container>
-          
+          }
           <!-- Botones para jefatura -->
           <ng-container *ngIf="filtro === 'jefatura'">
-            <a class="btn btn-outline-secondary" (click)="navigateToProgreso(tesista.matricula)" role="button">Mensaje a Director<i class="fas fa-envelope ms-2"></i></a>
-            <a class="btn btn-outline-secondary" (click)="navigateToProgreso(tesista.matricula)" role="button">Mensaje a Revisor<i class="fas fa-envelope ms-2"></i></a>
-            <a class="btn btn-outline-secondary"(click)="navigateToProgreso(tesista.matricula)" role="button">Mensaje a Tesista<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">Mensaje a
+              Director<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">Mensaje a
+              Revisor<i class="fas fa-envelope ms-2"></i></a>
+            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">Mensaje a
+              Tesista<i class="fas fa-envelope ms-2"></i></a>
           </ng-container>
         </div>
       </div>
