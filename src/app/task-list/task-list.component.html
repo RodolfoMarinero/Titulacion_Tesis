@@ -15,11 +15,28 @@
                     <th scope="col">Actividad</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha Límite</th>
-                    <th scope="col">Actividades</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
+            <tr>
+                <td><input title="Actividad" type="text" id="actividad_input"></td>
+                <select title="Estado" id="estado_select">
+                    <option value="En curso" selected>En curso</option>
+                    <option value="Completado">Completado</option>
+                    <option value="Pendiente">Pendiente</option>
+                </select>
+                <td><input title="limite" type="date" id="fecha_limite_input"></td>
+                <th><button (click)="agregarTarea()">Agregar Tarea</button></th>
+            </tr>
             <tbody id="listaTareas">
-                <!-- Aquí se renderizarán las tareas -->
+                @for(tarea of listaTareas.getTareas();track tarea.id){
+                <tr>
+                    <td>{{ tarea.actividad }}</td>
+                    <td>{{ tarea.estado }}</td>
+                    <td colspan="2">{{ tarea.fecha}}</td>
+                </tr>
+                }
+
             </tbody>
         </table>
     </div>

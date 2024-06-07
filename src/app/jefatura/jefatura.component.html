@@ -1,2 +1,3 @@
 <app-nav-menu></app-nav-menu>
-<app-tabla-alumnos [filtro]="tesista"></app-tabla-alumnos>
+<app-tabla-alumnos [filtro]="jefatura"></app-tabla-alumnos>
+<app-chat #modal [currentUser]="jefatura"[currentUserId]="jefaturaMatricula"[destinatario]="tesista"[destinatarioId]="tesistaMatricula"></app-chat>

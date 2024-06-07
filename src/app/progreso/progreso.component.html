@@ -4,18 +4,29 @@
 
     <select class="custom-select chat-header" id="selectDestinatarios" title="Destinatarios"
         (change)="guardarValorSeleccionado($event)">
-        <option *ngIf="revisor1.matricula" [value]="revisor1.matricula" data-role="revisor">{{ revisor1.nombre }}
+        @if(revisor1.matricula){
+        <option [value]="revisor1.matricula" data-role="revisor">{{ revisor1.nombre }}
         </option>
-        <option *ngIf="revisor2.matricula" [value]="revisor2.matricula" data-role="revisor">{{ revisor2.nombre }}
+        }
+        @if(revisor2.matricula){
+        <option [value]="revisor2.matricula" data-role="revisor">{{ revisor2.nombre }}
         </option>
-        <option *ngIf="director.id" [value]="director.id" data-role="director">{{ director.nombre }}</option>
-        <option *ngIf="coDirector?.id" [value]="coDirector!.id" data-role="director">{{ coDirector?.nombre }}</option>
-        <option *ngIf="jefatura.id" [value]="jefatura.id" data-role="jefatura">{{ jefatura.nombre }}</option>
+        }
+        @if(director.id){
+        <option [value]="director.id" data-role="director">{{ director.nombre }}</option>
+        }
+        @if(coDirector?.id){
+        <option [value]="coDirector!.id" data-role="director">{{ coDirector?.nombre }}</option>
+        }
+        @if(jefatura.id){
+        <option [value]="jefatura.id" data-role="jefatura">{{ jefatura.nombre }}</option>
+        }
+
     </select>
-    
+
     <app-chat #modal [currentUserId]="tesista.matricula" [destinatario]="destinatario" [destinatarioId]="destinatarioId"
         [currentUser]="currentUser"></app-chat>
-    
+
 
 </div>
 <app-task-modal></app-task-modal>

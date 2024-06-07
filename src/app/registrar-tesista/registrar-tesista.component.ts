@@ -61,19 +61,23 @@ export class RegistrarTesistaComponent {
   ngOnInit(): void {}
 
   registrarTesista(): void {
-    const nuevoTesista: Tesista = {
-      matricula: this.registroForm.value.matricula,
-      nombre: this.registroForm.value.nombre,
-      apellidos: this.registroForm.value.apellidos,
-      carrera: this.registroForm.value.carrera,
-      tituloTesis: this.registroForm.value.tituloTesis,
-      directorTesis: this.registroForm.value.directorTesis,
-      codirectorTesis: this.registroForm.value.codirectorTesis,
-      fechaInicio: this.registroForm.value.fechaInicio,
-      fechaFinal: this.registroForm.value.fechaFinal,
-      correoElectronico: this.registroForm.value.correoElectronico,
-      contrasena: this.registroForm.value.contrasena,
-    };
+     const nuevoTesista: Tesista = new Tesista(
+       this.registroForm.value.matricula,
+       this.registroForm.value.nombre,
+       this.registroForm.value.apellidos,
+       this.registroForm.value.carrera,
+       this.registroForm.value.tituloTesis,
+       this.registroForm.value.directorTesis,
+       this.registroForm.value.fechaInicio,
+       this.registroForm.value.fechaFinal,
+       this.registroForm.value.correoElectronico,
+       this.registroForm.value.contrasena,
+       this.registroForm.value.notificacion || false, // Asegurando que el valor de notificación sea booleano
+       this.registroForm.value.revisor1,
+       this.registroForm.value.revisor2,
+       this.registroForm.value.codirectorTesis,
+       this.registroForm.value.tareas
+     );
 
     // Agregar el nuevo tesista
     this.bdTesistasService.agregarTesista(nuevoTesista);

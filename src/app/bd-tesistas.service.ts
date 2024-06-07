@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 export class BdTesistasService {
   private baseUrl='http://localhost:8080/tesistas';
   constructor(private http:HttpClient) {}
-  getTesistas(): ListaTesistas {
+    getTesistas(): ListaTesistas {
     const tesistasString = localStorage.getItem("tesistas");
     const listaTesistas = new ListaTesistas(); // Crear una instancia de ListaTesistas
     // Si no hay tesistas, retorna la lista vacía

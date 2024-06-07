@@ -28,7 +28,7 @@ export class BdTareasService {
     const array = tareas.getTareas();
     localStorage.setItem("tareas", JSON.stringify(array));
   }
-  agregarTareas(nuevoTarea: Tarea) {
+  agregarTarea(nuevoTarea: Tarea) {
     const listaTareas = this.getTareas();
     listaTareas.agregar(nuevoTarea);
     this.setTareas(listaTareas);

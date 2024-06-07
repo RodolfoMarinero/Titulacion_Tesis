@@ -7,13 +7,20 @@ import { NavMenuComponent } from '../nav-menu/nav-menu.component';
 @Component({
   selector: "app-jefatura",
   standalone: true,
-  imports: [TablaAlumnosComponent, ChatComponent, TablaRevisoresComponent, NavMenuComponent],
+  imports: [
+    TablaAlumnosComponent,
+    ChatComponent,
+    TablaRevisoresComponent,
+    NavMenuComponent,
+    ChatComponent
+  ],
   templateUrl: "./jefatura.component.html",
   styleUrl: "./jefatura.component.css",
 })
 export class JefaturaComponent {
-  tesista: string = "jefatura";
-  tesistaMatricula: string = "123456"; 
-  revisorMatricula: string = "654321";
-  currentUser: string = "revisor";
+  jefatura: string = "jefatura";
+  tesista: string = "tesista";
+  tesistaMatricula: string = "123456";
+  jefaturaMatricula: string = "5555";
+ 
 }
