@@ -38,7 +38,7 @@ export class BdTesistasService {
     this.setTesistas(listaTesistas);
   }
   getUsers(): Observable<Tesista[]>{
-    alert("obteniendo datos");
+    alert("obteniendo datos"+JSON.stringify(this.http.get<Tesista[]>(this.baseUrl)));
     return this.http.get<Tesista[]>(this.baseUrl);
   }
 }

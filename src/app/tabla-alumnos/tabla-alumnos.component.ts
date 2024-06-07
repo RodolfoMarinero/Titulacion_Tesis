@@ -1,9 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
   OnChanges,
   SimpleChanges,
 } from "@angular/core";
@@ -23,7 +19,7 @@ import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.c
   templateUrl: "./tabla-alumnos.component.html",
   styleUrls: ["./tabla-alumnos.component.css"],
 })
-export class TablaAlumnosComponent implements OnChanges {
+export class TablaAlumnosComponent implements OnChanges,OnInit {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
   @Input() revisorMatricula: string = "";
