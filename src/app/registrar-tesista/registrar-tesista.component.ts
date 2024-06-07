@@ -46,6 +46,8 @@ export class RegistrarTesistaComponent {
       tituloTesis: [''],
       directorTesis: [''],
       codirectorTesis: [''],
+      fechaInicio: ['',Validators.required],
+      fechaFinal: ['',Validators.required],
       correoElectronico: ['', Validators.required],
       contrasena: ['', Validators.required],
       confirmarContrasena: ['', Validators.required],
@@ -66,6 +68,8 @@ export class RegistrarTesistaComponent {
        this.registroForm.value.carrera,
        this.registroForm.value.tituloTesis,
        this.registroForm.value.directorTesis,
+       this.registroForm.value.fechaInicio,
+       this.registroForm.value.fechaFinal,
        this.registroForm.value.correoElectronico,
        this.registroForm.value.contrasena,
        this.registroForm.value.notificacion || false, // Asegurando que el valor de notificación sea booleano
