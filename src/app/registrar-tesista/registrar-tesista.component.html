@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <br><br>
-            
+
             <div id="formulario1" class="formulario">
                 <h3>Registrar Tesista</h3>
                 <div class="container-fluid">
@@ -15,11 +15,18 @@
                                         <br><br>
                                         <div class="form-row row">
                                             <div class="col-md-12">
-                                                <label><h3>Protocolos Disponibles</h3></label><br>
-                                                <select (change)="cargarDatos($event)">
-                                                    <option *ngFor="let protocolo of listaProtocolos.protocolos" [value]="protocolo.matricula">
-                                                        {{protocolo.nombre}} {{protocolo.apellidos}} de {{protocolo.carrera}}
+                                                <label>
+                                                    <h3>Protocolos Disponibles</h3>
+                                                </label><br>
+                                                <select title="protocolo" (change)="cargarDatos($event)">
+                                                    @for(protocolo of listaProtocolos.protocolos;track protocolo){
+
+
+                                                    <option [value]="protocolo.matricula">
+                                                        {{protocolo.nombre}} {{protocolo.apellidos}} de
+                                                        {{protocolo.carrera}}
                                                     </option>
+                                                    }
                                                 </select>
                                             </div>
                                         </div>
@@ -44,7 +51,7 @@
                                                     placeholder="Apellidos" class="form-control">
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Carrera</label>
@@ -63,16 +70,14 @@
                                             <div class="col-md-12">
                                                 <label>Director de Tesis</label>
                                                 <input formControlName="directorTesis" type="text" readonly required
-                                                    placeholder="Director de Tesis"
-                                                    class="form-control">
+                                                    placeholder="Director de Tesis" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-row row">
                                             <div class="col-md-12">
                                                 <label>Co-Director de Tesis</label>
                                                 <input formControlName="codirectorTesis" type="text" readonly
-                                                    placeholder="Co-Director de Tesis"
-                                                    class="form-control">
+                                                    placeholder="Co-Director de Tesis" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-row row">

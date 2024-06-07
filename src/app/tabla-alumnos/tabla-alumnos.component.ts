@@ -26,7 +26,7 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
   @Input() carrera: string = "";
   @Input() mostrarNotificaciones: boolean | null = null;
   @Input() directorTesis: string = "";
-  @Input() filtro: string = "";
+  @Input() filtro: string = "tesista";
 
   constructor(
     private router: Router,
@@ -34,7 +34,7 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     private sharedDataService: SharedDataService,
     private chatService: BDChatService
   ) {
-     
+     this.aplicarFiltro();
   }
 
   ngOnInit() {
@@ -43,7 +43,6 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     })
     this.listaFiltrada = this.lista;
     console.log("Lista de tesistas:", this.lista);
-    this.aplicarFiltro();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -71,9 +70,9 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
       "987654",
       "María",
       "González",
-      "Ciencias de la Computación",
+      "Ingeniería Informática",
       "Inteligencia Artificial",
-      "Dr. Roberto Martínez",
+      "123098",
       "maria@example.com",
       "password456",
       true,
@@ -102,8 +101,10 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
   }
 
   aplicarFiltro() {
+    
     switch (this.filtro) {
       case "revisor":
+        
         this.filtrarTesistasPorRevisor();
         break;
       case "carrera":
@@ -148,8 +149,8 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     this.listaFiltrada = new ListaTesistas();
     for (let tesista of this.lista.getTesistas()) {
       if (
-        tesista.revisor1 === this.revisorMatricula ||
-        tesista.revisor2 === this.revisorMatricula
+        tesista.getRevisor1() === "111111" ||
+        tesista.getRevisor2() === "111111"
       ) {
         this.listaFiltrada.agregar(tesista);
       }

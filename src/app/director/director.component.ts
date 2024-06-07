@@ -10,5 +10,5 @@ import { NavMenuComponent } from '../nav-menu/nav-menu.component';
   styleUrl: './director.component.css'
 })
 export class DirectorComponent {
-
+  public director: string = "director";
 } 

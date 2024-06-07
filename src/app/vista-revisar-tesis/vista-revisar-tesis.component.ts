@@ -23,7 +23,7 @@ import { BDChatService } from "../bd-chat.service";
 })
 export class VistaRevisarTesisComponent {
   public revisorMatricula: string;
-  public tesistaMatricula: string;
+  public tesistaMatricula!: string;
   public user: string = "revisor";
   public destinatario: string = "tesista";
   public activar!: string;
@@ -36,12 +36,13 @@ export class VistaRevisarTesisComponent {
     private dato: SharedDataService,
     private chatService: BDChatService
   ) {
-    this.tesistaMatricula = this.dato.getData("tesistaM");
     this.revisorMatricula = this.dato.getData("revisorMatricula");
+    //this.tesistaMatricula = this.dato.getData("tesistaM");
+    
 
     //this.activar = this.dato.getData("isModalActivo");
     console.log(this.revisorMatricula);
-    console.log(this.tesistaMatricula);
+    //console.log(this.tesistaMatricula);
     // console.log(this.activar);
   }
   openChatModal() {
