@@ -46,6 +46,8 @@ export class RegistrarTesistaComponent {
       tituloTesis: [''],
       directorTesis: [''],
       codirectorTesis: [''],
+      fechaInicio: ['',Validators.required],
+      fechaFinal: ['',Validators.required],
       correoElectronico: ['', Validators.required],
       contrasena: ['', Validators.required],
       confirmarContrasena: ['', Validators.required],
@@ -67,6 +69,8 @@ export class RegistrarTesistaComponent {
       tituloTesis: this.registroForm.value.tituloTesis,
       directorTesis: this.registroForm.value.directorTesis,
       codirectorTesis: this.registroForm.value.codirectorTesis,
+      fechaInicio: this.registroForm.value.fechaInicio,
+      fechaFinal: this.registroForm.value.fechaFinal,
       correoElectronico: this.registroForm.value.correoElectronico,
       contrasena: this.registroForm.value.contrasena,
     };
