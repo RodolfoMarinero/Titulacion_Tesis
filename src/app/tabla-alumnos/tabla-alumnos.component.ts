@@ -49,9 +49,8 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["filtro"]) {
-      
-        this.aplicarFiltro();
-      
+      this.aplicarFiltro();
+
     }
   }
 

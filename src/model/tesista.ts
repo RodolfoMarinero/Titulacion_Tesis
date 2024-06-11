@@ -8,6 +8,8 @@ export class Tesista {
   public tituloTesis: string;
   public directorTesis: string;
   public codirectorTesis?: string;
+  public fechaInicio: Date;
+  public fechaFinal: Date;
   public correoElectronico: string;
   public contrasena: string;
   public notificacion?: boolean;
@@ -22,6 +24,8 @@ export class Tesista {
     carrera: string,
     tituloTesis: string,
     directorTesis: string,
+    fechaInicio: Date,
+    fechaFinal: Date,
     correoElectronico: string,
     contrasena: string,
     notificacion: boolean = false,
@@ -36,6 +40,8 @@ export class Tesista {
     this.carrera = carrera;
     this.tituloTesis = tituloTesis;
     this.directorTesis = directorTesis;
+    this.fechaInicio = fechaInicio;
+    this.fechaFinal = fechaFinal;
     this.correoElectronico = correoElectronico;
     this.contrasena = contrasena;
     this.notificacion = notificacion;
