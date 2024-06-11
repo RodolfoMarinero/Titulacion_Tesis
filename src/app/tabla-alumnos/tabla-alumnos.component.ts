@@ -11,18 +11,19 @@ import { CommonModule } from "@angular/common";
 import { SharedDataService } from "../shared-data.service";
 import { BDChatService } from "../bd-chat.service";
 import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
+import { TablaJefesComponent } from '../tabla-jefes/tabla-jefes.component';
 
 @Component({
   selector: "app-tabla-alumnos",
   standalone: true,
-  imports: [CommonModule, RouterModule, TablaDirectoresComponent],
+  imports: [CommonModule, RouterModule, TablaDirectoresComponent,TablaJefesComponent],
   templateUrl: "./tabla-alumnos.component.html",
   styleUrls: ["./tabla-alumnos.component.css"],
 })
 export class TablaAlumnosComponent implements OnChanges,OnInit {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
-  @Input() revisorMatricula: string = "";
+  @Input() revisorMatricula!: string;
   @Input() carrera: string = "";
   @Input() mostrarNotificaciones: boolean | null = null;
   @Input() directorTesis: string = "";
@@ -43,68 +44,23 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     })
     this.listaFiltrada = this.lista;
     console.log("Lista de tesistas:", this.lista);
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["filtro"]) {
-      this.aplicarFiltro();
+      
+        this.aplicarFiltro();
+      
     }
   }
 
-  cargarLocal() {
-    // Datos de prueba
-    let tesista1 = new Tesista(
-      "123456", //matricula
-      "Juan", //nombre
-      "Pérez", //apellido
-      "Ingeniería Informática", //carrera
-      "Desarrollo de una aplicación web", //titulo tesis
-      "123098", //director
-      "juan@example.com",
-      "password123",
-      true,
-      "111111", //revisor1
-      "654321" //revisor2
-    );
-    let tesista2 = new Tesista(
-      "987654",
-      "María",
-      "González",
-      "Ingeniería Informática",
-      "Inteligencia Artificial",
-      "123098",
-      "maria@example.com",
-      "password456",
-      true,
-      "111111",
-      "654321"
-    );
-    let tesista3 = new Tesista(
-      "456789",
-      "Pedro",
-      "López",
-      "Ingeniería Eléctrica",
-      "Diseño de un sistema de control automático",
-      "Dr. Alejandro Pérez",
-      "pedro@example.com",
-      "password789",
-      false,
-      "111111",
-      "654321"
-    );
-
-    this.lista.agregar(tesista1);
-    this.lista.agregar(tesista2);
-    this.lista.agregar(tesista3);
-
-    this.service.setTesistas(this.lista);
-  }
 
   aplicarFiltro() {
     
     switch (this.filtro) {
       case "revisor":
-        
+        alert("entra");
         this.filtrarTesistasPorRevisor();
         break;
       case "carrera":
@@ -134,6 +90,7 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
   guardarMatriculaTesista(tesistaM: string) {
     //this.sharedDataService.setData("tesistaM", tesistaM);
     this.tesistaMa.emit(tesistaM);
+    
     this.chatService.openModal();
   }
 
@@ -149,10 +106,12 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     this.listaFiltrada = new ListaTesistas();
     for (let tesista of this.lista.getTesistas()) {
       if (
-        tesista.getRevisor1() === "111111" ||
-        tesista.getRevisor2() === "111111"
+        tesista.getRevisor1() === this.revisorMatricula ||
+        tesista.getRevisor2() === this.revisorMatricula
       ) {
         this.listaFiltrada.agregar(tesista);
+        
+        console.log("Lista filtrada Revisores:  "+this.listaFiltrada);
       }
     }
   }

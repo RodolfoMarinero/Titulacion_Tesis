@@ -1,7 +1,8 @@
 
-@for(alumno of alumnos; track alumno.id){
-<div>
-    id:<label>{{alumno.id}}</label> Nombre:<label>{{alumno.nombre}}</label>
+@for(alumno of alumnos; track alumno.matricula){
+<div style="background-color: azure;">
+    id:<label>{{alumno.matricula}}</label> Nombre:<label>{{alumno.nombre}} </label> Apellidos: <label>{{alumno.apellidos}}</label>
 </div>
 
 }
+<button (click)="crearAlumno()">crearAlumno</button>

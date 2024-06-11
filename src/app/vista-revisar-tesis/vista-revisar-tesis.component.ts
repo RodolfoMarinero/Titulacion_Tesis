@@ -24,6 +24,7 @@ import { BDChatService } from "../bd-chat.service";
 export class VistaRevisarTesisComponent {
   public revisorMatricula: string;
   public tesistaMatricula!: string;
+  public destinatarioId!: string;
   public user: string = "revisor";
   public destinatario: string = "tesista";
   public activar!: string;
@@ -52,5 +53,7 @@ export class VistaRevisarTesisComponent {
   }
   obtenerTesistaMatricula(tesistaM: string): void {
     this.tesistaMatricula = tesistaM;
+    this.destinatarioId = this.tesistaMatricula;;
+    this.tesistaMatricula = "";
   }
 }

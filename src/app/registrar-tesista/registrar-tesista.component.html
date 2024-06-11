@@ -19,6 +19,7 @@
                                                     <h3>Protocolos Disponibles</h3>
                                                 </label><br>
                                                 <select title="protocolo" (change)="cargarDatos($event)">
+                                                    <option [value]="">Alumnos</option>
                                                     @for(protocolo of listaProtocolos.protocolos;track protocolo){
 
 

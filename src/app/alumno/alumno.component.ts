@@ -22,4 +22,8 @@ export class AlumnoComponent implements OnInit{
       this.alumnos=data;
     });
   }
+  crearAlumno() {
+    let alumno: Alumno = new Alumno("1923", "Rodo", "Marinero");
+    this.alumnoService.createTesista(alumno).subscribe(data => { console.log("AlumnoCreado") });
+  }
 }

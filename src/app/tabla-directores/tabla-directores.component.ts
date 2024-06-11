@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BDDirectoresService } from '../bddirectores.service';
 import { Director } from '../../model/director';
 import { ListaDirectores } from '../../model/listaDirectores';
@@ -13,18 +13,17 @@ import { ListaJefaturas } from '../../model/listaJefaturas';
   templateUrl: './tabla-directores.component.html',
   styleUrl: './tabla-directores.component.css'
 })
-export class TablaDirectoresComponent {
-  public lista = new ListaDirectores();
-  public lista2 = new ListaJefaturas();
-  constructor(private service: BDDirectoresService,private servicio:BDJefaturaService) {
-    this.cargarLocal();
+export class TablaDirectoresComponent implements OnInit {
+  public listaDirectores = new ListaDirectores();
+
+  constructor(private service: BDDirectoresService) {
+ 
   }
-  cargarLocal() {
-    let director = new Director("123098", "Director1", "apellidos", "area", "UNPA");
-    this.lista.agregar(director);
-    this.service.setDirectores(this.lista);
-    let jefe = new Jefatura("5555", "Fabian", "Ruiz", "Ingeniería Informática", "UNPA", "email");
-    this.lista2.agregar(jefe);
-    this.servicio.setJefaturas(this.lista2);
+  ngOnInit() {
+    this.service.getUsers().subscribe((data) => {
+      this.listaDirectores.directores = data;
+    });
+    
+    console.log("Lista de directores:", this.listaDirectores);
   }
 }

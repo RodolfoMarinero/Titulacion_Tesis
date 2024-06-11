@@ -4,15 +4,16 @@ import { Observable } from 'rxjs';
 import { Alumno } from '../model/alumno';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AlumnoService {
-private baseURL='http://localhost:8080/alumnos'
-  constructor(private http: HttpClient) { 
-    
+  private baseURL = "http://localhost:8080";
+  constructor(private http: HttpClient) {}
+  getUsers(): Observable<Alumno[]> {
+   
+    return this.http.get<Alumno[]>(this.baseURL+"/findall");
   }
-  getUsers(): Observable<Alumno[]>{
-    alert("obteniendo contenido");
-    return this.http.get<Alumno[]>(this.baseURL);
+  createTesista(tesista: Alumno): Observable<Alumno> {
+    return this.http.post<Alumno>(this.baseURL + "/addTesistaRequest", tesista);
   }
 }

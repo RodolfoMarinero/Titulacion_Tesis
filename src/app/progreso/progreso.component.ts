@@ -38,7 +38,7 @@ import { ListaJefaturas } from "../../model/listaJefaturas";
   templateUrl: "./progreso.component.html",
   styleUrls: ["./progreso.component.css"],
 })
-export class ProgresoComponent implements OnInit {
+export class ProgresoComponent {
   public listaT!: ListaTesistas;
   public listaR!: ListaRevisores;
   public listaD!: ListaDirectores;
@@ -66,44 +66,62 @@ export class ProgresoComponent implements OnInit {
   ) {
     this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
 
-    this.listaT = service.getTesistas();
-    this.listaR = serviceR.getRevisores();
-    this.listaD = serviceD.getDirectores();
-    this.listaJ = serviceJ.getJefaturas();
-  }
-
-  openModal() {
-    this.modal.open();
-  }
-  ngOnInit() {
+    //this.listaT = service.getTesistas();
+    //this.listaR = serviceR.getRevisores();
+    //this.listaD = serviceD.getDirectores();
+    //this.listaJ = serviceJ.getJefaturas();\
     this.obtenerTesista();
     this.obtenerRevisores();
     this.obtenerDirectores();
     this.obtenerJefatura();
   }
 
+  openModal() {
+    this.modal.open();
+  }
+  
+
   obtenerTesista() {
-    this.tesista = this.listaT.getTesistaByMatricula(this.tesistaMatricula);
-    this.currentUserId = this.tesistaMatricula;
+    alert("entra");
+    this.service.getUsers().subscribe((users) => {
+      this.tesista !=
+        users.find((user) => user.matricula === this.tesistaMatricula);
+    });
+    //this.tesista = this.listaT.getTesistaByMatricula(this.tesistaMatricula);
+    this.currentUserId = this.tesista.matricula;
+    alert(this.tesista.matricula);
   }
 
   obtenerRevisores() {
-    this.revisor1 = this.listaR.getRevisorByMatricula(this.tesista.revisor1!);
-    this.revisor2 = this.listaR.getRevisorByMatricula(this.tesista.revisor2!);
+    this.serviceR.getUsers().subscribe((users) => {
+      this.revisor1 !=
+        users.find((user) => user.matricula === this.tesista.revisor1);
+    });
+
+    this.serviceR.getUsers().subscribe((users) => {
+      this.revisor2 !=
+        users.find((user) => user.matricula === this.tesista.revisor2);
+    });
   }
 
   obtenerDirectores() {
-    this.director = this.listaD.getDirectorById(this.tesista.directorTesis);
+    this.serviceD.getUsers().subscribe((users) => {
+      this.director !=
+        users.find((user) => user.id === this.tesista.directorTesis);
+    });
+
     if (this.tesista.codirectorTesis) {
-      this.coDirector = this.listaD.getDirectorById(
-        this.tesista.codirectorTesis
-      );
+      this.serviceD.getUsers().subscribe((users) => {
+        this.coDirector !=
+          users.find((user) => user.id === this.tesista.codirectorTesis);
+      });
     }
   }
 
   obtenerJefatura() {
-    this.jefatura = this.listaJ.getJefaturaByCarrera(this.tesista.carrera)!;
-    console.log(this.jefatura.nombre);
+    this.serviceJ.getUsers().subscribe((users) => {
+      this.jefatura != users.find((user) => user.id === this.tesista.carrera);
+    });
   }
 
   guardarValorSeleccionado(event: Event) {

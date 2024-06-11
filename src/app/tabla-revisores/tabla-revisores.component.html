@@ -2,7 +2,7 @@
 <div>
     <h2>Lista de Revisores</h2>
     <div class="row">
-        @for(revisor of listaRevisores.getRevisores();track revisor.matricula){
+        @for(revisor of listaRevisores.revisores;track revisor.matricula){
         <div class="col-xl-6 mb-4" (click)="navigateToRevisarTesis(revisor.matricula)">
             <div class="card">
                 <div class="card-body">
