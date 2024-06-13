@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { BDRevisoresService } from "../bd-revisores.service";
+import { BDRevisoresService } from "../../service/bd-revisores.service";
 import { ListaRevisores } from "../../model/listaRevisores";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { Revisor } from "../../model/revisor";
-import { SharedDataService } from "../shared-data.service";
+import { SharedDataService } from "../../service/shared-data.service";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 
 @Component({

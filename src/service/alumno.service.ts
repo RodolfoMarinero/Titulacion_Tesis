@@ -10,10 +10,14 @@ export class AlumnoService {
   private baseURL = "http://localhost:8080";
   constructor(private http: HttpClient) {}
   getUsers(): Observable<Alumno[]> {
-   
-    return this.http.get<Alumno[]>(this.baseURL+"/findall");
+    return this.http.get<Alumno[]>(this.baseURL + "/findall");
   }
-  createTesista(tesista: Alumno): Observable<Alumno> {
-    return this.http.post<Alumno>(this.baseURL + "/addTesistaRequest", tesista);
+  createAlumno(alumno: Alumno): Observable<Alumno> {
+    return this.http.post<Alumno>(this.baseURL + "/addTesistaRequest", alumno);
+  }
+  deleteALumno(matricula: string): Observable<Alumno> {
+    return this.http.delete<Alumno>(
+      this.baseURL + "/deleteTesista/"+matricula
+    );
   }
 }

@@ -4,9 +4,9 @@ import { DetalleRevsarComponent } from "../detalle-revsar/detalle-revsar.compone
 import { HeaderRevisionComponent } from "../header-revision/header-revision.component";
 import { RevisionTesisComponent } from "../revision-tesis/revision-tesis.component";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
-import { SharedDataService } from "../shared-data.service";
+import { SharedDataService } from "../../service/shared-data.service";
 import { ChatComponent } from "../chat/chat.component";
-import { BDChatService } from "../bd-chat.service";
+import { BDChatService } from "../../service/bd-chat.service";
 
 @Component({
   selector: "app-vista-revisar-tesis",

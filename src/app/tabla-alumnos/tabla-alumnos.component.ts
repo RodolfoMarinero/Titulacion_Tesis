@@ -6,10 +6,10 @@ import {
 import { Router, RouterLink, RouterModule } from "@angular/router";
 import { Tesista } from "../../model/tesista";
 import { ListaTesistas } from "../../model/listaTesistas";
-import { BdTesistasService } from "../bd-tesistas.service";
+import { BdTesistasService } from "../../service/bd-tesistas.service";
 import { CommonModule } from "@angular/common";
-import { SharedDataService } from "../shared-data.service";
-import { BDChatService } from "../bd-chat.service";
+import { SharedDataService } from "../../service/shared-data.service";
+import { BDChatService } from "../../service/bd-chat.service";
 import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
 import { TablaJefesComponent } from '../tabla-jefes/tabla-jefes.component';
 
@@ -40,8 +40,8 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
 
   ngOnInit() {
     this.service.getUsers().subscribe(data => {
-      this.lista.tesistas=data;
-    })
+      this.lista.tesistas = data;
+    });
     this.listaFiltrada = this.lista;
     console.log("Lista de tesistas:", this.lista);
     

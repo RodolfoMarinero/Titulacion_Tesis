@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ListaTareas } from "../../model/listaTareas";
-import { BdTareasService } from "../bd-tareas.service";
+import { BdTareasService } from "../../service/bd-tareas.service";
 import { Tarea } from "../../model/tarea";
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListaJefaturas } from '../../model/listaJefaturas';
-import { BDJefaturaService } from '../bdjefatura.service';
+import { BDJefaturaService } from '../../service/bdjefatura.service';
 
 @Component({
   selector: "app-tabla-jefes",

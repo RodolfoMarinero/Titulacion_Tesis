@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BDDirectoresService } from '../bddirectores.service';
+import { BDDirectoresService } from '../../service/bddirectores.service';
 import { Director } from '../../model/director';
 import { ListaDirectores } from '../../model/listaDirectores';
-import { BDJefaturaService } from '../bdjefatura.service';
+import { BDJefaturaService } from '../../service/bdjefatura.service';
 import { Jefatura } from '../../model/jefatura';
 import { ListaJefaturas } from '../../model/listaJefaturas';
 
