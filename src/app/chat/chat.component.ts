@@ -8,15 +8,19 @@ import {
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { BDChatService } from "../bd-chat.service";
+import { BDChatService } from "../../service/bd-chat.service";
 import { Tesista } from "../../model/tesista";
-import { BdTesistasService } from "../bd-tesistas.service";
-import { BDRevisoresService } from "../bd-revisores.service";
+import { BdTesistasService } from "../../service/bd-tesistas.service";
+import { BDRevisoresService } from "../../service/bd-revisores.service";
 import { Revisor } from "../../model/revisor";
-import { BDDirectoresService } from "../bddirectores.service";
+import { BDDirectoresService } from "../../service/bddirectores.service";
 import { Director } from "../../model/director";
-import { BDJefaturaService } from "../bdjefatura.service";
+import { BDJefaturaService } from "../../service/bdjefatura.service";
 import { Jefatura } from "../../model/jefatura";
+import { ListaTesistas } from "../../model/listaTesistas";
+import { ListaRevisores } from "../../model/listaRevisores";
+import { ListaDirectores } from "../../model/listaDirectores";
+import { ListaJefaturas } from "../../model/listaJefaturas";
 
 interface Message {
   text: string;
@@ -36,7 +40,7 @@ export class ChatComponent implements OnChanges {
   @Input() destinatarioId!: string;
   @Input() currentUser!: string;
   @Input() currentUserId!: string;
-
+  
   public tesista!: Tesista;
   public revisor!: Revisor;
   public director!: Director;
@@ -69,6 +73,7 @@ export class ChatComponent implements OnChanges {
     ) {
       this.loadParticipants();
       this.loadMessages();
+      alert("destinatario " + this.destinatarioId);
     }
   }
 
@@ -77,25 +82,49 @@ export class ChatComponent implements OnChanges {
   }
 
   loadParticipants() {
-    this.tesista = this.serviceT
-      .getTesistas()
-      .getTesistaByMatricula(this.destinatarioId);
+    // Obtener tesista
+    
+    this.serviceT.getUsers().subscribe((users) => {
+      this.tesista != users.find(
+        (user) => user.matricula === this.destinatarioId
+      );
+      if (this.tesista) {
+        alert("tesista " + this.tesista.matricula);
+        this.updateChatHeader();
+      }
+    });
 
+    // Obtener revisor
     if (this.destinatario === "revisor") {
-      this.revisor = this.serviceR
-        .getRevisores()
-        .getRevisorByMatricula(this.destinatarioId);
-    } else if (this.destinatario === "director") {
-      this.director = this.serviceD
-        .getDirectores()
-        .getDirectorById(this.destinatarioId);
-    } else if (this.destinatario === "jefatura") {
-      this.jefatura = this.serviceJ
-        .getJefaturas()
-        .getJefaturaById(this.destinatarioId);
+      this.serviceR.getUsers().subscribe((users) => {
+        this.revisor != users.find(
+          (user) => user.matricula === this.destinatarioId
+        );
+        if (this.revisor) {
+          this.updateChatHeader();
+        }
+      });
     }
 
-    this.updateChatHeader();
+    // Obtener director
+    else if (this.destinatario === "director") {
+      this.serviceD.getUsers().subscribe((users) => {
+        this.director != users.find((user) => user.id === this.destinatarioId);
+        if (this.director) {
+          this.updateChatHeader();
+        }
+      });
+    }
+
+    // Obtener jefatura
+    else if (this.destinatario === "jefatura") {
+      this.serviceJ.getUsers().subscribe((users) => {
+        this.jefatura != users.find((user) => user.id === this.destinatarioId);
+        if (this.jefatura) {
+          this.updateChatHeader();
+        }
+      });
+    }
   }
 
   loadMessages() {
@@ -139,6 +168,9 @@ export class ChatComponent implements OnChanges {
   }
 
   private updateChatHeader() {
+    this.chatHeader =
+      this.tesista?.nombre + " " + this.tesista?.apellidos || "";
+    alert("actualiza");
     if (this.destinatario === "revisor") {
       this.chatHeader =
         this.revisor?.nombre + " " + this.revisor?.apellidos || "";
@@ -148,9 +180,6 @@ export class ChatComponent implements OnChanges {
     } else if (this.destinatario === "jefatura") {
       this.chatHeader =
         this.jefatura?.nombre + " " + this.jefatura?.apellidos || "";
-    } else {
-      this.chatHeader =
-        this.tesista?.nombre + " " + this.tesista?.apellidos || "";
-    }
+    } 
   }
 }

@@ -6,9 +6,9 @@ import { ListaTesistas } from "../../model/listaTesistas";
 import { ListaRevisores } from "../../model/listaRevisores";
 import { Tesista } from "../../model/tesista";
 import { Revisor } from "../../model/revisor";
-import { BdTesistasService } from "../bd-tesistas.service";
-import { BDRevisoresService } from "../bd-revisores.service";
-import { SharedDataService } from "../shared-data.service";
+import { BdTesistasService } from "../../service/bd-tesistas.service";
+import { BDRevisoresService } from "../../service/bd-revisores.service";
+import { SharedDataService } from "../../service/shared-data.service";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 
 @Component({

@@ -8,8 +8,7 @@ import { RegistrarTesistaComponent } from './app/registrar-tesista/registrar-tes
 import { AsignarRevisoresComponent } from './app/asignar-revisores/asignar-revisores.component';
 import { ProgresoComponent } from './app/progreso/progreso.component';
 import { JefaturaComponent } from './app/jefatura/jefatura.component';
-import { RevisionTesisComponent } from './app/revision-tesis/revision-tesis.component';
-
+import { RevisionTesisComponent } from './app/revision-tesis/revision-tesis.component'; 
 import { TablaRevisoresComponent } from './app/tabla-revisores/tabla-revisores.component';
 import { DetalleRevsarComponent } from './app/detalle-revsar/detalle-revsar.component';
 import { DirectorComponent } from './app/director/director.component';
@@ -28,5 +27,6 @@ export const routes: Routes = [
   { path: "tablaRevisores", component: TablaRevisoresComponent },
   { path: "detallesTesis", component: DetalleRevsarComponent },
   { path: "director", component: DirectorComponent },
+  { path: "alumno", component: AlumnoComponent },
 ];
 

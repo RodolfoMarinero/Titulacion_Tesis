@@ -4,9 +4,9 @@ import { DetalleRevsarComponent } from "../detalle-revsar/detalle-revsar.compone
 import { HeaderRevisionComponent } from "../header-revision/header-revision.component";
 import { RevisionTesisComponent } from "../revision-tesis/revision-tesis.component";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
-import { SharedDataService } from "../shared-data.service";
+import { SharedDataService } from "../../service/shared-data.service";
 import { ChatComponent } from "../chat/chat.component";
-import { BDChatService } from "../bd-chat.service";
+import { BDChatService } from "../../service/bd-chat.service";
 
 @Component({
   selector: "app-vista-revisar-tesis",
@@ -24,6 +24,7 @@ import { BDChatService } from "../bd-chat.service";
 export class VistaRevisarTesisComponent {
   public revisorMatricula: string;
   public tesistaMatricula!: string;
+  public destinatarioId!: string;
   public user: string = "revisor";
   public destinatario: string = "tesista";
   public activar!: string;
@@ -52,5 +53,7 @@ export class VistaRevisarTesisComponent {
   }
   obtenerTesistaMatricula(tesistaM: string): void {
     this.tesistaMatricula = tesistaM;
+    this.destinatarioId = this.tesistaMatricula;;
+    this.tesistaMatricula = "";
   }
 }

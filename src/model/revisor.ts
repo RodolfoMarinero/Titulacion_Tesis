@@ -14,7 +14,7 @@ export class Revisor {
     apellidos: string,
     area: string,
     universidad: string,
-    notificacion: boolean = false
+    notificacion: boolean
   ) {
     this.matricula = matricula;
     this.nombre = nombre;

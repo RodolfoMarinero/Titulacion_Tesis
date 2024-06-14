@@ -1,12 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Director } from "../model/director";
 import { ListaDirectores } from "../model/listaDirectores";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class BDDirectoresService {
-  constructor() {}
+  private baseUrl = "http://localhost:8080/directores";
+  constructor(private http: HttpClient) {}
 
   getDirectores(): ListaDirectores {
     const directoresString = localStorage.getItem("directores");
@@ -35,5 +38,9 @@ export class BDDirectoresService {
     const listaDirectores = this.getDirectores();
     listaDirectores.agregar(nuevoDirector);
     this.setDirectores(listaDirectores);
+  }
+  getUsers(): Observable<Director[]> {
+    
+    return this.http.get<Director[]>(this.baseUrl);
   }
 }

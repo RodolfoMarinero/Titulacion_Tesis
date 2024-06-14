@@ -1,137 +1,135 @@
 <app-nav-menu></app-nav-menu>
 <div class="container mt-5" style="background-color: white; border-radius: 1rem 1rem 1rem 1rem;">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <br><br>
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<br><br>
 
-            <div id="formulario1" class="formulario">
-                <h3>Registrar Tesista</h3>
-                <div class="container-fluid">
-                    <div class="container">
-                        <div class="row">
-                            <div class="mx-auto cf-container">
-                                <form [formGroup]="registroForm" (ngSubmit)="registrarTesista()">
-                                    <div class="cf-cover">
-                                        <br><br>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>
-                                                    <h3>Protocolos Disponibles</h3>
-                                                </label><br>
-                                                <select title="protocolo" (change)="cargarDatos($event)">
-                                                    @for(protocolo of listaProtocolos.protocolos;track protocolo){
+			<div id="formulario1" class="formulario">
+				<h3>Registrar Tesista</h3>
+				<div class="container-fluid">
+					<div class="container">
+						<div class="row">
+							<div class="mx-auto cf-container">
+								<form [formGroup]="registroForm" (ngSubmit)="registrarTesista()">
+									<div class="cf-cover">
+										<br><br>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>
+													<h3>Protocolos Disponibles</h3>
+												</label><br>
+												<select title="protocolo" (change)="cargarDatos($event)">
+													<option [value]="">Alumnos</option>
+													@for(protocolo of listaProtocolos.protocolos;track protocolo){
+													<option [value]="protocolo.matricula">
+														{{protocolo.nombre}} {{protocolo.apellidos}} de
+														{{protocolo.carrera}}
+													</option>
+													}
+												</select>
+											</div>
+										</div>
+										<br><br>
 
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Matricula</label>
+												<input formControlName="matricula" type="text" readonly required placeholder="Matricula"
+													class="form-control">
+											</div>
+										</div>
+										<div class="form-row row">
+											<div class="col-md-6">
+												<label>Nombre</label>
+												<input formControlName="nombre" type="text" readonly required placeholder="Nombre"
+													class="form-control">
+											</div>
+											<div class="col-md-6">
+												<label>Apellidos</label>
+												<input formControlName="apellidos" type="text" readonly required placeholder="Apellidos"
+													class="form-control">
+											</div>
+										</div>
 
-                                                    <option [value]="protocolo.matricula">
-                                                        {{protocolo.nombre}} {{protocolo.apellidos}} de
-                                                        {{protocolo.carrera}}
-                                                    </option>
-                                                    }
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <br><br>
-
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Matricula</label>
-                                                <input formControlName="matricula" type="text" readonly required
-                                                    placeholder="Matricula" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-6">
-                                                <label>Nombre</label>
-                                                <input formControlName="nombre" type="text" readonly required
-                                                    placeholder="Nombre" class="form-control">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Apellidos</label>
-                                                <input formControlName="apellidos" type="text" readonly required
-                                                    placeholder="Apellidos" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Carrera</label>
-                                                <input formControlName="carrera" type="text" readonly required
-                                                    placeholder="Carrera" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Titulo de Tesis</label>
-                                                <input formControlName="tituloTesis" type="text" readonly required
-                                                    placeholder="Titulo de Tesis" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Director de Tesis</label>
-                                                <input formControlName="directorTesis" type="text" readonly required
-                                                    placeholder="Director de Tesis" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Co-Director de Tesis</label>
-                                                <input formControlName="codirectorTesis" type="text" readonly
-                                                    placeholder="Co-Director de Tesis" class="form-control">
-                                            </div>
-                                        </div><br><br><br>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Fecha de Inicio</label>
-                                                <input formControlName="fechaInicio" type="date" required
-                                                    placeholder="Introducir Fecha de Inicio" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Fecha tentativa de Culminaciòn</label>
-                                                <input formControlName="fechaFinal" type="date" required
-                                                    placeholder="Introducir Fecha tentativa de Culminaciòn" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Correo Electronico</label>
-                                                <input formControlName="correoElectronico" type="email" required
-                                                    placeholder="Introducir Correo Electronico" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Contraseña</label>
-                                                <input formControlName="contrasena" id="password" required
-                                                    type="password" placeholder="Introducir Contraseña"
-                                                    class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <label>Confirmar Contraseña</label>
-                                                <input formControlName="confirmarContrasena" id="confirm_password"
-                                                    required type="password" placeholder="Confirmar Contraseña"
-                                                    class="form-control">
-                                            </div>
-                                        </div>
-                                        <br><br>
-                                        <div class="form-row row">
-                                            <div class="col-md-12">
-                                                <button id="submitBtn" class="btn btn-primary w-100"
-                                                    type="submit">Registrar</button>
-                                            </div>
-                                        </div>
-                                        <br><br>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Carrera</label>
+												<input formControlName="carrera" type="text" readonly required placeholder="Carrera"
+													class="form-control">
+											</div>
+										</div>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Titulo de Tesis</label>
+												<input formControlName="tituloTesis" type="text" readonly required placeholder="Titulo de Tesis"
+													class="form-control">
+											</div>
+										</div>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Director de Tesis</label>
+												<input formControlName="directorTesis" type="text" readonly required
+													placeholder="Director de Tesis" class="form-control">
+											</div>
+										</div>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Co-Director de Tesis</label>
+												<input formControlName="codirectorTesis" type="text" readonly placeholder="Co-Director de Tesis"
+													class="form-control">
+											</div>
+										</div><br><hr>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Fecha de Inicio</label>
+												<input formControlName="fechaInicio" type="date" required
+													placeholder="Introducir Fecha de Inicio" class="form-control">
+											</div>
+										</div>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Fecha tentativa de Culminaciòn</label>
+												<input formControlName="fechaFinal" type="date" required
+													placeholder="Introducir Fecha tentativa de Culminaciòn" class="form-control">
+											</div>
+										</div>
+										<br>
+										<hr>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Correo Electronico</label>
+												<input formControlName="correoElectronico" type="email" required
+													placeholder="Introducir Correo Electronico" class="form-control">
+											</div>
+										</div>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Contraseña</label>
+												<input formControlName="contrasena" id="password" required type="password"
+													placeholder="Introducir Contraseña" class="form-control">
+											</div>
+										</div>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<label>Confirmar Contraseña</label>
+												<input formControlName="confirmarContrasena" id="confirm_password" required type="password"
+													placeholder="Confirmar Contraseña" class="form-control">
+											</div>
+										</div>
+										<br><br>
+										<div class="form-row row">
+											<div class="col-md-12">
+												<button id="submitBtn" class="btn btn-primary w-100" type="submit">Registrar</button>
+											</div>
+										</div>
+										<br><br>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
