@@ -39,7 +39,9 @@ export class DetalleRevsarComponent {
     // this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
     this.revisorMatricula = this.sharedDataService.getData("revisorMatricula");
     
-    this.listaT = service.getTesistas();
+    this.service.getUsers().subscribe((data) => {
+      this.listaT.tesistas = data;
+    });
     this.listaR = serviceR.getRevisores();
     this.listaFiltrada = new ListaTesistas();
     this.obtenerRevisor();

@@ -1,4 +1,4 @@
-import { ListaTesistas } from "./listaTesistas";
+//import { ListaTesistas } from "./listaTesistas";
 
 export class Director {
   public id: string;

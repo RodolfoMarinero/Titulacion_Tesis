@@ -55,7 +55,9 @@ export class RegistrarTesistaComponent {
     });
 
     this.cargarLocal();
-    this.listaTesistas = this.bdTesistasService.getTesistas();
+    this.bdTesistasService.getUsers().subscribe((data) => {
+      this.listaTesistas.tesistas = data;
+    });
   }
 
   ngOnInit(): void {}

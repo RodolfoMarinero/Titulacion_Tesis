@@ -4,7 +4,7 @@ import { ListaRevisores } from "../../model/listaRevisores";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { ListaTesistas } from "../../model/listaTesistas";
+//import { ListaTesistas } from "../../model/listaTesistas";
 import { Revisor } from "../../model/revisor";
 import { SharedDataService } from "../../service/shared-data.service";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";

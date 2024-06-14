@@ -15,7 +15,7 @@ export class AlumnoService {
   createAlumno(alumno: Alumno): Observable<Alumno> {
     return this.http.post<Alumno>(this.baseURL + "/addTesistaRequest", alumno);
   }
-  deleteALumno(matricula: string): Observable<Alumno> {
+  deleteAlumno(matricula: string): Observable<Alumno> {
     return this.http.delete<Alumno>(
       this.baseURL + "/deleteTesista/"+matricula
     );

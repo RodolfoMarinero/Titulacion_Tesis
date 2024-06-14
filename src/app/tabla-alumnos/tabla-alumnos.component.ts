@@ -5,7 +5,7 @@ import {
 } from "@angular/core";
 import { Router, RouterLink, RouterModule } from "@angular/router";
 import { Tesista } from "../../model/tesista";
-import { ListaTesistas } from "../../model/listaTesistas";
+//import { ListaTesistas } from "../../model/listaTesistas";
 import { BdTesistasService } from "../../service/bd-tesistas.service";
 import { CommonModule } from "@angular/common";
 import { SharedDataService } from "../../service/shared-data.service";
@@ -13,6 +13,7 @@ import { BDChatService } from "../../service/bd-chat.service";
 import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
 import { TablaJefesComponent } from '../tabla-jefes/tabla-jefes.component';
 import { ListaRevisores } from '../../model/listaRevisores';
+import { ListaTesistas } from '../../model/listaTesistas';
 
 @Component({
   selector: "app-tabla-alumnos",
