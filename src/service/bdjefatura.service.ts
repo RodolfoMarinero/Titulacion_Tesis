@@ -1,11 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Jefatura } from "../model/jefatura";
 import { ListaJefaturas } from "../model/listaJefaturas";
+import { HttpBackend, HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
 export class BDJefaturaService {
-  constructor() {}
+  private baseUrl = "http://localhost:8080/jefes";
+  constructor(private http: HttpClient) {}
 
   getJefaturas(): ListaJefaturas {
     const jefaturasString = localStorage.getItem("jefaturas");
@@ -34,5 +37,9 @@ export class BDJefaturaService {
     const listaJefaturas = this.getJefaturas();
     listaJefaturas.agregar(nuevaJefatura);
     this.setJefaturas(listaJefaturas);
+  }
+  getUsers(): Observable<Jefatura[]> {
+    
+    return this.http.get<Jefatura[]>(this.baseUrl);
   }
 }

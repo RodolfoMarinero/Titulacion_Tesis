@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { Revisor } from "../model/revisor";
 import { ListaRevisores } from "../model/listaRevisores";
 import { ListaTesistas } from "../model/listaTesistas";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
 export class BDRevisoresService {
-  constructor() {
-    
-  }
+  private baseUrl = "http://localhost:8080/revisores";
+  constructor(private http: HttpClient) {}
 
   getRevisores(): ListaRevisores {
     const revisoresString = localStorage.getItem("revisores");
@@ -37,5 +38,7 @@ export class BDRevisoresService {
     listaRevisores.agregar(nuevoRevisor);
     this.setRevisores(listaRevisores);
   }
-  
+  getUsers(): Observable<Revisor[]> {
+    return this.http.get<Revisor[]>(this.baseUrl);
+  }
 }

@@ -1,43 +1,79 @@
+<div class="bg-dark-subtle">
+<form class="needs-validation was-validated bg-light-subtle" [formGroup]="form" (ngSubmit)="submit()">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Matrícula</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="form-group">
 
-@for(alumno of alumnos; track alumno.matricula){
-<div style="background-color: aliceblue;">
-    id:<label>{{alumno.matricula}}</label> Nombre:<label>{{alumno.nombre}}</label><button (click)="eliminar(alumno.matricula)">Eliminar</button>
-</div>
+                        <input title="Matricula" type="text" class="form-control" id="txtMatricula" required
+                            minlength="8" formControlName="matricula">
+                        @if(form.get('matricula')?.valid){
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        }@else {
+                        <div class="invalid-feedback">
+                            Please provide a valid matricula.
+                        </div>
+                        }
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
 
-}
+                        <input title="Nombre" type="text" class="form-control" id="txtNombre" required
+                            formControlName="nombre">
+                        <div class="invalid-feedback">
+                            Please provide a valid Nombre.
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
 
-
-
-
-<form class="row g-3 needs-validation was-validated " [formGroup]="form" (ngSubmit)="submit()">
-    <div class="col-md-4">
-      <label for="txtMatricula" class="form-label">Matrícula:</label>
-      <input type="text" class="form-control" id="txtMatricula" required minlength="8" formControlName="matricula">
-      @if(form.get('matricula')?.valid){
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-      }@else {
-        <div class="invalid-feedback">
-            Please provide a valid matricula.
-        </div>
-      }
-    </div>
-    <div class="col-md-6">
-      <label for="txtNombre" class="form-label">Nombre:</label>
-      <input type="text" class="form-control" id="txtNombre" required formControlName="nombre">
-      <div class="invalid-feedback">
-        Please provide a valid city.
-      </div>
-    </div>
-    <div class="col-md-6">
-        <label for="txtEdad" class="form-label">Apellidos:</label>
-        <input type="text" class="form-control" id="txtApellidos" required formControlName="apellidos">
-        <div class="invalid-feedback">
-          Please provide a valid city.
-        </div>
-      </div>
-    <div class="col-12">
-      <button class="btn btn-primary" type="submit" >Submit form</button>
-    </div>
+                        <input title="Apellidos" type="text" class="form-control" id="txtApellidos" required
+                            formControlName="apellidos">
+                        <div class="invalid-feedback">
+                            Please provide a valid Apellido.
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" type="submit">Agregar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </form>
+<table class="table table-striped table-bordered ">
+    <tbody>
+        @for(alumno of alumnos; track alumno.matricula){
+        <tr>
+            <td>
+                <label>{{alumno.matricula}}</label>
+            </td>
+            <td>
+                <label>{{alumno.nombre}}</label>
+            </td>
+            <td>
+                <label>{{alumno.apellidos}}</label>
+            </td>
+            <td>
+                <button type="button" class="btn btn-outline-danger"
+                    (click)="deleteAlumno(alumno.matricula)">Eliminar</button>
+                <button type="button" class="btn btn-outline-warning" (click)="updateAlumno(alumno)">Actualizar</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+</div>

@@ -8,6 +8,8 @@ import { provideHttpClient, withFetch } from "@angular/common/http";
 import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { ChatComponent } from "./app/chat/chat.component";
+import { TablaDirectoresComponent } from "./app/tabla-directores/tabla-directores.component";
+import { TablaJefesComponent } from "./app/tabla-jefes/tabla-jefes.component";
 
 @Component({
   selector: "app-root",
@@ -18,7 +20,8 @@ import { ChatComponent } from "./app/chat/chat.component";
     RouterOutlet,
     ChatComponent,
     FormsModule,
-    
+    TablaDirectoresComponent,
+    TablaJefesComponent
   ],
   standalone: true,
   templateUrl: "main.html",

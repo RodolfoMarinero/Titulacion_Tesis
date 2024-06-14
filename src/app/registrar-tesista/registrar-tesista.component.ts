@@ -6,12 +6,12 @@ import {
   Validators,
 } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
-import { BdTesistasService } from "../bd-tesistas.service";
+import { BdTesistasService } from "../../service/bd-tesistas.service";
 import { Tesista } from "../../model/tesista";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 import { CommonModule } from "@angular/common";
-import { BdProtocolosService } from "../bd-protocolos.service";
+import { BdProtocolosService } from "../../service/bd-protocolos.service";
 import { Protocolo } from "../../model/protocolo";
 import { ListaProtocolos } from "../../model/listaProtocolos";
 
