@@ -11,6 +11,7 @@ import { CommonModule } from "@angular/common";
 import { SharedDataService } from "../shared-data.service";
 import { BDChatService } from "../bd-chat.service";
 import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
+import { ListaRevisores } from '../../model/listaRevisores';
 
 @Component({
   selector: "app-tabla-alumnos",
@@ -22,6 +23,10 @@ import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.c
 export class TablaAlumnosComponent implements OnChanges,OnInit {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
+  public tesistaMat:string ="";
+  public isModalActive:boolean=false;
+  public listaRevisores: ListaRevisores=new ListaRevisores();
+  public matRev1:string="";
   @Input() revisorMatricula: string = "";
   @Input() carrera: string = "";
   @Input() mostrarNotificaciones: boolean | null = null;
@@ -137,7 +142,23 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     this.tesistaMa.emit(tesistaM);
     this.chatService.openModal();
   }
+  guardarMatriculaTesistaRevisor(tesistaM: string) {
+    //this.sharedDataService.setData("tesistaM", tesistaM);
+    this.tesistaMat=tesistaM;
+    this.isModalActive=true;
+    
+  }
 
+  matRev(event:any){
+    this.matRev1=event.target?.value;
+  }
+  asignarRev(){
+
+    this.lista.getTesistaByMatricula(this.tesistaMat).revisor1=this.matRev1;
+  }
+  close(){
+    this.isModalActive=false;
+  }
   navigateToDirector(directorMatricula: string) {
     this.sharedDataService.setData("directorMatricula", directorMatricula);
   }

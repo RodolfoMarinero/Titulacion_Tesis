@@ -10,6 +10,8 @@ import { Observable } from "rxjs";
 export class BdTesistasService {
   private baseUrl='http://localhost:8080/tesistas';
   constructor(private http:HttpClient) {}
+
+  
     getTesistas(): ListaTesistas {
     const tesistasString = localStorage.getItem("tesistas");
     const listaTesistas = new ListaTesistas(); // Crear una instancia de ListaTesistas
@@ -37,8 +39,17 @@ export class BdTesistasService {
     listaTesistas.agregar(nuevoTesista);
     this.setTesistas(listaTesistas);
   }
+  
   getUsers(): Observable<Tesista[]>{
-    alert("obteniendo datos"+JSON.stringify(this.http.get<Tesista[]>(this.baseUrl)));
-    return this.http.get<Tesista[]>(this.baseUrl);
+    alert("obteniendo contenido");
+    return this.http.get<Tesista[]>(this.baseUrl+"/findall");
+  }
+
+  createTesista(tesista:Tesista):Observable<Tesista>{
+    return this.http.post<Tesista>(this.baseUrl+"/addTesistaRequest",tesista);
+  }
+
+  deleteTesista(matricula:String):Observable<Tesista>{
+    return this.http.delete<Tesista>(this.baseUrl+"/deleteTesista/"+matricula);
   }
 }

@@ -1,7 +1,43 @@
 
-@for(alumno of alumnos; track alumno.id){
-<div>
-    id:<label>{{alumno.id}}</label> Nombre:<label>{{alumno.nombre}}</label>
+@for(alumno of alumnos; track alumno.matricula){
+<div style="background-color: aliceblue;">
+    id:<label>{{alumno.matricula}}</label> Nombre:<label>{{alumno.nombre}}</label><button (click)="eliminar(alumno.matricula)">Eliminar</button>
 </div>
 
 }
+
+
+
+
+<form class="row g-3 needs-validation was-validated " [formGroup]="form" (ngSubmit)="submit()">
+    <div class="col-md-4">
+      <label for="txtMatricula" class="form-label">Matrícula:</label>
+      <input type="text" class="form-control" id="txtMatricula" required minlength="8" formControlName="matricula">
+      @if(form.get('matricula')?.valid){
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+      }@else {
+        <div class="invalid-feedback">
+            Please provide a valid matricula.
+        </div>
+      }
+    </div>
+    <div class="col-md-6">
+      <label for="txtNombre" class="form-label">Nombre:</label>
+      <input type="text" class="form-control" id="txtNombre" required formControlName="nombre">
+      <div class="invalid-feedback">
+        Please provide a valid city.
+      </div>
+    </div>
+    <div class="col-md-6">
+        <label for="txtEdad" class="form-label">Apellidos:</label>
+        <input type="text" class="form-control" id="txtApellidos" required formControlName="apellidos">
+        <div class="invalid-feedback">
+          Please provide a valid city.
+        </div>
+      </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit" >Submit form</button>
+    </div>
+</form>

@@ -80,9 +80,8 @@ export class RegistrarTesistaComponent {
      );
 
     // Agregar el nuevo tesista
-    this.bdTesistasService.agregarTesista(nuevoTesista);
+    this.bdTesistasService.createTesista(nuevoTesista);
     alert("Tesista agregado");
-    console.log(this.bdTesistasService.getTesistas());
     this.registroForm.reset();
 
     // Eliminar el protocolo del localStorage

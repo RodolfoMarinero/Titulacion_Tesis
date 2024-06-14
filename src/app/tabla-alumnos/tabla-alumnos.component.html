@@ -56,9 +56,43 @@
               Revisor<i class="fas fa-envelope ms-2"></i></a>
             <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">Mensaje a
               Tesista<i class="fas fa-envelope ms-2"></i></a>
+              @if(tesista.getRevisor1()==null||tesista.getRevisor2()==null){
+                <ng-container>
+                  <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesistaRevisor(tesista.matricula)" role="button">Asignar Revisores<i class="fas fa-envelope ms-2"></i></a>
+                </ng-container>
+                }
+              
           </ng-container>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+@if(isModalActive){
+  <div class="modal">
+  
+      <div class="modal-content">
+          <div class="chat-container">
+              <button class="modal-close is-large" aria-label="close" (click)="close()">✖</button>
+              <div class="chat-header">
+                  <h4>Asignar Revisores
+                  </h4>
+              </div>
+              Revisor1:
+              <select>
+                @for(revisor of listaRevisores.revisores;track revisor.matricula){
+                  <option>{{revisor.nombre}} {{revisor.apellidos}}</option>
+                }
+              </select>
+              Revisor2:
+              <select (change)="matRev($event)">
+                @for(revisor of listaRevisores.revisores;track revisor.matricula){
+                  <option [value]="revisor.matricula">{{revisor.nombre}} {{revisor.apellidos}}</option>
+                }
+              </select>
+          </div>
+      </div>
+      <button (click)="asignarRev()">Guardar</button>
+  </div>
+  }

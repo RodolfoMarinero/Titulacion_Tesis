@@ -30,7 +30,7 @@ export class ListaTesistas {
     }
   }
 
-  getTesistaByMatricula(matricula: string): Tesista {
+  getTesistaByMatricula(matricula: String): Tesista {
     const tesista = this.tesistas.find(
       (tesista) => tesista.matricula === matricula
     );
