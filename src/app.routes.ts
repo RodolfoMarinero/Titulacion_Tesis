@@ -13,6 +13,7 @@ import { TablaRevisoresComponent } from './app/tabla-revisores/tabla-revisores.c
 import { DetalleRevsarComponent } from './app/detalle-revsar/detalle-revsar.component';
 import { DirectorComponent } from './app/director/director.component';
 import { AlumnoComponent } from './app/alumno/alumno.component';
+import { TaskListComponent } from './app/task-list/task-list.component';
 export const routes: Routes = [
   { path: "", component: InicioComponent, pathMatch: "full" },
   { path: "inicioSesion", component: IniciarSesionComponent },

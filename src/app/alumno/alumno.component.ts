@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { AlumnoService } from '../alumno.service';
+import { AlumnoService } from '../../service/alumno.service';
 import { Alumno } from '../../model/alumno';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -77,7 +77,6 @@ export class AlumnoComponent implements OnInit {
 
     if (isValidForm) {
       this.crearAlumno(new Alumno(matricula, nombre, apellidos));
-      
     }
     matriculaF?.setValue(" ");
     nombreF?.setValue(" ");
@@ -86,7 +85,7 @@ export class AlumnoComponent implements OnInit {
 
   
 
-  eliminar(matricula:String){
+  eliminar(matricula:string){
     this.alumnoService.deleteAlumno(matricula).subscribe(data=>{
       console.log("Alumno eliminado");
     });
