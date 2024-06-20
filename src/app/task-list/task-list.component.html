@@ -33,20 +33,24 @@
                     <td><input title="Fecha Límite" type="date" class="form-control" formControlName="fecha_limite"></td>
                     <th><button type="submit" class="btn btn-primary">Agregar Tarea</button></th>
                 </tr>
-
+                
                 <tbody id="listaTareas">
-                    @for(tarea of listaTareas;track tarea.id){
+                    @for(tarea of tareas;track tarea.id){
                     <tr >
-                        <td (click)="openModal( )">{{ tarea.actividad }}</td>
+                        <td (click)="openModal(tarea.id)">{{ tarea.actividad }}</td>
                         <td>{{ tarea.estado }}</td>
                         <td>{{ tarea.fechaInicial }}</td>
                         <td>{{ tarea.fechaLimite }}</td>
+                        <td><button type="button" class="btn btn-warning" (click)="actualizarTarea(tarea.id )">Actualizar</button></td>
                     </tr>
                 }
                 </tbody>
+            
             </table>
         </div>
     </form>
 </div>
 
-<app-detalles-tareas></app-detalles-tareas>
+@if(tareaId){
+<app-detalles-tareas  [tareaId]="tareaId"></app-detalles-tareas>
+}

@@ -6,6 +6,7 @@
 body {
     /* Establecer la imagen de fondo */
     background-image: url('../src/assets/bosque.jpg');
+    
     /* Ajustar la imagen de fondo */
     background-size: cover;
     /* Centrar la imagen de fondo */

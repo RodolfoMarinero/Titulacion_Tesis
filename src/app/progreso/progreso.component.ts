@@ -68,10 +68,7 @@ export class ProgresoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.getUsers().subscribe((data) => {
-      this.listaT.tesistas = data;
-      this.tesista=this.listaT.getTesistaByMatricula(this.tesistaMatricula);      
-    });
+    
   }
 
   guardarValorSeleccionado(event: Event) {

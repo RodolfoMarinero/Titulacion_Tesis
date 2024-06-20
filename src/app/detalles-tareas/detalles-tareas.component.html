@@ -8,8 +8,9 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation was-validated bg-light-subtle" [formGroup]="form" (ngSubmit)="submit()">
+                    <label>Titulo:</label>
                     <input title="titulo" type="text" class="form-control" id="txtTitulo" formControlName="titulo">
-                    <input title="estado" type="text" class="form-control" id="txtEstado" formControlName="estado">
+                    <label>Descripcion:</label>
                     <input title="descripcion" type="text" class="form-control" id="txtDescripcion"
                         formControlName="descripcion">
                 </form>
