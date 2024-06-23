@@ -21,5 +21,6 @@ export class Tesista {
     tareas?: Tarea[]
   ) {
     this.tareas != tareas;
+
   }
 }

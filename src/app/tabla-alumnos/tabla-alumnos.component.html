@@ -59,12 +59,13 @@
             <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)"
               role="button">Mensaje a
               Tesista<i class="fas fa-envelope ms-2"></i></a>
-              @if(tesista.revisor1==null||tesista.revisor2){
+
+              <!--@if(tesista.getRevisor1()===""||tesista.getRevisor2()===""){
                 <ng-container>
                   <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesistaRevisor(tesista.matricula)" role="button">Asignar Revisores<i class="fas fa-envelope ms-2"></i></a>
                 </ng-container>
-                }
-              
+              }-->
+              <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesistaRevisor(tesista.matricula)" role="button">Asignar Revisores<i class="fas fa-envelope ms-2"></i></a>
           </ng-container>
           }
         </div>
@@ -85,19 +86,23 @@
                   </h4>
               </div>
               Revisor1:
-              <select title="revisores">
+
+              <select (change)="matRev1($event)">
+                <option>Seleccionar Revisor</option>
                 @for(revisor of listaRevisores.revisores;track revisor.matricula){
-                  <option>{{revisor.nombre}} {{revisor.apellidos}}</option>
+                  <option [value]="revisor.matricula">{{revisor.matricula}} {{revisor.nombre}} {{revisor.apellidos}}</option>
                 }
-              </select>
+              </select><br><br>
               Revisor2:
-              <select title="revisores" (change)="matRev($event)">
+
+              <select (change)="matRev2($event)">
+                <option>Seleccionar Revisor</option>
                 @for(revisor of listaRevisores.revisores;track revisor.matricula){
-                  <option [value]="revisor.matricula">{{revisor.nombre}} {{revisor.apellidos}}</option>
+                  <option [value]="revisor.matricula">{{revisor.matricula}} {{revisor.nombre}} {{revisor.apellidos}}</option>
                 }
-              </select>
-          </div>
+              </select><br><br><br><br>
+          </div><br><br><br><br>
+          <button (click)="asignarRev()" style="width: 20%;">Guardar</button>
       </div>
-      <button (click)="asignarRev()">Guardar</button>
   </div>
   }

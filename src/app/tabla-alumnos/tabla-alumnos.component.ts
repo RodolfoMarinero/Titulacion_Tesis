@@ -8,9 +8,11 @@ import { CommonModule } from "@angular/common";
 import { SharedDataService } from "../../service/shared-data.service";
 import { BDChatService } from "../../service/bd-chat.service";
 import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
-import { TablaJefesComponent } from "../tabla-jefes/tabla-jefes.component";
-import { ListaRevisores } from "../../model/listaRevisores";
-import { ListaTesistas } from "../../model/listaTesistas";
+
+import { TablaJefesComponent } from '../tabla-jefes/tabla-jefes.component';
+import { ListaRevisores } from '../../model/listaRevisores';
+import { ListaTesistas } from '../../model/listaTesistas';
+import { BDRevisoresService } from "../../service/bd-revisores.service";
 
 @Component({
   selector: "app-tabla-alumnos",
@@ -27,10 +29,12 @@ import { ListaTesistas } from "../../model/listaTesistas";
 export class TablaAlumnosComponent implements OnChanges, OnInit {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
-  public tesistaMat: string = "";
-  public isModalActive: boolean = false;
-  public listaRevisores: ListaRevisores = new ListaRevisores();
-  public matRev1: string = "";
+
+  public tesistaMat:string ="";
+  public isModalActive:boolean=false;
+  public listaRevisores: ListaRevisores=new ListaRevisores();
+  public mat_Rev1:string="";
+  public mat_Rev2:string="";
   @Input() revisorMatricula: string = "";
   @Input() carrera: string = "";
   @Input() mostrarNotificaciones: boolean | null = null;
@@ -40,18 +44,26 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
   constructor(
     private router: Router,
     private service: BdTesistasService,
+    private serviceR: BDRevisoresService,
     private sharedDataService: SharedDataService,
     private chatService: BDChatService
   ) {
-    this.aplicarFiltro();
+
+     
   }
 
   ngOnInit() {
-    this.service.getUsers().subscribe((data) => {
+    this.serviceR.getUsers().subscribe(data => {
+      this.listaRevisores.revisores = data;
+    });
+
+    this.service.getUsers().subscribe(data => {
       this.lista.tesistas = data;
     });
     this.listaFiltrada = this.lista;
     console.log("Lista de tesistas:", this.lista);
+
+    this.aplicarFiltro();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -97,17 +109,31 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     this.chatService.openModal();
   }
   guardarMatriculaTesistaRevisor(tesistaM: string) {
-    //this.sharedDataService.setData("tesistaM", tesistaM);
+
+    console.log('Guardar matrícula de tesista para revisor:', tesistaM);
     this.tesistaMat = tesistaM;
     this.isModalActive = true;
+    console.log('Modal Active:', this.isModalActive);
   }
 
-  matRev(event: any) {
-    this.matRev1 = event.target?.value;
+  matRev1(event:any){
+    alert(this.mat_Rev1=event.target?.value);
+  }
+  matRev2(event:any){
+    this.mat_Rev2=event.target?.value;
   }
   asignarRev() {
-    this.lista.getTesistaByMatricula(this.tesistaMat).revisor1 = this.matRev1;
+
+    let nuevoTes:Tesista=this.lista.getTesistaByMatricula(this.tesistaMat);
+    nuevoTes.revisor1=this.mat_Rev1;
+    nuevoTes.revisor2=this.mat_Rev2;
+    //alert(this.mat_Rev1+"  "+this.mat_Rev2);
+    this.service.createTesista(nuevoTes).subscribe(data =>{
+      alert("Revisores Asignados");
+    });
+    this.isModalActive = false;
   }
+
   close() {
     this.isModalActive = false;
   }
@@ -158,5 +184,8 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
         this.listaFiltrada.agregar(tesista);
       }
     }
+  }
+  trackByRevisor(index: number, revisor: any) {
+    return revisor.matricula;
   }
 }

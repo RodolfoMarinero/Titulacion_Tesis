@@ -8,10 +8,10 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class BDRevisoresService {
-  private baseUrl = "http://localhost:8080/revisores";
+  private baseUrl = "http://localhost:8080";
   constructor(private http: HttpClient) {}
 
-  getRevisores(): ListaRevisores {
+  /*getRevisores(): ListaRevisores {
     const revisoresString = localStorage.getItem("revisores");
     const listaRevisores = new ListaRevisores();
     if (!revisoresString) {
@@ -40,5 +40,18 @@ export class BDRevisoresService {
   }
   getUsers(): Observable<Revisor[]> {
     return this.http.get<Revisor[]>(this.baseUrl);
+  }*/
+
+  getUsers(): Observable<Revisor[]>{
+    return this.http.get<Revisor[]>(this.baseUrl+"/findallRevisor");
+  }
+  createRevisor(revisor: Revisor): Observable<Revisor>{
+    return this.http.post<Revisor>(this.baseUrl + "/addRevisorRequest",revisor);
+  }
+
+  deleteRevisor(matricula: string): Observable<Revisor> {
+    return this.http.delete<Revisor>(
+      this.baseUrl + "/deleteRevisor/"+matricula
+    );
   }
 }
