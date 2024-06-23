@@ -1,43 +1,56 @@
 <div class="column1">
-    <div class="chat-header">
-        <select class="form-select custom-select" title="Selecciona un estado de tareas" id="selectEstado"
-            name="selectEstado">
-            <option value="tareas">Tareas</option>
-            <option class="btn-danger" value="Atrasado">Atrasado</option>
-            <option class="btn-warning" value="En Proceso">En Proceso</option>
-            <option class="btn-success" value="Completo">Completado</option>
-        </select>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-dark table-striped">
-            <thead>
+    <form [formGroup]="form" (ngSubmit)="agregarTarea()">
+        <div class="chat-header">
+            <select class="form-select custom-select" title="Selecciona un estado de tareas" id="selectEstado"
+                formControlName="estado">
+                <option value="tareas">Tareas</option>
+                <option class="btn-danger" value="Atrasado">Atrasado</option>
+                <option class="btn-warning" value="En Proceso">En Proceso</option>
+                <option class="btn-success" value="Completo">Completado</option>
+            </select>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Actividad</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Fecha Inicial</th>
+                        <th scope="col">Fecha Límite</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
                 <tr>
-                    <th scope="col">Actividad</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Fecha Límite</th>
-                    <th scope="col"></th>
+                    <td><input title="Actividad" type="text" class="form-control" formControlName="actividad"></td>
+                    <td>
+                        <select title="Estado" class="form-control" formControlName="estado">
+                            <option value="En curso" selected>En curso</option>
+                            <option value="Completado">Completado</option>
+                            <option value="Pendiente">Pendiente</option>
+                        </select>
+                    </td>
+                    <td><input title="Fecha Inicial" type="date" class="form-control" formControlName="fecha_inicial"></td>
+                    <td><input title="Fecha Límite" type="date" class="form-control" formControlName="fecha_limite"></td>
+                    <th><button type="submit" class="btn btn-primary">Agregar Tarea</button></th>
                 </tr>
-            </thead>
-            <tr>
-                <td><input title="Actividad" type="text" id="actividad_input"></td>
-                <select title="Estado" id="estado_select">
-                    <option value="En curso" selected>En curso</option>
-                    <option value="Completado">Completado</option>
-                    <option value="Pendiente">Pendiente</option>
-                </select>
-                <td><input title="limite" type="date" id="fecha_limite_input"></td>
-                <th><button (click)="agregarTarea()">Agregar Tarea</button></th>
-            </tr>
-            <tbody id="listaTareas">
-                @for(tarea of listaTareas.getTareas();track tarea.id){
-                <tr>
-                    <td>{{ tarea.actividad }}</td>
-                    <td>{{ tarea.estado }}</td>
-                    <td colspan="2">{{ tarea.fecha}}</td>
-                </tr>
+                
+                <tbody id="listaTareas">
+                    @for(tarea of tareas;track tarea.id){
+                    <tr >
+                        <td (click)="openModal(tarea.id)">{{ tarea.actividad }}</td>
+                        <td>{{ tarea.estado }}</td>
+                        <td>{{ tarea.fechaInicial }}</td>
+                        <td>{{ tarea.fechaLimite }}</td>
+                        <td><button type="button" class="btn btn-warning" (click)="actualizarTarea(tarea.id )">Actualizar</button></td>
+                    </tr>
                 }
-
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            
+            </table>
+        </div>
+    </form>
 </div>
+
+@if(tareaId){
+<app-detalles-tareas  [tareaId]="tareaId"></app-detalles-tareas>
+}

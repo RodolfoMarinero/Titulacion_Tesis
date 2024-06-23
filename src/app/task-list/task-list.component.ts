@@ -1,42 +1,129 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { ListaTareas } from "../../model/listaTareas";
 import { BdTareasService } from "../../service/bd-tareas.service";
 import { Tarea } from "../../model/tarea";
+import { DetallesTareasComponent } from "../detalles-tareas/detalles-tareas.component";
+import { ModalService } from "../../service/modal.service";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+import { BdTesistasService } from "../../service/bd-tesistas.service";
+import { ListaTesistas } from "../../model/listaTesistas";
+import { Tesista } from "../../model/tesista";
+import { SharedDataService } from "../../service/shared-data.service";
 
 @Component({
   selector: "app-task-list",
   standalone: true,
-  imports: [],
+  imports: [DetallesTareasComponent, ReactiveFormsModule],
   templateUrl: "./task-list.component.html",
-  styleUrl: "./task-list.component.css",
+  styleUrls: ["./task-list.component.css"],
 })
-export class TaskListComponent {
-  public listaTareas: ListaTareas = new ListaTareas();
-  nuevaTarea: Tarea = {
-    id: 1,
-    actividad: "Hola Mundo",
-    estado: "En curso",
-    fecha: new Date(),
-  };
+export class TaskListComponent implements OnInit {
+  @Input() matriculaT!: string;
+  public listaTareas: Tarea[] = [];
+  public listaTesistas: ListaTesistas = new ListaTesistas();
+  public tesista: Tesista | undefined;
+  tareas: Tarea[] = [];
+  form: FormGroup;
+  public tareaId!: number;
+  public i = 0;
 
-  constructor(private bdTareasService: BdTareasService) {
-    this.agregarTarea();
-    this.cargarTareas();
+  constructor(
+    private fb: FormBuilder,
+    private servicioTarea: BdTareasService,
+    private servicio: BdTesistasService,
+    public modalService: ModalService,
+    private sharedDataService: SharedDataService
+  ) {
+    this.form = this.fb.group({
+      actividad: ["", Validators.required],
+      estado: ["En curso", Validators.required],
+      fecha_inicial: [
+        { value: this.getCurrentDate(), disabled: false },
+        Validators.required,
+      ],
+      fecha_limite: ["", Validators.required],
+    });
+  }
+  guardarId(id: number) {
+    this.sharedDataService.setData("tareaId", id);
+    this.tareaId=id;
+}
+  ngOnInit() {
+    this.matriculaT = this.sharedDataService.getData("tesistaMatricula");
+    this.filtrar();
   }
 
-  cargarTareas() {
-    this.listaTareas = this.bdTareasService.getTareas();
+  getCurrentDate(): string {
+    const today = new Date();
+    return today.toISOString().split("T")[0]; // Formato YYYY-MM-DD
+  }
+
+  openModal(id: number): void{
+    this.guardarId(id);
+    this.modalService.openModal();
   }
 
   agregarTarea() {
-    this.listaTareas.agregar(this.nuevaTarea);
-    this.bdTareasService.setTareas(this.listaTareas);
-    // Puedes restablecer la nuevaTarea si deseas permitir la adición de múltiples tareas en la misma sesión.
-    this.nuevaTarea = {
-      id: 1,
-      actividad: "",
-      estado: "En curso",
-      fecha: new Date(),
-    };
+    if (this.form.valid) {
+      const nuevaTarea = new Tarea(
+        this.i,
+        this.form.value.actividad,
+        this.form.value.estado,
+        this.form.value.fecha_inicial,
+        this.form.value.fecha_limite,
+        this.tesista,
+        ""
+      );
+
+      this.guardarTarea(nuevaTarea);
+
+      this.i++;
+
+      this.form.reset({
+        estado: "En curso",
+        fecha_inicial: this.getCurrentDate(),
+      });
+    }
   }
+  filtrar() {
+    this.servicioTarea.getTareas().subscribe((data) => {
+      this.listaTareas = data;
+      this.tesista = this.listaTareas.find(
+        (tarea) => tarea.tesista && tarea.tesista.matricula === this.matriculaT
+      )?.tesista;
+      if (!this.tesista) {
+        this.servicio.getUsers().subscribe((users) => {
+          this.listaTesistas.tesistas = users;
+          this.tesista = this.listaTesistas.tesistas.find(
+            (t) => t.matricula === this.matriculaT
+          );
+          if (this.tesista) {
+            console.log("Tesista encontrado:", this.tesista);
+            alert(this.tesista?.nombre);
+          } else {
+            console.log(
+              "No se encontró el tesista con matrícula:",
+              this.matriculaT
+            );
+          }
+        });
+      }
+
+      this.tareas = this.listaTareas.filter(
+        (tarea) => tarea.tesista?.matricula === this.matriculaT
+      );
+    });
+  }
+  guardarTarea(tarea: Tarea) {
+    this.servicioTarea.createTarea(tarea).subscribe((data) => {
+      console.log("TAREA agregada");
+      this.filtrar();
+    });
+  }
+  actualizarTarea(id: number) {}
 }

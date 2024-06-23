@@ -1,8 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  OnChanges,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { OnChanges, SimpleChanges } from "@angular/core";
 import { Router, RouterLink, RouterModule } from "@angular/router";
 import { Tesista } from "../../model/tesista";
 //import { ListaTesistas } from "../../model/listaTesistas";
@@ -11,6 +8,7 @@ import { CommonModule } from "@angular/common";
 import { SharedDataService } from "../../service/shared-data.service";
 import { BDChatService } from "../../service/bd-chat.service";
 import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
+
 import { TablaJefesComponent } from '../tabla-jefes/tabla-jefes.component';
 import { ListaRevisores } from '../../model/listaRevisores';
 import { ListaTesistas } from '../../model/listaTesistas';
@@ -19,13 +17,19 @@ import { BDRevisoresService } from "../../service/bd-revisores.service";
 @Component({
   selector: "app-tabla-alumnos",
   standalone: true,
-  imports: [CommonModule, RouterModule, TablaDirectoresComponent,TablaJefesComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    TablaDirectoresComponent,
+    TablaJefesComponent,
+  ],
   templateUrl: "./tabla-alumnos.component.html",
   styleUrls: ["./tabla-alumnos.component.css"],
 })
-export class TablaAlumnosComponent implements OnChanges,OnInit {
+export class TablaAlumnosComponent implements OnChanges, OnInit {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
+
   public tesistaMat:string ="";
   public isModalActive:boolean=false;
   public listaRevisores: ListaRevisores=new ListaRevisores();
@@ -44,6 +48,7 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     private sharedDataService: SharedDataService,
     private chatService: BDChatService
   ) {
+
      
   }
 
@@ -57,19 +62,17 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     });
     this.listaFiltrada = this.lista;
     console.log("Lista de tesistas:", this.lista);
+
     this.aplicarFiltro();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["filtro"]) {
       this.aplicarFiltro();
-
     }
   }
 
-
   aplicarFiltro() {
-    
     switch (this.filtro) {
       case "revisor":
         alert("entra");
@@ -102,10 +105,11 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
   guardarMatriculaTesista(tesistaM: string) {
     //this.sharedDataService.setData("tesistaM", tesistaM);
     this.tesistaMa.emit(tesistaM);
-    
+
     this.chatService.openModal();
   }
   guardarMatriculaTesistaRevisor(tesistaM: string) {
+
     console.log('Guardar matrícula de tesista para revisor:', tesistaM);
     this.tesistaMat = tesistaM;
     this.isModalActive = true;
@@ -145,12 +149,12 @@ export class TablaAlumnosComponent implements OnChanges,OnInit {
     this.listaFiltrada = new ListaTesistas();
     for (let tesista of this.lista.getTesistas()) {
       if (
-        tesista.getRevisor1() === this.revisorMatricula ||
-        tesista.getRevisor2() === this.revisorMatricula
+        tesista.revisor1 === this.revisorMatricula ||
+        tesista.revisor2 === this.revisorMatricula
       ) {
         this.listaFiltrada.agregar(tesista);
-        
-        console.log("Lista filtrada Revisores:  "+this.listaFiltrada);
+
+        console.log("Lista filtrada Revisores:  " + this.listaFiltrada);
       }
     }
   }

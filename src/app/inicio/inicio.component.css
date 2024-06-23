@@ -1,94 +1,47 @@
-/* Estilos adicionales */
-.navbar-custom {
-    /*background-image: url('ruta_de_la_imagen.jpg');*/
-    background-size: cover;
-}
-.carousel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 300px;
-}
-.info-container {
-    margin-top: 200px;
-}
+ #general1 {
+     height: 100%;
+     margin: 0;
+     padding: 0;
+ }
 
-#general1 {
-    
-    /* Establecer la imagen de fondo */
-    background-image: url('https://www.unpa.edu.mx/rv/loma_bonita/2022/2.jpg');
-    /* Ajustar la imagen de fondo */
-    background-size: cover;
-    /* Centrar la imagen de fondo */
-    background-position: center;
-    /* Fijar la imagen de fondo para que no se desplace */
-    background-attachment: fixed;
-    
-}
-p{
-    color:white;
-}
+ .carousel-item img {
+     height: 220px;
+     width: 225px;
+     
+ }
 
+ .carousel {
+     position: absolute;
+     top: 5px;
+     right: 5px;
+     width: 225px;
+    height: 220px;
 
+ }
 
-#botones{
-    margin-top: 5px;
-    position: fixed;
-    left: 38%;
+ .info-container {
+     position: absolute;
+     top: 250px;
+     left: 55px;
+     margin-top: 15px;
+     height: 60%;
+ }
 
-}
+ .info-container p {
 
-.btn{
-    margin-right: 15px;
-    margin-left: 15px;
-}
+     padding: 15px;
+     color: black;
+ }
 
-#register {
-    --glow-color: rgb(217, 176, 255);
-    --glow-spread-color: rgba(191, 123, 255, 0.781);
-    --enhanced-glow-color: rgb(231, 206, 255);
-    --btn-color: rgb(100, 61, 136);
-    --border: .25em solid var(--glow-color);
-    padding: 1em 3em;
-    color: var(--glow-color);
-    font-size: 15px;
-    font-weight: bold;
-    background-color: var(--btn-color);
-    --border-radius: 1em;
-    outline: none;
-    box-shadow: 0 0 1em .25em var(--glow-color),
-        0 0 4em 1em var(--glow-spread-color),
-        inset 0 0 .75em .25em var(--glow-color);
-    --text-shadow: 0 0 .5em var(--glow-color);
-    position: relative;
-    transition: all 0.3s;
-}
+ .info-box {
+     background-color: rgba(255, 255, 255, 0.6);
+     border-radius: 20px;
+ }
 
-#register::after {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    top: 120%;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: var(--glow-spread-color);
-    filter: blur(2em);
-    opacity: .7;
-    transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
-}
-
-#register:hover {
-    color: var(--btn-color);
-    background-color: var(--glow-color);
-    box-shadow: 0 0 1em .25em var(--glow-color),
-        0 0 4em 2em var(--glow-spread-color),
-        inset 0 0 .75em .25em var(--glow-color);
-}
-
-#register:active {
-    box-shadow: 0 0 0.6em .25em var(--glow-color),
-        0 0 2.5em 2em var(--glow-spread-color),
-        inset 0 0 .5em .25em var(--glow-color);
-
-}
+ #botones a {
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     width: 150px;
+     top: 155px;
+ }

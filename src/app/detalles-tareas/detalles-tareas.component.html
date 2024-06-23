@@ -1,0 +1,25 @@
+@if(isModalActive){
+<div class="modal modal-active">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Detalles</h1>
+                <button class="modal-close" aria-label="close" (click)="closeModal()">✖</button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation was-validated bg-light-subtle" [formGroup]="form" (ngSubmit)="submit()">
+                    <label>Titulo:</label>
+                    <input title="titulo" type="text" class="form-control" id="txtTitulo" formControlName="titulo">
+                    <label>Descripcion:</label>
+                    <input title="descripcion" type="text" class="form-control" id="txtDescripcion"
+                        formControlName="descripcion">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="submit()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+}

@@ -1,36 +1,30 @@
 import { Injectable } from "@angular/core";
 import { Tarea } from "../model/tarea";
 import { ListaTareas } from "../model/listaTareas";
+import { HttpClient } from "@angular/common/http";
+import { Tesista } from "../model/tesista";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class BdTareasService {
-  constructor() {}
-  getTareas(): ListaTareas {
-    const tareasString = localStorage.getItem("tareas");
-    const listaTareas = new ListaTareas();
-    if (!tareasString) {
-      return listaTareas;
-    }
-    try {
-      const tareaArray = JSON.parse(tareasString);
-      tareaArray.forEach((tarea: Tarea) => {
-        listaTareas.agregar(tarea);
-      });
-      return listaTareas;
-    } catch (error) {
-      console.error("Error al parsear tareas del localStorage", error);
-      return listaTareas;
-    }
+  private baseUrl = "http://localhost:8080";
+
+  constructor(private http: HttpClient) {}
+
+  getTareas(): Observable<Tarea[]> {
+    return this.http.get<Tarea[]>(this.baseUrl + "/findallTarea");
   }
-  setTareas(tareas: ListaTareas) {
-    const array = tareas.getTareas();
-    localStorage.setItem("tareas", JSON.stringify(array));
+  getTareasFiltradas(matricula:string): Observable<Tarea[]> {
+    return this.http.get<Tarea[]>(this.baseUrl + "/filtrarTareas/"+matricula);
   }
-  agregarTarea(nuevoTarea: Tarea) {
-    const listaTareas = this.getTareas();
-    listaTareas.agregar(nuevoTarea);
-    this.setTareas(listaTareas);
+
+  createTarea(tarea: Tarea): Observable<Tarea> {
+    return this.http.post<Tarea>(this.baseUrl + "/addTareaRequest", tarea);
+  }
+
+  deleteTarea(id: number): Observable<Tarea> {
+    return this.http.delete<Tarea>(this.baseUrl + "/deleteTarea/" + id);
   }
 }

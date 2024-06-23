@@ -1,13 +1,13 @@
-export class Tarea {
-  public id: number;
-  public actividad: string;
-  public estado: string;
-  public fecha: Date;
+import { Tesista } from "./tesista";
 
-  constructor(id: number, actividad: string, estado: string, fecha: Date) {
-    this.id = id;
-    this.actividad = actividad;
-    this.estado = estado;
-    this.fecha = fecha;
-  }
+export class Tarea {
+  constructor(
+    public id: number,
+    public actividad: string,
+    public estado: string,
+    public fechaInicial: Date,
+    public fechaLimite: Date,
+    public tesista?: Tesista,
+    public descripcion?: string
+  ) {}
 }

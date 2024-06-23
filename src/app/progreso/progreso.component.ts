@@ -60,6 +60,7 @@ export class ProgresoComponent implements OnInit {
     private sharedDataService: SharedDataService
   ) {
     this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
+  
   }
 
   openModal() {
@@ -67,7 +68,7 @@ export class ProgresoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      
+    
   }
 
   guardarValorSeleccionado(event: Event) {

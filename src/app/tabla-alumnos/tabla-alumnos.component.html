@@ -59,6 +59,7 @@
             <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)"
               role="button">Mensaje a
               Tesista<i class="fas fa-envelope ms-2"></i></a>
+
               <!--@if(tesista.getRevisor1()===""||tesista.getRevisor2()===""){
                 <ng-container>
                   <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesistaRevisor(tesista.matricula)" role="button">Asignar Revisores<i class="fas fa-envelope ms-2"></i></a>
@@ -85,6 +86,7 @@
                   </h4>
               </div>
               Revisor1:
+
               <select (change)="matRev1($event)">
                 <option>Seleccionar Revisor</option>
                 @for(revisor of listaRevisores.revisores;track revisor.matricula){
@@ -92,6 +94,7 @@
                 }
               </select><br><br>
               Revisor2:
+
               <select (change)="matRev2($event)">
                 <option>Seleccionar Revisor</option>
                 @for(revisor of listaRevisores.revisores;track revisor.matricula){
