@@ -122,7 +122,7 @@ export class DetallesTareasComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.closeModal();
   }
-  guardarTarea(tarea: Tarea) {
+    guardarTarea(tarea: Tarea) {
     this.servicioTarea.createTarea(tarea).subscribe((data) => {
       console.log("TAREA actualizada");
       this.filtrar();

@@ -10,6 +10,18 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
 }
+.clickable-cell {
+    cursor: pointer;
+}
+
+.popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
 th,
 td {

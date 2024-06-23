@@ -8,11 +8,11 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation was-validated bg-light-subtle" [formGroup]="form" (ngSubmit)="submit()">
-                    <label>Titulo:</label>
-                    <input title="titulo" type="text" class="form-control" id="txtTitulo" formControlName="titulo">
+                    <label>Actividad:</label>
+                    <input title="titulo" type="text" class="form-control" id="txtTitulo" formControlName="titulo" readonly >
                     <label>Descripcion:</label>
                     <input title="descripcion" type="text" class="form-control" id="txtDescripcion"
-                        formControlName="descripcion">
+                        formControlName="descripcion" required minlength="8" maxlength="500">
                 </form>
             </div>
             <div class="modal-footer">
