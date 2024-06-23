@@ -22,4 +22,4 @@ export class Jefatura {
     this.universidad = universidad;
     this.email = email;
   }
-}
+}w

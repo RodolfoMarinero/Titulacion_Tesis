@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Protocolo } from '../model/protocolo';
 import { ListaProtocolos } from '../model/listaProtocolos';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 export class BdProtocolosService {
-  constructor() {}
-  getProtocolos(): ListaProtocolos {
+  private baseUrl='http://localhost:8080';
+  constructor(private http:HttpClient) {}
+  /*getProtocolos(): ListaProtocolos {
     const protocolosString = localStorage.getItem("protocolos");
     const listaProtocolos = new ListaProtocolos(); // Crear una instancia de ListaTesistas
     // Si no hay tesistas, retorna la lista vacía
@@ -33,5 +37,18 @@ export class BdProtocolosService {
     const listaProtocolos = this.getProtocolos();
     listaProtocolos.agregar(nuevoProtocolo);
     this.setProtocolos(listaProtocolos);
-  }
+  }*/
+
+    getUsers(): Observable<Protocolo[]>{
+      return this.http.get<Protocolo[]>(this.baseUrl+"/findallProtocolo");
+    }
+    createProtocolo(protocolo: Protocolo): Observable<Protocolo>{
+      return this.http.post<Protocolo>(this.baseUrl + "/addProtocoloRequest",protocolo);
+    }
+  
+    deleteProtocolo(matricula: string): Observable<Protocolo> {
+      return this.http.delete<Protocolo>(
+        this.baseUrl + "/deleteProtocolo/"+matricula
+      );
+    }
 }

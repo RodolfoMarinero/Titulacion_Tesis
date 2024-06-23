@@ -13,6 +13,7 @@ export class BdTesistasService {
 
   getUsers(): Observable<Tesista[]> {
     return this.http.get<Tesista[]>(this.baseUrl + "/findallTesista");
+
   }
   createTesista(tesista: Tesista): Observable<Tesista> {
     return this.http.post<Tesista>(
