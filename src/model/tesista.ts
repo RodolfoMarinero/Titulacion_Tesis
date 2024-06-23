@@ -1,4 +1,5 @@
 import { ListaTareas } from "./listaTareas";
+import { Tarea } from "./tarea";
 
 export class Tesista {
   public matricula: string;
@@ -8,8 +9,8 @@ export class Tesista {
   public tituloTesis: string;
   public directorTesis: string;
   public codirectorTesis?: string;
-  public fechaInicio: Date;
-  public fechaFinal: Date;
+  public fechaInicio: string;
+  public fechaFinal: string;
   public correoElectronico: string;
   public contrasena: string;
   public notificacion?: boolean;
@@ -24,15 +25,14 @@ export class Tesista {
     carrera: string,
     tituloTesis: string,
     directorTesis: string,
-    fechaInicio: Date,
-    fechaFinal: Date,
+    fechaInicio: string,
+    fechaFinal: string,
     correoElectronico: string,
     contrasena: string,
     notificacion: boolean = false,
     revisor1?: string,
     revisor2?: string,
-    codirectorTesis?: string,
-    tareas?: ListaTareas
+    codirectorTesis?: string
   ) {
     this.matricula = matricula;
     this.nombre = nombre;
@@ -48,7 +48,6 @@ export class Tesista {
     this.codirectorTesis = codirectorTesis;
     this.revisor1 = revisor1;
     this.revisor2 = revisor2;
-    this.tareas = tareas;
   }
 
   // Getters and Setters

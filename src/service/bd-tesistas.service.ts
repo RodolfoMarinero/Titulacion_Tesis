@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class BdTesistasService {
-  private baseUrl='http://localhost:8080/tesistas';
+  private baseUrl='http://localhost:8080';
   constructor(private http:HttpClient) {}
     /*getTesistas(): ListaTesistas {
     const tesistasString = localStorage.getItem("tesistas");
@@ -38,7 +38,7 @@ export class BdTesistasService {
     this.setTesistas(listaTesistas);
   }*/
   getUsers(): Observable<Tesista[]>{
-    return this.http.get<Tesista[]>(this.baseUrl);
+    return this.http.get<Tesista[]>(this.baseUrl+"/findallTesista");
   }
   createTesista(tesista: Tesista): Observable<Tesista>{
     return this.http.post<Tesista>(this.baseUrl + "/addTesistaRequest",tesista);

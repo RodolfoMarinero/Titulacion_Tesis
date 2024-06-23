@@ -7,7 +7,7 @@ import { ListaRevisores } from "../../model/listaRevisores";
 import { Tesista } from "../../model/tesista";
 import { Revisor } from "../../model/revisor";
 import { BdTesistasService } from "../../service/bd-tesistas.service";
-import { BDRevisoresService } from "../../service/bd-revisores.service";
+//import { BDRevisoresService } from "../../service/bd-revisores.service";
 import { SharedDataService } from "../../service/shared-data.service";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 
@@ -33,7 +33,7 @@ export class DetalleRevsarComponent {
   currentUser: string = "revisor";
   constructor(
     private service: BdTesistasService,
-    private serviceR: BDRevisoresService,
+    //private serviceR: BDRevisoresService,
     private sharedDataService: SharedDataService
   ) {
     // this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
@@ -42,7 +42,7 @@ export class DetalleRevsarComponent {
     this.service.getUsers().subscribe((data) => {
       this.listaT.tesistas = data;
     });
-    this.listaR = serviceR.getRevisores();
+    //this.listaR = serviceR.getRevisores();
     this.listaFiltrada = new ListaTesistas();
     this.obtenerRevisor();
     this.filtrarTesistasPorRevisor();

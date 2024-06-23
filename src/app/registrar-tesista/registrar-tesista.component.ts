@@ -14,6 +14,7 @@ import { CommonModule } from "@angular/common";
 import { BdProtocolosService } from "../../service/bd-protocolos.service";
 import { Protocolo } from "../../model/protocolo";
 import { ListaProtocolos } from "../../model/listaProtocolos";
+import { Tarea } from "../../model/tarea";
 
 @Component({
   selector: "app-registrar-tesista",
@@ -53,14 +54,16 @@ export class RegistrarTesistaComponent {
       confirmarContrasena: ['', Validators.required],
       email: [''],
     });
+  }
 
-    this.cargarLocal();
+  ngOnInit(): void {
     this.bdTesistasService.getUsers().subscribe((data) => {
       this.listaTesistas.tesistas = data;
     });
+    this.bdProtocolosService.getUsers().subscribe((data) => {
+      this.listaProtocolos.protocolos = data;
+    });
   }
-
-  ngOnInit(): void {}
 
   registrarTesista(): void {
      const nuevoTesista: Tesista = new Tesista(
@@ -70,30 +73,34 @@ export class RegistrarTesistaComponent {
        this.registroForm.value.carrera,
        this.registroForm.value.tituloTesis,
        this.registroForm.value.directorTesis,
-       this.registroForm.value.fechaInicio,
-       this.registroForm.value.fechaFinal,
+       this.registroForm.value.fechaInicio.toString(),
+       this.registroForm.value.fechaFinal.toString(),
        this.registroForm.value.correoElectronico,
        this.registroForm.value.contrasena,
-       this.registroForm.value.notificacion || false, // Asegurando que el valor de notificación sea booleano
-       this.registroForm.value.revisor1,
-       this.registroForm.value.revisor2,
-       this.registroForm.value.codirectorTesis,
-       this.registroForm.value.tareas
+       false,
+       "",
+       "",
+       this.registroForm.value.codirectorTesis
      );
-
+     alert(nuevoTesista.nombre+" "+nuevoTesista.directorTesis+" "+this.registroForm.value.fechaInicio.toString());
+     const matricula = this.registroForm.value.matricula;
+    this.bdProtocolosService.deleteProtocolo(matricula).subscribe(data => {
+      alert("Alumno Eliminado");
+    });
     // Agregar el nuevo tesista
-    this.bdTesistasService.createTesista(nuevoTesista);
+    this.bdTesistasService.createTesista(nuevoTesista).subscribe(data => {
+      alert("Tesista agregado");
+    });
     alert("Tesista agregado");
     this.registroForm.reset();
-
-    // Eliminar el protocolo del localStorage
-    const matricula = this.registroForm.value.matricula;
-    const listaProtocolos = this.bdProtocolosService.getProtocolos();
+    
+    
+    /*const listaProtocolos = this.bdProtocolosService.getProtocolos();
     const index = listaProtocolos.protocolos.findIndex(protocolo => protocolo.matricula === matricula);
     if (index !== -1) {
       listaProtocolos.protocolos.splice(index, 1);
       this.bdProtocolosService.setProtocolos(listaProtocolos);
-    }
+    }*/
   }
 
   cargarDatos(event: any) {
@@ -127,7 +134,7 @@ export class RegistrarTesistaComponent {
     return pass === confirmPass ? null : { notSame: true };
   }
 
-  cargarLocal() {
+  /*cargarLocal() {
     // Crear instancias de Protocolos con datos de prueba
     let protocolo1 = new Protocolo(
       "123456",
@@ -165,5 +172,5 @@ export class RegistrarTesistaComponent {
     this.listaProtocolos.agregar(protocolo3);
 
     this.bdProtocolosService.setProtocolos(this.listaProtocolos);
-  }
+  }*/
 }

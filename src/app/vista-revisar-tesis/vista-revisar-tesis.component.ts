@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+/*import { Component, ViewChild } from "@angular/core";
 import { TablaAlumnosComponent } from "../tabla-alumnos/tabla-alumnos.component";
 import { DetalleRevsarComponent } from "../detalle-revsar/detalle-revsar.component";
 import { HeaderRevisionComponent } from "../header-revision/header-revision.component";
@@ -57,3 +57,4 @@ export class VistaRevisarTesisComponent {
     this.tesistaMatricula = "";
   }
 }
+*/
