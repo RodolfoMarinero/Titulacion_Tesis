@@ -5,6 +5,7 @@ export class Jefatura {
   public carrera: string;
   public universidad: string;
   public email: string;
+  public contrasena: string;
 
   // Constructor
   constructor(
@@ -13,7 +14,8 @@ export class Jefatura {
     apellidos: string,
     carrera: string,
     universidad: string,
-    email:string
+    email:string,
+    contrasena: string
   ) {
     this.id = id;
     this.nombre = nombre;
@@ -21,5 +23,6 @@ export class Jefatura {
     this.carrera = carrera;
     this.universidad = universidad;
     this.email = email;
+    this.contrasena = contrasena;
   }
-}w
+}

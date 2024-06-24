@@ -15,6 +15,11 @@ export class BdTesistasService {
     return this.http.get<Tesista[]>(this.baseUrl + "/findallTesista");
 
   }
+
+  getUsersByCarrera(carrera:string):Observable<Tesista[]> {
+    return this.http.get<Tesista[]>(this.baseUrl + "/filtroPorJefe/"+carrera);
+  }
+
   createTesista(tesista: Tesista): Observable<Tesista> {
     return this.http.post<Tesista>(
       this.baseUrl + "/addTesistaRequest",

@@ -6,6 +6,8 @@ export class Revisor {
   public apellidos: string;
   public area: string;
   public universidad: string;
+  public email: string;
+  public contrasena: string;
   public notificacion: boolean;
 
   constructor(
@@ -14,6 +16,8 @@ export class Revisor {
     apellidos: string,
     area: string,
     universidad: string,
+    email: string,
+    contrasena: string,
     notificacion: boolean
   ) {
     this.matricula = matricula;
@@ -21,6 +25,8 @@ export class Revisor {
     this.apellidos = apellidos;
     this.area = area;
     this.universidad = universidad;
+    this.email = email;
+    this.contrasena = contrasena;
     this.notificacion = notificacion;
   }
 

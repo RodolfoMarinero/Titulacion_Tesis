@@ -27,7 +27,7 @@ import { BDRevisoresService } from "../../service/bd-revisores.service";
   styleUrls: ["./tabla-alumnos.component.css"],
 })
 export class TablaAlumnosComponent implements OnChanges, OnInit {
-  public lista: ListaTesistas = new ListaTesistas();
+  public lista: ListaTesistas= new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
 
   public tesistaMat:string ="";
@@ -35,11 +35,11 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
   public listaRevisores: ListaRevisores=new ListaRevisores();
   public mat_Rev1:string="";
   public mat_Rev2:string="";
-  @Input() revisorMatricula: string = "";
-  @Input() carrera: string = "";
+  @Input() revisorMatricula!: string;
+  @Input() carrera!: string;
   @Input() mostrarNotificaciones: boolean | null = null;
   @Input() directorTesis: string = "";
-  @Input() filtro: string = "tesista";
+  @Input() filtro!: string;
 
   constructor(
     private router: Router,
@@ -48,28 +48,32 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     private sharedDataService: SharedDataService,
     private chatService: BDChatService
   ) {
-
+    
      
   }
 
   ngOnInit() {
     this.serviceR.getUsers().subscribe(data => {
       this.listaRevisores.revisores = data;
+      
     });
-
     this.service.getUsers().subscribe(data => {
       this.lista.tesistas = data;
     });
-    this.listaFiltrada = this.lista;
-    console.log("Lista de tesistas:", this.lista);
-
+    
+    console.log("Listaaaaaaaaaaa de tesistas:", this.lista);
+    console.log("Listaaaaaaaaaaa de revisores:", this.listaRevisores);
+    //alert("Listaaaaaaaaaaa de tesistas:"+this.lista);
+    //alert("Listaaaaaaaaaaa de revisores:"+this.listaRevisores);
+    
+    alert(this.carrera+" "+this.filtro);
     this.aplicarFiltro();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["filtro"]) {
-      this.aplicarFiltro();
-    }
+    //if (changes["filtro"]) {
+      //this.aplicarFiltro();
+    //}
   }
 
   aplicarFiltro() {
@@ -79,6 +83,7 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
         this.filtrarTesistasPorRevisor();
         break;
       case "carrera":
+        alert("entra");
         this.filtrarTesistasPorCarrera();
         break;
       case "notificaciones":
@@ -161,7 +166,9 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
 
   filtrarTesistasPorCarrera() {
     this.listaFiltrada = new ListaTesistas();
+    alert("filtrando "+this.carrera+" "+this.lista.tesistas);
     for (let tesista of this.lista.getTesistas()) {
+      alert("Carrera: "+tesista.carrera);
       if (tesista.carrera === this.carrera) {
         this.listaFiltrada.agregar(tesista);
       }

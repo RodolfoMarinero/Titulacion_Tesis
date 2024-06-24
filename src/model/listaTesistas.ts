@@ -36,4 +36,11 @@ export class ListaTesistas {
     );
     return tesista!;
   }
+
+  getTesistaByEmail(email: String): Tesista {
+    const tesista = this.tesistas.find(
+      (tesista) => tesista.correoElectronico === email
+    );
+    return tesista!;
+  }
 }
