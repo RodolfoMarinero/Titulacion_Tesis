@@ -39,6 +39,8 @@ export class ListaJefaturas {
   }
   
   getJefaturaByEmail(email: string): Jefatura | undefined {
-    return this.jefaturas.find((jefatura) => jefatura.email === email);
+    return this.jefaturas.find(
+      (jefatura) => jefatura.correoElectronico === email
+    );
   }
 }

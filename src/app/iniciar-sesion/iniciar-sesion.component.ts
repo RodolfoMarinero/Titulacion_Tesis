@@ -59,14 +59,17 @@ export class IniciarSesionComponent {
       const tesista = this.listaTesistas.getTesistaByEmail(email);
       const revisor = this.listaRevisores.getRevisorByEmail(email);
       const jefatura = this.listaJefaturas.getJefaturaByEmail(email);
-      alert(this.listaJefaturas.jefaturas);
+      //alert(this.listaJefaturas.jefaturas);
       if (jefatura) {
-        alert(jefatura.carrera);
+        //alert(jefatura.carrera);
       } else {
         console.log('Jefatura not found');
       }
       if (tesista && tesista.contrasena === password) {
+        
         console.log('Tesista logueado correctamente');
+        alert(tesista.nombre);
+        this.router.navigate(["/progreso", tesista.matricula]);
       } else if (revisor && revisor.contrasena === password) {
         console.log('Revisor logueado correctamente');
       } else if (jefatura && jefatura.contrasena === password) {

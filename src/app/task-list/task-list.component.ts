@@ -23,7 +23,7 @@ import { DatePipe } from "@angular/common";
   styleUrls: ["./task-list.component.css"],
 })
 export class TaskListComponent implements OnInit {
-  @Input() matriculaT!: string;
+  @Input() matriculaT: string = "";
   public listaTareas: Tarea[] = [];
   public listaTesistas: ListaTesistas = new ListaTesistas();
   public tesista: Tesista | undefined;
@@ -52,10 +52,11 @@ export class TaskListComponent implements OnInit {
     this.form.get("filtroEstado")?.valueChanges.subscribe(() => {
       this.filtrar();
     });
+    alert("matricula " + this.matriculaT);
   }
 
   ngOnInit() {
-    this.matriculaT = this.sharedDataService.getData("tesistaMatricula");
+    //this.matriculaT = this.sharedDataService.getData("tesistaMatricula");
     this.filtrar();
   }
 
@@ -71,7 +72,6 @@ export class TaskListComponent implements OnInit {
 
   agregarTarea() {
     if (this.form.valid) {
-
       this.servicioTarea.generateUniqueId().subscribe((id) => {
         let idTarea = this.i !== 0 ? this.i : id;
         let nuevaTarea = new Tarea(
@@ -108,7 +108,7 @@ export class TaskListComponent implements OnInit {
           );
           if (this.tesista) {
             console.log("Tesista encontrado:", this.tesista);
-            alert(this.tesista?.nombre);
+            // alert(this.tesista?.nombre);
           } else {
             console.log(
               "No se encontró el tesista con matrícula:",
@@ -149,7 +149,7 @@ export class TaskListComponent implements OnInit {
         estado: tarea.estado,
         fecha_inicial: tarea.fechaInicial.toString().split("T")[0],
         fecha_limite: tarea.fechaLimite.toString().split("T")[0],
-        filtroEstado: this.form.value.filtroEstado, 
+        filtroEstado: this.form.value.filtroEstado,
       });
     }
   }
