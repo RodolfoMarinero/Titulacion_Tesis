@@ -36,6 +36,13 @@ export class ListaRevisores {
     );
     return revisor!;
   }
+
+  getRevisorByEmail(email: string): Revisor {
+    const revisor = this.revisores.find(
+      (revisor) => revisor.email === email
+    );
+    return revisor!;
   
   }
 
+}

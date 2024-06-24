@@ -22,7 +22,7 @@ export const routes: Routes = [
   { path: "registrarTesista", component: RegistrarTesistaComponent },
   { path: "asignarRevisores", component: AsignarRevisoresComponent },
   { path: "progreso", component: ProgresoComponent },
-  { path: "jefatura", component: JefaturaComponent },
+  { path: "jefatura/:carrera", component: JefaturaComponent },
   { path: "tabla", component: TablaAlumnosComponent },
   //{ path: "vistaRevisor", component: VistaRevisarTesisComponent },
   { path: "tablaRevisores", component: TablaRevisoresComponent },

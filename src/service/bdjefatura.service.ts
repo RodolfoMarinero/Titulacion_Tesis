@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class BDJefaturaService {
-  private baseUrl = "http://localhost:8080/jefes";
+  private baseUrl = "http://localhost:8080";
   constructor(private http: HttpClient) {}
 
   getJefaturas(): ListaJefaturas {
@@ -40,6 +40,6 @@ export class BDJefaturaService {
   }
   getUsers(): Observable<Jefatura[]> {
     
-    return this.http.get<Jefatura[]>(this.baseUrl);
+    return this.http.get<Jefatura[]>(this.baseUrl+"/findallJefatura");
   }
 }
