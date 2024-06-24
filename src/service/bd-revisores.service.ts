@@ -43,7 +43,7 @@ export class BDRevisoresService {
   }*/
 
   getUsers(): Observable<Revisor[]>{
-    return this.http.get<Revisor[]>(this.baseUrl+"/findallRevisor");
+    return this.http.get<Revisor[]>(this.baseUrl+"/findAllRevisor");
   }
   createRevisor(revisor: Revisor): Observable<Revisor>{
     return this.http.post<Revisor>(this.baseUrl + "/addRevisorRequest",revisor);

@@ -53,10 +53,8 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     this.obtenerTesistas();
-    /*this.serviceR.getUsers().subscribe(data => {
-      this.listaRevisores.revisores = data;
-      
-    });*/
+    this.obtenerRevisores();
+    /**/
     
 
     console.log("Listaaaaaaaaaaa de tesistas:", this.lista);
@@ -65,6 +63,11 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     //alert("Listaaaaaaaaaaa de revisores:"+this.listaRevisores);
 
     //alert(this.carrera+" "+this.filtro);
+  }
+  obtenerRevisores(){
+    this.serviceR.getUsers().subscribe((data) => {
+      this.listaRevisores.revisores = data;
+    });
   }
   obtenerTesistas() {
   this.service.getUsers().subscribe((data) => {
@@ -121,7 +124,7 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     console.log("Guardar matrícula de tesista para revisor:", tesistaM);
     this.tesistaMat = tesistaM;
     this.isModalActive = true;
-    console.log("Modal Active:", this.isModalActive);
+    //console.log("Modal Active:", this.isModalActive);
   }
 
   matRev1(event: any) {
