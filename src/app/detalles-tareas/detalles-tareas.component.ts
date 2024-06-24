@@ -59,7 +59,7 @@ export class DetallesTareasComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    alert(this.tareaId);
+    //alert(this.tareaId);
     if (changes["tareaId"] && this.tareaId !== undefined) {
       this.updateForm();
     }
@@ -87,7 +87,7 @@ export class DetallesTareasComponent implements OnInit, OnChanges, OnDestroy {
           );
           if (this.tesista) {
             console.log("Tesista encontrado:", this.tesista);
-            alert(this.tesista?.nombre);
+          //  alert(this.tesista?.nombre);
           } else {
             console.log(
               "No se encontró el tesista con matrícula:",
@@ -122,7 +122,7 @@ export class DetallesTareasComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.closeModal();
   }
-  guardarTarea(tarea: Tarea) {
+    guardarTarea(tarea: Tarea) {
     this.servicioTarea.createTarea(tarea).subscribe((data) => {
       console.log("TAREA actualizada");
       this.filtrar();

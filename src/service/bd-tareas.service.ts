@@ -16,8 +16,8 @@ export class BdTareasService {
   getTareas(): Observable<Tarea[]> {
     return this.http.get<Tarea[]>(this.baseUrl + "/findallTarea");
   }
-  getTareasFiltradas(matricula:string): Observable<Tarea[]> {
-    return this.http.get<Tarea[]>(this.baseUrl + "/filtrarTareas/"+matricula);
+  getTareasFiltradas(matricula: string): Observable<Tarea[]> {
+    return this.http.get<Tarea[]>(this.baseUrl + "/filtrarTareas/" + matricula);
   }
 
   createTarea(tarea: Tarea): Observable<Tarea> {
@@ -26,5 +26,8 @@ export class BdTareasService {
 
   deleteTarea(id: number): Observable<Tarea> {
     return this.http.delete<Tarea>(this.baseUrl + "/deleteTarea/" + id);
+  }
+  generateUniqueId(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/generateUniqueId`);
   }
 }

@@ -1,5 +1,5 @@
 // Importamos cosas necesarias para hacer la aplicación
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ModalEnvioComponent } from "../modal-envio/modal-envio.component";
 import { ListaTareasComponent } from "../lista-tareas/lista-tareas.component";
@@ -18,6 +18,7 @@ import { BDDirectoresService } from "../../service/bddirectores.service";
 import { Jefatura } from "../../model/jefatura";
 import { BDJefaturaService } from "../../service/bdjefatura.service";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
+import { ActivatedRoute } from "@angular/router";
 
 // Creamos un componente llamado ProgresoComponent
 @Component({
@@ -38,7 +39,7 @@ import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 })
 export class ProgresoComponent implements OnInit {
   public listaT!: ListaTesistas;
-  public tesistaMatricula!: string;
+  @Input() matriculaT: string = "";
   public tesista!: Tesista;
   public revisor1!: Revisor;
   public revisor2!: Revisor;
@@ -57,10 +58,11 @@ export class ProgresoComponent implements OnInit {
     private serviceR: BDRevisoresService,
     private serviceD: BDDirectoresService,
     private serviceJ: BDJefaturaService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private route: ActivatedRoute
   ) {
-    this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
-  
+    //this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
+    alert("matricula " + this.matriculaT);
   }
 
   openModal() {
@@ -68,7 +70,9 @@ export class ProgresoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.route.params.subscribe((params) => {
+      this.matriculaT = params["matriculaT"];
+    });
   }
 
   guardarValorSeleccionado(event: Event) {

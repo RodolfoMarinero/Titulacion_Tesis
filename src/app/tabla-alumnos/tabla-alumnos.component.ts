@@ -9,9 +9,9 @@ import { SharedDataService } from "../../service/shared-data.service";
 import { BDChatService } from "../../service/bd-chat.service";
 import { TablaDirectoresComponent } from "../tabla-directores/tabla-directores.component";
 
-import { TablaJefesComponent } from '../tabla-jefes/tabla-jefes.component';
-import { ListaRevisores } from '../../model/listaRevisores';
-import { ListaTesistas } from '../../model/listaTesistas';
+import { TablaJefesComponent } from "../tabla-jefes/tabla-jefes.component";
+import { ListaRevisores } from "../../model/listaRevisores";
+import { ListaTesistas } from "../../model/listaTesistas";
 import { BDRevisoresService } from "../../service/bd-revisores.service";
 
 @Component({
@@ -27,14 +27,14 @@ import { BDRevisoresService } from "../../service/bd-revisores.service";
   styleUrls: ["./tabla-alumnos.component.css"],
 })
 export class TablaAlumnosComponent implements OnChanges, OnInit {
-  public lista: ListaTesistas= new ListaTesistas();
+  public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
 
-  public tesistaMat:string ="";
-  public isModalActive:boolean=false;
-  public listaRevisores: ListaRevisores=new ListaRevisores();
-  public mat_Rev1:string="";
-  public mat_Rev2:string="";
+  public tesistaMat: string = "";
+  public isModalActive: boolean = false;
+  public listaRevisores: ListaRevisores = new ListaRevisores();
+  public mat_Rev1: string = "";
+  public mat_Rev2: string = "";
   @Input() revisorMatricula!: string;
   @Input() carrera!: string;
   @Input() mostrarNotificaciones: boolean | null = null;
@@ -48,42 +48,49 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     private sharedDataService: SharedDataService,
     private chatService: BDChatService
   ) {
-    
-     
+    //this.aplicarFiltro();
   }
 
   ngOnInit() {
-    this.serviceR.getUsers().subscribe(data => {
-      this.listaRevisores.revisores = data;
-      
-    });
-    this.service.getUsers().subscribe(data => {
-      this.lista.tesistas = data;
-    });
+    this.obtenerTesistas();
+    this.obtenerRevisores();
+    /**/
     
+
     console.log("Listaaaaaaaaaaa de tesistas:", this.lista);
-    console.log("Listaaaaaaaaaaa de revisores:", this.listaRevisores);
+    //console.log("Listaaaaaaaaaaa de revisores:", this.listaRevisores);
     //alert("Listaaaaaaaaaaa de tesistas:"+this.lista);
     //alert("Listaaaaaaaaaaa de revisores:"+this.listaRevisores);
-    
-    alert(this.carrera+" "+this.filtro);
-    this.aplicarFiltro();
-  }
 
+    //alert(this.carrera+" "+this.filtro);
+  }
+  obtenerRevisores(){
+    this.serviceR.getUsers().subscribe((data) => {
+      this.listaRevisores.revisores = data;
+    });
+  }
+  obtenerTesistas() {
+  this.service.getUsers().subscribe((data) => {
+    this.lista.tesistas = data;
+    this.aplicarFiltro();
+
+  });
+}
   ngOnChanges(changes: SimpleChanges) {
-    //if (changes["filtro"]) {
-      //this.aplicarFiltro();
-    //}
+    if (changes["filtro"]) {
+      this.aplicarFiltro();
+    }
   }
 
   aplicarFiltro() {
+    
     switch (this.filtro) {
       case "revisor":
         alert("entra");
         this.filtrarTesistasPorRevisor();
         break;
       case "carrera":
-        alert("entra");
+        alert("entra" + this.filtro);
         this.filtrarTesistasPorCarrera();
         break;
       case "notificaciones":
@@ -114,26 +121,24 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     this.chatService.openModal();
   }
   guardarMatriculaTesistaRevisor(tesistaM: string) {
-
-    console.log('Guardar matrícula de tesista para revisor:', tesistaM);
+    console.log("Guardar matrícula de tesista para revisor:", tesistaM);
     this.tesistaMat = tesistaM;
     this.isModalActive = true;
-    console.log('Modal Active:', this.isModalActive);
+    //console.log("Modal Active:", this.isModalActive);
   }
 
-  matRev1(event:any){
-    alert(this.mat_Rev1=event.target?.value);
+  matRev1(event: any) {
+    alert((this.mat_Rev1 = event.target?.value));
   }
-  matRev2(event:any){
-    this.mat_Rev2=event.target?.value;
+  matRev2(event: any) {
+    this.mat_Rev2 = event.target?.value;
   }
   asignarRev() {
-
-    let nuevoTes:Tesista=this.lista.getTesistaByMatricula(this.tesistaMat);
-    nuevoTes.revisor1=this.mat_Rev1;
-    nuevoTes.revisor2=this.mat_Rev2;
+    let nuevoTes: Tesista = this.lista.getTesistaByMatricula(this.tesistaMat);
+    nuevoTes.revisor1 = this.mat_Rev1;
+    nuevoTes.revisor2 = this.mat_Rev2;
     //alert(this.mat_Rev1+"  "+this.mat_Rev2);
-    this.service.createTesista(nuevoTes).subscribe(data =>{
+    this.service.createTesista(nuevoTes).subscribe((data) => {
       alert("Revisores Asignados");
     });
     this.isModalActive = false;
@@ -166,9 +171,9 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
 
   filtrarTesistasPorCarrera() {
     this.listaFiltrada = new ListaTesistas();
-    alert("filtrando "+this.carrera+" "+this.lista.tesistas);
-    for (let tesista of this.lista.getTesistas()) {
-      alert("Carrera: "+tesista.carrera);
+    alert("filtrando " + this.carrera);
+    for (let tesista of this.lista.tesistas) {
+      alert("Carrera: " + tesista.nombre);
       if (tesista.carrera === this.carrera) {
         this.listaFiltrada.agregar(tesista);
       }

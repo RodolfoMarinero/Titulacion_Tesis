@@ -1,19 +1,19 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { ListaTareas } from "../../model/listaTareas";
-import { BdTareasService } from "../../service/bd-tareas.service";
-import { Tarea } from "../../model/tarea";
-import { DetallesTareasComponent } from "../detalles-tareas/detalles-tareas.component";
-import { ModalService } from "../../service/modal.service";
 import {
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
+  ReactiveFormsModule,
 } from "@angular/forms";
+import { BdTareasService } from "../../service/bd-tareas.service";
+import { Tarea } from "../../model/tarea";
 import { BdTesistasService } from "../../service/bd-tesistas.service";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { Tesista } from "../../model/tesista";
 import { SharedDataService } from "../../service/shared-data.service";
+import { DetallesTareasComponent } from "../detalles-tareas/detalles-tareas.component";
+import { ModalService } from "../../service/modal.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-task-list",
@@ -23,7 +23,7 @@ import { SharedDataService } from "../../service/shared-data.service";
   styleUrls: ["./task-list.component.css"],
 })
 export class TaskListComponent implements OnInit {
-  @Input() matriculaT!: string;
+  @Input() matriculaT: string = "";
   public listaTareas: Tarea[] = [];
   public listaTesistas: ListaTesistas = new ListaTesistas();
   public tesista: Tesista | undefined;
@@ -47,14 +47,16 @@ export class TaskListComponent implements OnInit {
         Validators.required,
       ],
       fecha_limite: ["", Validators.required],
+      filtroEstado: ["Tareas"],
     });
+    this.form.get("filtroEstado")?.valueChanges.subscribe(() => {
+      this.filtrar();
+    });
+    alert("matricula " + this.matriculaT);
   }
-  guardarId(id: number) {
-    this.sharedDataService.setData("tareaId", id);
-    this.tareaId=id;
-}
+
   ngOnInit() {
-    this.matriculaT = this.sharedDataService.getData("tesistaMatricula");
+    //this.matriculaT = this.sharedDataService.getData("tesistaMatricula");
     this.filtrar();
   }
 
@@ -63,33 +65,35 @@ export class TaskListComponent implements OnInit {
     return today.toISOString().split("T")[0]; // Formato YYYY-MM-DD
   }
 
-  openModal(id: number): void{
+  openModal(id: number): void {
     this.guardarId(id);
     this.modalService.openModal();
   }
 
   agregarTarea() {
     if (this.form.valid) {
-      const nuevaTarea = new Tarea(
-        this.i,
-        this.form.value.actividad,
-        this.form.value.estado,
-        this.form.value.fecha_inicial,
-        this.form.value.fecha_limite,
-        this.tesista,
-        ""
-      );
-
-      this.guardarTarea(nuevaTarea);
-
-      this.i++;
-
-      this.form.reset({
-        estado: "En curso",
-        fecha_inicial: this.getCurrentDate(),
+      this.servicioTarea.generateUniqueId().subscribe((id) => {
+        let idTarea = this.i !== 0 ? this.i : id;
+        let nuevaTarea = new Tarea(
+          idTarea,
+          this.form.value.actividad,
+          this.form.value.estado,
+          this.form.value.fecha_inicial,
+          this.form.value.fecha_limite,
+          this.tesista,
+          ""
+        );
+        this.guardarTarea(nuevaTarea);
+        this.i = 0;
+        this.form.reset({
+          estado: "En curso",
+          fecha_inicial: this.getCurrentDate(),
+          filtroEstado: "Tareas",
+        });
       });
     }
   }
+
   filtrar() {
     this.servicioTarea.getTareas().subscribe((data) => {
       this.listaTareas = data;
@@ -104,7 +108,7 @@ export class TaskListComponent implements OnInit {
           );
           if (this.tesista) {
             console.log("Tesista encontrado:", this.tesista);
-            alert(this.tesista?.nombre);
+            // alert(this.tesista?.nombre);
           } else {
             console.log(
               "No se encontró el tesista con matrícula:",
@@ -114,16 +118,44 @@ export class TaskListComponent implements OnInit {
         });
       }
 
-      this.tareas = this.listaTareas.filter(
-        (tarea) => tarea.tesista?.matricula === this.matriculaT
-      );
+      const filtroEstado = this.form.value.filtroEstado;
+      if (filtroEstado === "Tareas") {
+        this.tareas = this.listaTareas.filter(
+          (tarea) => tarea.tesista?.matricula === this.matriculaT
+        );
+      } else {
+        this.tareas = this.listaTareas.filter(
+          (tarea) =>
+            tarea.tesista?.matricula === this.matriculaT &&
+            tarea.estado === filtroEstado
+        );
+      }
     });
   }
+
   guardarTarea(tarea: Tarea) {
     this.servicioTarea.createTarea(tarea).subscribe((data) => {
       console.log("TAREA agregada");
       this.filtrar();
     });
   }
-  actualizarTarea(id: number) {}
+
+  actualizarTarea(id: number) {
+    const tarea = this.listaTareas.find((t) => t.id === id);
+    this.i = tarea?.id ?? 0;
+    if (tarea) {
+      this.form.setValue({
+        actividad: tarea.actividad,
+        estado: tarea.estado,
+        fecha_inicial: tarea.fechaInicial.toString().split("T")[0],
+        fecha_limite: tarea.fechaLimite.toString().split("T")[0],
+        filtroEstado: this.form.value.filtroEstado,
+      });
+    }
+  }
+
+  guardarId(id: number) {
+    this.sharedDataService.setData("tareaId", id);
+    this.tareaId = id;
+  }
 }
