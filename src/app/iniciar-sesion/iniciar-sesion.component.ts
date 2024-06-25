@@ -8,6 +8,7 @@ import { BDJefaturaService } from '../../service/bdjefatura.service';
 import { ListaTesistas } from '../../model/listaTesistas';
 import { ListaJefaturas } from '../../model/listaJefaturas';
 import { ListaRevisores } from '../../model/listaRevisores';
+import { Jefatura } from '../../model/jefatura';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -73,7 +74,7 @@ export class IniciarSesionComponent {
       } else if (revisor && revisor.contrasena === password) {
         console.log('Revisor logueado correctamente');
       } else if (jefatura && jefatura.contrasena === password) {
-        this.router.navigate(['/jefatura', jefatura.carrera]); 
+        this.router.navigate(['/jefatura', jefatura.carrera,jefatura.id]); 
         console.log('Jefatura logueada correctamente');
       } else {
         console.log('Credenciales incorrectas');

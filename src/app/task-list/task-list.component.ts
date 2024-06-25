@@ -52,7 +52,7 @@ export class TaskListComponent implements OnInit {
     this.form.get("filtroEstado")?.valueChanges.subscribe(() => {
       this.filtrar();
     });
-    alert("matricula " + this.matriculaT);
+    //alert("matricula " + this.matriculaT);
   }
 
   ngOnInit() {

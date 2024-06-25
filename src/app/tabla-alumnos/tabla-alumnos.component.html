@@ -23,40 +23,44 @@
           @if(filtro=="revisor"||filtro=="director"){
           <ng-container>
             @if(filtro=="revisor"){
-            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.matricula,'tesista')"
+              role="button">
               Mensaje <i class="fas fa-envelope ms-2"></i>
             </a>
             }
             @if(filtro=="director"){
-            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.matricula,'tesista')"
+              role="button">
               Mensaje<i class="fas fa-envelope ms-2"></i>
             </a>
             }
 
-            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)" role="button">
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.matricula,'tesista')"
+              role="button">
               Mensaje a Jefatura <i class="fas fa-phone ms-2"></i>
             </a>
           </ng-container>
           }
-          <!-- Botones para tesista -->
+          <!-- Botones para tesista 
           @if(filtro=="tesista"){
           <ng-container>
             <a class="btn btn-outline-secondary" (click)="navigateToProgreso(tesista.matricula)"
               role="button">Progreso<i class="fas fa-envelope ms-2"></i></a>
           </ng-container>
-          }
+          }-->
           <!-- Botones para jefatura -->
           @if(filtro === 'carrera'){
 
 
           <ng-container>
-            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)"
-              role="button">Mensaje a
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.directorTesis,'director')"
+              role="button">Mensaje
+              a
               Director<i class="fas fa-envelope ms-2"></i></a>
-            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)"
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.revisor1!,'revisor')"
               role="button">Mensaje a
               Revisor<i class="fas fa-envelope ms-2"></i></a>
-            <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesista(tesista.matricula)"
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.matricula,'tesista')"
               role="button">Mensaje a
               Tesista<i class="fas fa-envelope ms-2"></i></a>
 
