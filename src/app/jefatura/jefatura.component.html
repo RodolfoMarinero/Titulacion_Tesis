@@ -1,3 +1,7 @@
 <app-nav-menu></app-nav-menu>
-<app-tabla-alumnos [carrera]="carrera" [filtro]="filtro"></app-tabla-alumnos>
-<!--<app-chat #modal [currentUser]="jefatura"[currentUserId]="jefaturaMatricula"[destinatario]="tesista"[destinatarioId]="tesistaMatricula"></app-chat>-->
+<app-tabla-alumnos [carrera]="carrera" [filtro]="filtro" (destinatarioData)="obtenerDestinatario($event)">
+</app-tabla-alumnos>
+
+<app-chat #modal [currentUser]="jefatura" [currentUserId]="matriculaJ" [destinatario]="destinatario"
+    [destinatarioId]="destinatarioId">
+</app-chat>

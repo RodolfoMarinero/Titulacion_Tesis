@@ -40,7 +40,9 @@ export class BDDirectoresService {
     this.setDirectores(listaDirectores);
   }
   getUsers(): Observable<Director[]> {
-    
     return this.http.get<Director[]>(this.baseUrl);
+  }
+  getDirectorById(id: string): Observable<Director> {
+    return this.http.get<Director>(this.baseUrl + "/findDirector/" + id);
   }
 }

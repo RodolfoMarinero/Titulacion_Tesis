@@ -13,7 +13,10 @@ import { TablaJefesComponent } from "../tabla-jefes/tabla-jefes.component";
 import { ListaRevisores } from "../../model/listaRevisores";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { BDRevisoresService } from "../../service/bd-revisores.service";
-
+export interface DestinatarioData {
+  destinatarioId: string;
+  destinatario: string; // Añade más propiedades según sea necesario
+}
 @Component({
   selector: "app-tabla-alumnos",
   standalone: true,
@@ -55,7 +58,6 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     this.obtenerTesistas();
     this.obtenerRevisores();
     /**/
-    
 
     console.log("Listaaaaaaaaaaa de tesistas:", this.lista);
     //console.log("Listaaaaaaaaaaa de revisores:", this.listaRevisores);
@@ -64,18 +66,17 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
 
     //alert(this.carrera+" "+this.filtro);
   }
-  obtenerRevisores(){
+  obtenerRevisores() {
     this.serviceR.getUsers().subscribe((data) => {
       this.listaRevisores.revisores = data;
     });
   }
   obtenerTesistas() {
-  this.service.getUsers().subscribe((data) => {
-    this.lista.tesistas = data;
-    this.aplicarFiltro();
-
-  });
-}
+    this.service.getUsers().subscribe((data) => {
+      this.lista.tesistas = data;
+      this.aplicarFiltro();
+    });
+  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes["filtro"]) {
       this.aplicarFiltro();
@@ -83,14 +84,13 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
   }
 
   aplicarFiltro() {
-    
     switch (this.filtro) {
       case "revisor":
-        alert("entra");
+        // alert("entra");
         this.filtrarTesistasPorRevisor();
         break;
       case "carrera":
-        alert("entra" + this.filtro);
+        //alert("entra" + this.filtro);
         this.filtrarTesistasPorCarrera();
         break;
       case "notificaciones":
@@ -112,12 +112,15 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
   navigateToRevisor(revisorMatricula: string) {
     this.sharedDataService.setData("revisorMatricula", revisorMatricula);
   }
-  @Output() tesistaMa = new EventEmitter<string>();
 
-  guardarMatriculaTesista(tesistaM: string) {
-    //this.sharedDataService.setData("tesistaM", tesistaM);
-    this.tesistaMa.emit(tesistaM);
+  @Output() destinatarioData = new EventEmitter<DestinatarioData>();
 
+  guardarDestinatario(destinatarioId: string, destinatario: string) {
+    const data: DestinatarioData = {
+      destinatarioId: destinatarioId,
+      destinatario: destinatario,
+    };
+    this.destinatarioData.emit(data);
     this.chatService.openModal();
   }
   guardarMatriculaTesistaRevisor(tesistaM: string) {
@@ -171,9 +174,9 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
 
   filtrarTesistasPorCarrera() {
     this.listaFiltrada = new ListaTesistas();
-    alert("filtrando " + this.carrera);
+    //alert("filtrando " + this.carrera);
     for (let tesista of this.lista.tesistas) {
-      alert("Carrera: " + tesista.nombre);
+      //alert("Carrera: " + tesista.nombre);
       if (tesista.carrera === this.carrera) {
         this.listaFiltrada.agregar(tesista);
       }

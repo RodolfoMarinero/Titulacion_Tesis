@@ -2,32 +2,39 @@
 
 <div class="container-xxl">
 
-    <app-task-list [matriculaT]="matriculaT"></app-task-list>
-    <!-- 
-    <select class="custom-select chat-header" id="selectDestinatarios" title="Destinatarios"
-        (change)="guardarValorSeleccionado($event)">
-        @if(revisor1.matricula){
-        <option [value]="revisor1.matricula" data-role="revisor">{{ revisor1.nombre }}
-        </option>
-        }
-        @if(revisor2.matricula){
-        <option [value]="revisor2.matricula" data-role="revisor">{{ revisor2.nombre }}
-        </option>
-        }
-        @if(director.id){
-        <option [value]="director.id" data-role="director">{{ director.nombre }}</option>
-        }
-        @if(coDirector?.id){
-        <option [value]="coDirector!.id" data-role="director">{{ coDirector?.nombre }}</option>
-        }
-        @if(jefatura.id){
-        <option [value]="jefatura.id" data-role="jefatura">{{ jefatura.nombre }}</option>
-        }
+    
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        @if(tesista){
+            <div class="container bg-black">
+        <select class="form-select bg-dark text-white border-black" formControlName="selectDestinatarios"
+            id="selectDestinatarios" title="Destinatarios"  (change)="actualizarDestinatario($event)">
+            @if(revisor1.matricula){
+            <option [value]="revisor1.matricula" data-role="revisor">{{ revisor1.nombre }}
+            </option>
+            }
+            @if(revisor2.matricula){
+            <option [value]="revisor2.matricula" data-role="revisor">{{ revisor2.nombre }}
+            </option>
+            }
+            @if(director.id){
+            <option [value]="director.id" data-role="director">{{ director.nombre }}</option>
+            }
+            @if(coDirector?.id){
+            <option [value]="coDirector?.id" data-role="director">{{ coDirector?.nombre }}</option>
+            }
+            @if(jefatura.id){
+            <option [value]="jefatura.id" data-role="jefatura">{{ jefatura.nombre }}</option>
+            }
 
-    </select>
-
-    <app-chat #modal [currentUserId]="currentUserId" [destinatario]="destinatario" [destinatarioId]="destinatarioId"
+        </select>
+        <button type="submit" class="btn btn-outline-light">Chat</button>
+        </div>
+        }
+    </form>
+<app-task-list [matriculaT]="matriculaT"></app-task-list>
+    <app-chat #modal [currentUserId]="matriculaT" [destinatario]="destinatario" [destinatarioId]="destinatarioId"
         [currentUser]="currentUser"></app-chat>
--->
+
+
 
 </div>

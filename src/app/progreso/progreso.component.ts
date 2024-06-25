@@ -19,6 +19,7 @@ import { Jefatura } from "../../model/jefatura";
 import { BDJefaturaService } from "../../service/bdjefatura.service";
 import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 import { ActivatedRoute } from "@angular/router";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 
 // Creamos un componente llamado ProgresoComponent
 @Component({
@@ -33,6 +34,7 @@ import { ActivatedRoute } from "@angular/router";
     TaskModalComponent,
     CommonModule,
     NavMenuComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: "./progreso.component.html",
   styleUrls: ["./progreso.component.css"],
@@ -47,10 +49,10 @@ export class ProgresoComponent implements OnInit {
   public coDirector?: Director;
   public jefatura!: Jefatura;
   public currentUser: string = "tesista";
-  public currentUserId!: string;
+
   public destinatario: string = "";
   public destinatarioId: string = "";
-
+  form: FormGroup;
   @ViewChild("modal") modal!: ChatComponent;
 
   constructor(
@@ -59,10 +61,14 @@ export class ProgresoComponent implements OnInit {
     private serviceD: BDDirectoresService,
     private serviceJ: BDJefaturaService,
     private sharedDataService: SharedDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private fb: FormBuilder
   ) {
+    this.form = this.fb.group({
+      selectDestinatarios: ["", Validators.required],
+    });
     //this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
-    alert("matricula " + this.matriculaT);
+    //alert("matricula " + this.matriculaT);
   }
 
   openModal() {
@@ -72,14 +78,69 @@ export class ProgresoComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.matriculaT = params["matriculaT"];
+      //alert("matricula " + this.matriculaT);
+      this.obtenerTesista(this.matriculaT);
     });
   }
-
-  guardarValorSeleccionado(event: Event) {
+  obtenerTesista(matricula: string): void {
+    this.service.getTesistaByMatricula(matricula).subscribe((tesista) => {
+      this.tesista = tesista;
+      alert("tesista " + this.tesista.nombre);
+      this.obtenerRevisor1DelTesista();
+      this.obtenerRevisor2DelTesista();
+      this.obtenerJefaturaDelTesista();
+      this.obtenerDirectorDelTesista();
+      this.obtenerCoDirectorDelTesista();
+    });
+  }
+  obtenerRevisor1DelTesista() {
+    this.service
+      .getRevisor(this.tesista.revisor1 ?? "")
+      .subscribe((revisor) => {
+        this.revisor1 = revisor;
+        //alert("revisor" + this.revisor1.nombre);
+      });
+  }
+  obtenerRevisor2DelTesista() {
+    this.service
+      .getRevisor(this.tesista.revisor2 ?? "")
+      .subscribe((revisor) => {
+        this.revisor2 = revisor;
+        //alert("revisor" + this.revisor2.nombre);
+      });
+  }
+  obtenerJefaturaDelTesista() {
+    this.service.getJefatura(this.tesista.carrera).subscribe((jefatura) => {
+      this.jefatura = jefatura;
+      //alert("jefe" + this.jefatura.nombre);
+    });
+  }
+  obtenerDirectorDelTesista() {
+    this.service
+      .getDirector(this.tesista.directorTesis)
+      .subscribe((director) => {
+        this.director = director;
+        //alert("director" + this.director.nombre);
+      });
+  }
+  obtenerCoDirectorDelTesista() {
+    if (this.tesista.codirectorTesis) {
+      this.service
+        .getCoDirector(this.tesista.codirectorTesis)
+        .subscribe((coDirector) => {
+          this.coDirector = coDirector;
+          //alert("director" + this.director.nombre);
+        });
+    }
+  }
+  actualizarDestinatario(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    const selectedOption = selectElement.selectedOptions[0];
-    this.destinatario = selectedOption.getAttribute("data-role") || "";
-    this.destinatarioId = selectedOption.value;
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    this.destinatarioId = selectElement.value;
+    this.destinatario = selectedOption.getAttribute('data-role') ?? '';
+  }
+
+  submit() {
     this.openModal();
   }
 }

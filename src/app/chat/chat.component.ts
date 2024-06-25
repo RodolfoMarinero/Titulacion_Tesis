@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from "@angular/core";
@@ -22,6 +23,7 @@ import { ListaRevisores } from "../../model/listaRevisores";
 import { ListaDirectores } from "../../model/listaDirectores";
 import { ListaJefaturas } from "../../model/listaJefaturas";
 
+
 interface Message {
   text: string;
   type: "sent" | "received";
@@ -40,16 +42,16 @@ export class ChatComponent implements OnChanges {
   @Input() destinatarioId!: string;
   @Input() currentUser!: string;
   @Input() currentUserId!: string;
-  
-  public tesista!: Tesista;
-  public revisor!: Revisor;
-  public director!: Director;
-  public jefatura!: Jefatura;
+
+  public tesista?: Tesista;
+  public revisor?: Revisor;
+  public director?: Director;
+  public jefatura?: Jefatura;
   isModalActive: boolean = false;
   newMessage: string = "";
   messages: Message[] = [];
   showClearButton: boolean = false;
-  chatHeader: string = "";
+  chatHeader!: string;
   @Output() closeModal = new EventEmitter<void>();
 
   constructor(
@@ -64,6 +66,8 @@ export class ChatComponent implements OnChanges {
     });
   }
 
+
+
   ngOnChanges(changes: SimpleChanges) {
     if (
       changes["destinatario"] ||
@@ -73,7 +77,8 @@ export class ChatComponent implements OnChanges {
     ) {
       this.loadParticipants();
       this.loadMessages();
-      alert("destinatario " + this.destinatarioId);
+      this.updateChatHeader();
+      console.log("destinatario", this.destinatarioId);
     }
   }
 
@@ -82,48 +87,42 @@ export class ChatComponent implements OnChanges {
   }
 
   loadParticipants() {
-    // Obtener tesista
-    
-    this.serviceT.getUsers().subscribe((users) => {
-      this.tesista != users.find(
-        (user) => user.matricula === this.destinatarioId
-      );
-      if (this.tesista) {
-        alert("tesista " + this.tesista.matricula);
-        this.updateChatHeader();
-      }
-    });
-
-    // Obtener revisor
-    if (this.destinatario === "revisor") {
-      this.serviceR.getUsers().subscribe((users) => {
-        this.revisor != users.find(
-          (user) => user.matricula === this.destinatarioId
-        );
+    if (this.destinatario === "tesista") {
+      this.serviceT
+        .getTesistaByMatricula(this.destinatarioId)
+        .subscribe((tesista) => {
+          this.tesista = tesista;
+          if (this.tesista) {
+            console.log("tesista", this.tesista.matricula);
+            this.updateChatHeader();
+          }
+        });
+    } else if (this.destinatario === "revisor") {
+      this.serviceR.getRevisor(this.destinatarioId).subscribe((revisor) => {
+        this.revisor = revisor;
         if (this.revisor) {
           this.updateChatHeader();
         }
       });
-    }
-
-    // Obtener director
-    else if (this.destinatario === "director") {
-      this.serviceD.getUsers().subscribe((users) => {
-        this.director != users.find((user) => user.id === this.destinatarioId);
-        if (this.director) {
-          this.updateChatHeader();
-        }
-      });
-    }
-
-    // Obtener jefatura
-    else if (this.destinatario === "jefatura") {
-      this.serviceJ.getUsers().subscribe((users) => {
-        this.jefatura != users.find((user) => user.id === this.destinatarioId);
-        if (this.jefatura) {
-          this.updateChatHeader();
-        }
-      });
+    } else if (this.destinatario === "director") {
+      this.serviceT
+        .getDirector(this.destinatarioId)
+        .subscribe((director) => {
+          this.director = director;
+          alert(this.director.nombre);
+          if (this.director) {
+            this.updateChatHeader();
+          }
+        });
+    } else if (this.destinatario === "jefatura") {
+      this.serviceJ
+        .getJefaturaById(this.destinatarioId)
+        .subscribe((jefatura) => {
+          this.jefatura = jefatura;
+          if (this.jefatura) {
+            this.updateChatHeader();
+          }
+        });
     }
   }
 
@@ -145,19 +144,16 @@ export class ChatComponent implements OnChanges {
       this.newMessage = "";
     }
   }
-  /*
-  clearChat() {
-    this.messages = [];
-    const conversationId = this.getConversationId();
-    this.chatService.clearMessages(conversationId);
-  }
 
-  toggleClearButton() {
-    this.showClearButton = !this.showClearButton;
-  }
-*/
   private getConversationId(): string {
-    const ids = [this.currentUserId, this.destinatarioId].sort();
+    // Normaliza los IDs
+    const currentUserIdNormalized = this.currentUserId.toUpperCase();
+    const destinatarioIdNormalized = this.destinatarioId.toUpperCase();
+
+    // Ordena los IDs alfabéticamente
+    const ids = [currentUserIdNormalized, destinatarioIdNormalized].sort();
+
+    // Genera un string concatenado de los IDs
     return `${ids[0]}-${ids[1]}`;
   }
 
@@ -165,21 +161,23 @@ export class ChatComponent implements OnChanges {
     this.isModalActive = false;
     this.closeModal.emit();
     this.chatService.closeModal();
+    this.destinatario = "";
+    this.destinatarioId="";
+    this.tesista = undefined;
+    this.revisor = undefined;
+    this.director = undefined;
+    this.jefatura = undefined;
   }
 
   private updateChatHeader() {
-    this.chatHeader =
-      this.tesista?.nombre + " " + this.tesista?.apellidos || "";
-    alert("actualiza");
-    if (this.destinatario === "revisor") {
-      this.chatHeader =
-        this.revisor?.nombre + " " + this.revisor?.apellidos || "";
-    } else if (this.destinatario === "director") {
-      this.chatHeader =
-        this.director?.nombre + " " + this.director?.apellidos || "";
-    } else if (this.destinatario === "jefatura") {
-      this.chatHeader =
-        this.jefatura?.nombre + " " + this.jefatura?.apellidos || "";
-    } 
+    if (this.tesista) {
+      this.chatHeader = `${this.tesista.nombre} ${this.tesista.apellidos}`;
+    } else if (this.revisor) {
+      this.chatHeader = `${this.revisor.nombre} ${this.revisor.apellidos}`;
+    } else if (this.director) {
+      this.chatHeader = `${this.director.nombre} ${this.director.apellidos}`;
+    } else if (this.jefatura) {
+      this.chatHeader = `${this.jefatura.nombre} ${this.jefatura.apellidos}`;
+    }
   }
 }

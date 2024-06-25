@@ -42,16 +42,22 @@ export class BDRevisoresService {
     return this.http.get<Revisor[]>(this.baseUrl);
   }*/
 
-  getUsers(): Observable<Revisor[]>{
-    return this.http.get<Revisor[]>(this.baseUrl+"/findAllRevisor");
+  getUsers(): Observable<Revisor[]> {
+    return this.http.get<Revisor[]>(this.baseUrl + "/findAllRevisor");
   }
-  createRevisor(revisor: Revisor): Observable<Revisor>{
-    return this.http.post<Revisor>(this.baseUrl + "/addRevisorRequest",revisor);
+  createRevisor(revisor: Revisor): Observable<Revisor> {
+    return this.http.post<Revisor>(
+      this.baseUrl + "/addRevisorRequest",
+      revisor
+    );
   }
 
   deleteRevisor(matricula: string): Observable<Revisor> {
     return this.http.delete<Revisor>(
-      this.baseUrl + "/deleteRevisor/"+matricula
+      this.baseUrl + "/deleteRevisor/" + matricula
     );
+  }
+  getRevisor(matricula: string): Observable<Revisor> {
+    return this.http.get<Revisor>(this.baseUrl + "/findRevisor/" + matricula);
   }
 }
