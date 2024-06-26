@@ -35,4 +35,10 @@ export class ListaDirectores {
 
     return director!;
   }
+
+  getDirectorByEmail(email: string): Director {
+    return this.directores.find(
+      (director) => director.correoElectronico === email
+    )!;
+  }
 }
