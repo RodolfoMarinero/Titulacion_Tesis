@@ -1,40 +1,78 @@
 <app-nav-menu></app-nav-menu>
 
-<div class="container-xxl">
+<div class="container-xxl" [ngClass]="{'blur-background': isModalActive}">
 
-    
+
     <form [formGroup]="form" (ngSubmit)="submit()">
         @if(tesista){
-            <div class="container bg-black">
-        <select class="form-select bg-dark text-white border-black" formControlName="selectDestinatarios"
-            id="selectDestinatarios" title="Destinatarios"  (change)="actualizarDestinatario($event)">
-            @if(revisor1.matricula){
-            <option [value]="revisor1.matricula" data-role="revisor">{{ revisor1.nombre }}
-            </option>
-            }
-            @if(revisor2.matricula){
-            <option [value]="revisor2.matricula" data-role="revisor">{{ revisor2.nombre }}
-            </option>
-            }
-            @if(director.id){
-            <option [value]="director.id" data-role="director">{{ director.nombre }}</option>
-            }
-            @if(coDirector?.id){
-            <option [value]="coDirector?.id" data-role="director">{{ coDirector?.nombre }}</option>
-            }
-            @if(jefatura.id){
-            <option [value]="jefatura.id" data-role="jefatura">{{ jefatura.nombre }}</option>
-            }
+        <div class="container bg-black">
+            <select class="form-select bg-dark text-white border-black" formControlName="selectDestinatarios"
+                id="selectDestinatarios" title="Destinatarios" (change)="actualizarDestinatario($event)">
+                @if(revisor1.matricula){
+                <option [value]="revisor1.matricula" data-role="revisor">{{ revisor1.nombre }}
+                </option>
+                }
+                @if(revisor2.matricula){
+                <option [value]="revisor2.matricula" data-role="revisor">{{ revisor2.nombre }}
+                </option>
+                }
+                @if(director.id){
+                <option [value]="director.id" data-role="director">{{ director.nombre }}</option>
+                }
+                @if(coDirector?.id){
+                <option [value]="coDirector?.id" data-role="director">{{ coDirector?.nombre }}</option>
+                }
+                @if(jefatura.id){
+                <option [value]="jefatura.id" data-role="jefatura">{{ jefatura.nombre }}</option>
+                }
 
-        </select>
-        <button type="submit" class="btn btn-outline-light">Chat</button>
+            </select>
+
+            <button type="submit" class="btn btn-outline-light">Chat</button>
+
         </div>
         }
+
     </form>
-<app-task-list [matriculaT]="matriculaT"></app-task-list>
+    <div class="bg-black" style="width: 100px; height: fit-content;">
+        <button type="button" class="btn btn-outline-light" (click)="abrirModal()">Subir Tesis</button>
+    </div>
+    <app-task-list [matriculaT]="matriculaT"></app-task-list>
     <app-chat #modal [currentUserId]="matriculaT" [destinatario]="destinatario" [destinatarioId]="destinatarioId"
         [currentUser]="currentUser"></app-chat>
-
+    @if(feedback){
+    <div>
+        <h2>Feedback</h2>
+        <p><strong>Comentarios:</strong> {{ feedback.comentarios }}</p>
+        <p><strong>Puntos Fuertes:</strong> {{ feedback.puntosFuertes }}</p>
+        <p><strong>Áreas de Mejora:</strong> {{ feedback.mejoras }}</p>
+    </div>
+    }
 
 
 </div>
+<!-- Modal para subir la URL de Google Drive -->
+@if(isModalActive){
+
+<div class="modal">
+
+    <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+            <h5 class="modal-title" id="uploadModalLabel">Subir URL de Tesis (Google Drive)</h5>
+
+            <button class="modal-close is-large" aria-label="close" (click)="close()">✖</button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="uploadForm" (ngSubmit)="submitUrl()">
+                <div class="mb-3">
+                    <label for="driveUrl" class="form-label">URL de la tesis (Google Drive):</label>
+                    <input type="url" class="form-control bg-dark text-white border-black" id="driveUrl"
+                        formControlName="driveUrl" placeholder="https://docs.google.com/..." required>
+                </div>
+                <button type="submit" class="btn btn-outline-light">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+}

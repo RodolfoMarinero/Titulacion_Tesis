@@ -49,11 +49,14 @@ export class ProgresoComponent implements OnInit {
   public coDirector?: Director;
   public jefatura!: Jefatura;
   public currentUser: string = "tesista";
-
+  feedback: any;
   public destinatario: string = "";
   public destinatarioId: string = "";
   form: FormGroup;
+  uploadForm: FormGroup;
+
   @ViewChild("modal") modal!: ChatComponent;
+  public isModalActive: boolean = false;
 
   constructor(
     private service: BdTesistasService,
@@ -67,12 +70,34 @@ export class ProgresoComponent implements OnInit {
     this.form = this.fb.group({
       selectDestinatarios: ["", Validators.required],
     });
+    this.uploadForm = this.fb.group({
+      driveUrl: [
+        "",
+        [Validators.required, Validators.pattern("https://docs.google.com/.*")],
+      ],
+    });
     //this.tesistaMatricula = this.sharedDataService.getData("tesistaMatricula");
     //alert("matricula " + this.matriculaT);
   }
-
+  submitUrl(): void {
+    if (this.uploadForm.valid) {
+      this.sharedDataService.setData(
+        "tesis_" + this.matriculaT,
+        this.uploadForm.value.driveUrl
+      );
+      console.log(this.uploadForm.value);
+      // Cerrar el modal después de enviar la URL
+      this.close();
+    }
+  }
   openModal() {
     this.modal.open();
+  }
+  abrirModal() {
+    this.isModalActive = true;
+  }
+  close() {
+    this.isModalActive = false;
   }
 
   ngOnInit(): void {
@@ -81,6 +106,15 @@ export class ProgresoComponent implements OnInit {
       //alert("matricula " + this.matriculaT);
       this.obtenerTesista(this.matriculaT);
     });
+    this.cargarFeedback();
+  }
+  cargarFeedback(): void {
+    const feedbackStr = localStorage.getItem(`feedback_${this.matriculaT}`);
+    if (feedbackStr) {
+      this.feedback = JSON.parse(feedbackStr);
+    } else {
+      console.log("No se encontró feedback en localStorage");
+    }
   }
   obtenerTesista(matricula: string): void {
     this.service.getTesistaByMatricula(matricula).subscribe((tesista) => {
@@ -137,7 +171,7 @@ export class ProgresoComponent implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     this.destinatarioId = selectElement.value;
-    this.destinatario = selectedOption.getAttribute('data-role') ?? '';
+    this.destinatario = selectedOption.getAttribute("data-role") ?? "";
   }
 
   submit() {

@@ -16,7 +16,8 @@ import { BDRevisoresService } from "../../service/bd-revisores.service";
 import { Jefatura } from "../../model/jefatura";
 export interface DestinatarioData {
   destinatarioId: string;
-  destinatario: string; // Añade más propiedades según sea necesario
+  destinatario: string;
+  url: string;
 }
 @Component({
   selector: "app-tabla-alumnos",
@@ -78,7 +79,7 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
       this.aplicarFiltro();
     });
   }
-  obtenerJefatura(carrera: string):string {
+  obtenerJefatura(carrera: string): string {
     this.service.getJefatura(carrera).subscribe((data) => {
       this.jefe = data;
     });
@@ -88,6 +89,16 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     if (changes["filtro"]) {
       this.aplicarFiltro();
     }
+  }
+  revisarTesis(matricula: string) {
+    const data: DestinatarioData = {
+      destinatarioId: matricula,
+      destinatario: "tesis",
+      url: this.sharedDataService.getData("tesis_"+matricula),
+    };
+    
+    this.destinatarioData.emit(data);
+    
   }
 
   aplicarFiltro() {
@@ -126,6 +137,7 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
     const data: DestinatarioData = {
       destinatarioId: destinatarioId,
       destinatario: destinatario,
+      url: "",
     };
     this.destinatarioData.emit(data);
     this.chatService.openModal();

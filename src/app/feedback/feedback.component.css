@@ -1,0 +1,9 @@
+/* Estilo para la tarjeta de la tesis */
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-text a {
+    color: #ffffff;
+    text-decoration: underline;
+}

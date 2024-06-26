@@ -10,7 +10,8 @@ import { NavMenuComponent } from "../nav-menu/nav-menu.component";
 import { SharedDataService } from "../../service/shared-data.service";
 import { ChatComponent } from "../chat/chat.component";
 import { BDChatService } from "../../service/bd-chat.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FeedbackComponent } from "../feedback/feedback.component";
 
 @Component({
   selector: "app-vista-revisar-tesis",
@@ -21,6 +22,7 @@ import { ActivatedRoute } from "@angular/router";
     RevisionTesisComponent,
     NavMenuComponent,
     ChatComponent,
+    FeedbackComponent,
   ],
   templateUrl: "./vista-revisar-tesis.component.html",
   styleUrls: ["./vista-revisar-tesis.component.css"],
@@ -32,6 +34,7 @@ export class VistaRevisarTesisComponent {
   public user: string = "revisor";
   public destinatario: string = "tesista";
   public activar!: string;
+  public tesis!: string;
   @ViewChild("modal") modal!: ChatComponent;
 
   openModal() {
@@ -40,7 +43,8 @@ export class VistaRevisarTesisComponent {
   constructor(
     private dato: SharedDataService,
     private chatService: BDChatService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.revisorMatricula = this.dato.getData("revisorMatricula");
     //this.tesistaMatricula = this.dato.getData("tesistaM");
@@ -66,6 +70,13 @@ export class VistaRevisarTesisComponent {
   obtenerDestinatario(data: DestinatarioData): void {
     this.destinatarioId = data.destinatarioId;
     this.destinatario = data.destinatario;
-    alert(data.destinatarioId);
+    if (this.destinatario == "tesis") {
+      this.router.navigate([
+        "/tesis",
+        this.revisorMatricula,
+        this.destinatarioId,
+        data.url,
+      ]);
+    }
   }
 }
