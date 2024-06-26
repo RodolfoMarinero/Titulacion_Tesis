@@ -1,0 +1,38 @@
+
+<div class="container-xxl">
+    <div >
+        
+        <div class="card bg-dark text-white mb-3">
+            <h2>Revisión de Tesis</h2>
+            <div class="card-body">
+                <h5 class="card-title">Tesis de {{tesista.nombre}}</h5>
+                <p class="card-text">URL: <a class="text-light" href="{{tesisUrl}}" target="_blank">{{tesisUrl}}</a></p>
+                <!--<button class="btn btn-outline-light" (click)="openModal()">Chatear con Tesista</button>-->
+                <button class="btn btn-outline-light" (click)="abrirFormulario()">Enviar Retroalimentación</button>
+            </div>
+        </div>
+    </div>
+
+    <app-chat [currentUserId]="revisorId" [destinatario]="destinatario"
+        [destinatarioId]="tesistaId" [currentUser]="user"></app-chat>
+@if(mostrarFormulario){
+    <form [formGroup]="feedbackForm" (ngSubmit)="enviarFeedback()">
+        <div class="mb-3 bg-black">
+            <label for="comentarios" class="form-label  text-light">Comentarios:</label>
+            <textarea id="comentarios" class="form-control bg-dark text-white" formControlName="comentarios"
+                rows="5"></textarea>
+        </div>
+        <div class="mb-3 bg-black">
+            <label for="puntosFuertes" class="form-label  text-light">Puntos Fuertes:</label>
+            <textarea id="puntosFuertes" class="form-control bg-dark text-white" formControlName="puntosFuertes"
+                rows="3"></textarea>
+        </div>
+        <div class="mb-3 bg-black">
+            <label for="mejoras" class="form-label text-light">Áreas de Mejora:</label>
+            <textarea id="mejoras" class="form-control bg-dark text-white" formControlName="mejoras"
+                rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-light">Enviar Retroalimentación</button>
+    </form>
+}
+</div>

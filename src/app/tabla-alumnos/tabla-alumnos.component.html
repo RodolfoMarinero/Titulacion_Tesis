@@ -20,6 +20,9 @@
           </div>
         </div>
         <div class="card-footer border-0 bg-body-tertiary p-2 d-flex justify-content-around">
+          <a class="btn btn-outline-primary" (click)="revisarTesis(tesista.matricula)" role="button">
+            Revisar Tesis <i class="fas fa-book ms-2"></i>
+          </a>
           @if(filtro=="revisor"||filtro=="director"){
           <ng-container>
             @if(filtro=="revisor"){
@@ -27,27 +30,22 @@
               role="button">
               Mensaje <i class="fas fa-envelope ms-2"></i>
             </a>
+            
+            
             }
             @if(filtro=="director"){
-            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.directorTesis,'tesista')"
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.matricula,'tesista')"
               role="button">
               Mensaje<i class="fas fa-envelope ms-2"></i>
             </a>
             }
 
-            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(obtenerJefatura(tesista.carrera),'jefatura')"
-              role="button">
+            <a class="btn btn-outline-secondary"
+              (click)="guardarDestinatario(obtenerJefatura(tesista.carrera),'jefatura')" role="button">
               Mensaje a Jefatura <i class="fas fa-phone ms-2"></i>
             </a>
           </ng-container>
           }
-          <!-- Botones para tesista 
-          @if(filtro=="tesista"){
-          <ng-container>
-            <a class="btn btn-outline-secondary" (click)="navigateToProgreso(tesista.matricula)"
-              role="button">Progreso<i class="fas fa-envelope ms-2"></i></a>
-          </ng-container>
-          }-->
           <!-- Botones para jefatura -->
           @if(filtro === 'carrera'){
 
@@ -64,11 +62,6 @@
               role="button">Mensaje a
               Tesista<i class="fas fa-envelope ms-2"></i></a>
 
-            <!--@if(tesista.getRevisor1()===""||tesista.getRevisor2()===""){
-                <ng-container>
-                  <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesistaRevisor(tesista.matricula)" role="button">Asignar Revisores<i class="fas fa-envelope ms-2"></i></a>
-                </ng-container>
-              }-->
             <a class="btn btn-outline-secondary" (click)="guardarMatriculaTesistaRevisor(tesista.matricula)"
               role="button">Asignar Revisores<i class="fas fa-envelope ms-2"></i></a>
           </ng-container>

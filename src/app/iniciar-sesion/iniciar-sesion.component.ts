@@ -107,7 +107,7 @@ export class IniciarSesionComponent implements OnInit {
         if (director.contrasena === password) {
           console.log("Director logueado correctamente");
         }
-        //this.router.navigate(["/director",director.id]);
+        this.router.navigate(["/director",director.id]);
       }
       else {
         console.log("Credenciales incorrectas");
