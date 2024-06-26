@@ -30,7 +30,7 @@ export class ListaRevisores {
     }
   }
 
-  getRevisorByMatricula(matricula: string): Revisor{
+  getRevisorByMatricula(matricula: string): Revisor {
     const revisor = this.revisores.find(
       (revisor) => revisor.matricula === matricula
     );
@@ -38,11 +38,8 @@ export class ListaRevisores {
   }
 
   getRevisorByEmail(email: string): Revisor {
-    const revisor = this.revisores.find(
-      (revisor) => revisor.email === email
-    );
-    return revisor!;
-  
+    return this.revisores.find(
+      (revisor) => revisor.correoElectronico === email
+    )!;
   }
-
 }

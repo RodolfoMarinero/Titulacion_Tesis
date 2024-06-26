@@ -29,13 +29,13 @@
             </a>
             }
             @if(filtro=="director"){
-            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.matricula,'tesista')"
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.directorTesis,'tesista')"
               role="button">
               Mensaje<i class="fas fa-envelope ms-2"></i>
             </a>
             }
 
-            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(tesista.matricula,'tesista')"
+            <a class="btn btn-outline-secondary" (click)="guardarDestinatario(obtenerJefatura(tesista.carrera),'jefatura')"
               role="button">
               Mensaje a Jefatura <i class="fas fa-phone ms-2"></i>
             </a>

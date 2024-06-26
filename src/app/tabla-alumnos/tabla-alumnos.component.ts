@@ -13,6 +13,7 @@ import { TablaJefesComponent } from "../tabla-jefes/tabla-jefes.component";
 import { ListaRevisores } from "../../model/listaRevisores";
 import { ListaTesistas } from "../../model/listaTesistas";
 import { BDRevisoresService } from "../../service/bd-revisores.service";
+import { Jefatura } from "../../model/jefatura";
 export interface DestinatarioData {
   destinatarioId: string;
   destinatario: string; // Añade más propiedades según sea necesario
@@ -32,7 +33,7 @@ export interface DestinatarioData {
 export class TablaAlumnosComponent implements OnChanges, OnInit {
   public lista: ListaTesistas = new ListaTesistas();
   public listaFiltrada: ListaTesistas = new ListaTesistas();
-
+  public jefe!: Jefatura;
   public tesistaMat: string = "";
   public isModalActive: boolean = false;
   public listaRevisores: ListaRevisores = new ListaRevisores();
@@ -76,6 +77,12 @@ export class TablaAlumnosComponent implements OnChanges, OnInit {
       this.lista.tesistas = data;
       this.aplicarFiltro();
     });
+  }
+  obtenerJefatura(carrera: string):string {
+    this.service.getJefatura(carrera).subscribe((data) => {
+      this.jefe = data;
+    });
+    return this.jefe.id;
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes["filtro"]) {

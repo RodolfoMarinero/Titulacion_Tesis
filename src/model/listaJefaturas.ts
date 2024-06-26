@@ -37,10 +37,10 @@ export class ListaJefaturas {
   getJefaturaByCarrera(carrera: string): Jefatura | undefined {
     return this.jefaturas.find((jefatura) => jefatura.carrera === carrera);
   }
-  
-  getJefaturaByEmail(email: string): Jefatura | undefined {
+
+  getJefaturaByEmail(email: string): Jefatura {
     return this.jefaturas.find(
       (jefatura) => jefatura.correoElectronico === email
-    );
+    )!;
   }
 }

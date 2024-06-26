@@ -8,6 +8,8 @@ export class Director {
     public apellidos: string,
     public area: string,
     public notificacion: boolean,
-    public universidad?: string
+    public universidad: string,
+    public correoElectronico: string,
+    public contrasena: string
   ) {}
 }
